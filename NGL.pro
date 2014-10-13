@@ -33,7 +33,7 @@ QMAKE_LFLAGS_SHLIB -= -single_module
 QMAKE_LFLAGS_VERSION=
 QMAKE_LFLAGS_COMPAT_VERSION=
 QMAKE_LFLAGS_SONAME=
-QMAKE_CXXFLAGS+=-std=c++11
+QMAKE_CXXFLAGS+=-std=c++11 -stdlib=libc++
 # use this to suppress some warning from boost
 unix:QMAKE_CXXFLAGS_WARN_ON += "-Wno-unused-parameter"
 # define the NGL_DEBUG flag for the graphics lib
@@ -70,6 +70,7 @@ macx:{
 	LIBS+= -L/System/Library/Frameworks/OpenGL.framework/Libraries -framework OpenGL
 	LIBS+=  -Wl,-framework,Cocoa
 	DEFINES += DARWIN
+	QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9
 
 }
 
