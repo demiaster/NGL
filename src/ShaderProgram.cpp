@@ -638,7 +638,7 @@ void ShaderProgram::autoRegisterUniforms()
 {
 
   unsigned int size=m_shaders.size();
-  const std::string *source;
+  std::string source;
   std::vector<std::string> lines;
 
   boost::char_separator<char> sep(" \t\r\n");
@@ -649,7 +649,7 @@ void ShaderProgram::autoRegisterUniforms()
     /// first grab all of the shader source for this program
     source=m_shaders[i]->getShaderSource();
     // and split on new lines
-    boost::split(lines, *source, boost::is_any_of("\n\r"));
+    boost::split(lines, source, boost::is_any_of("\n\r"));
 
     // now we loop for the strings and tokenize looking for the uniform keyword
     // or the #define keyword

@@ -327,7 +327,7 @@ void ShaderLib::loadShaderSource(std::string _shaderName,	std::string _sourceFil
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void ShaderLib::loadShaderSourceFromString(const std::string &_shaderName, const char **_string )
+void ShaderLib::loadShaderSourceFromString(const std::string &_shaderName, const std::string &_string )
 {
   std::map <std::string, Shader * >::const_iterator shader=m_shaders.find(_shaderName);
   // make sure we have a valid shader and program
