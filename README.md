@@ -1,5 +1,12 @@
 #NGL the NCCA Graphics Library
-This is the main source branch for the NCCA Graphics Library ngl.
+
+This Branch is the **EXPERIMENTAL** C++ 11 version of NGL, it is not yet fully tested or **complete** use at your own peril
+#TODO for Branch
+*Add enum classes for all enums
+*Replace all data type with auto where possible
+*Use range based for loops for all iteration of containers
+*Add SSE to maths classes
+*Most likely more to do yet!
 
 It needs to be built using QtCreator and you will also need to install
 boost
