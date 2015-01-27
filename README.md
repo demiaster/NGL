@@ -7,6 +7,7 @@ This Branch is the **EXPERIMENTAL** C++ 11 version of NGL, it is not yet fully t
 * Use range based for loops for all iteration of containers
 * Add SSE to maths classes
 * Most likely more to do yet!
+* Fix all the other broken stuff
 
 It needs to be built using QtCreator and you will also need to install
 boost
