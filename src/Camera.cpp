@@ -33,7 +33,7 @@ const static Real CAMERANEARLIMIT=0.00001f;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-Camera::Camera()
+Camera::Camera() noexcept
 {
 
   m_zNear=0.0001f;
@@ -47,7 +47,7 @@ Camera::Camera()
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera :: setDefaultCamera()
+void Camera :: setDefaultCamera() noexcept
 {
   // make default camera
   m_eye=1.0f;
@@ -64,7 +64,7 @@ void Camera :: setDefaultCamera()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera :: set(const Vec3 &_eye, const Vec3 &_look,  const Vec3 &_up  )
+void Camera :: set(const Vec3 &_eye, const Vec3 &_look,  const Vec3 &_up  ) noexcept
 {
 	// make U, V, N vectors
 	m_eye=_eye;
@@ -80,7 +80,7 @@ void Camera :: set(const Vec3 &_eye, const Vec3 &_look,  const Vec3 &_up  )
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Camera::Camera(const Vec3 &_eye, const Vec3 &_look, const Vec3 &_up )
+Camera::Camera(const Vec3 &_eye, const Vec3 &_look, const Vec3 &_up ) noexcept
 {
 	setDefaultCamera();
 	set(_eye,_look,_up);
@@ -89,7 +89,7 @@ Camera::Camera(const Vec3 &_eye, const Vec3 &_look, const Vec3 &_up )
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::setViewMatrix()
+void Camera::setViewMatrix() noexcept
 {
     // grab a pointer to the matrix so we can index is quickly
     Real *M=(Real *)&m_viewMatrix.m_m;
@@ -102,7 +102,7 @@ void Camera::setViewMatrix()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::setPerspProjection()
+void Camera::setPerspProjection() noexcept
 {
   // note 1/tan == cotangent
   Real f= 1.0/tan(radians(m_fov)/2.0);
@@ -120,7 +120,7 @@ void Camera::setPerspProjection()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::setProjectionMatrix()
+void Camera::setProjectionMatrix() noexcept
 {
 	m_projectionMatrix.null();
 	setPerspProjection();
@@ -128,7 +128,7 @@ void Camera::setProjectionMatrix()
 }
 //----------------------------------------------------------------------------------------------------------------------
 
-void Camera::setShape(Real _viewAngle, Real _aspect, Real _near, Real _far  )
+void Camera::setShape(Real _viewAngle, Real _aspect, Real _near, Real _far  ) noexcept
 
 { // load projection matrix and camera values
 	if(_viewAngle >180.0)
@@ -150,14 +150,14 @@ void Camera::setShape(Real _viewAngle, Real _aspect, Real _near, Real _far  )
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::setAspect( Real _asp  )
+void Camera::setAspect( Real _asp  ) noexcept
 {
 	m_aspect = _asp;
 	setShape(m_fov,m_aspect,m_zNear,m_zFar);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::setViewAngle( Real _angle	 )
+void Camera::setViewAngle( Real _angle	 ) noexcept
 {
 	m_fov=_angle;
 	setShape(_angle,m_aspect,m_zNear,m_zFar);
@@ -165,7 +165,7 @@ void Camera::setViewAngle( Real _angle	 )
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::slide( Real _du,  Real _dv,   Real _dn )
+void Camera::slide( Real _du,  Real _dv,   Real _dn ) noexcept
 {
 	// slide eye by amount du * u + dv * v + dn * n;
 	m_eye.m_x += _du * m_u.m_x + _dv * m_v.m_x + _dn * m_n.m_x;
@@ -175,7 +175,7 @@ void Camera::slide( Real _du,  Real _dv,   Real _dn )
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::move( Real _dx, Real _dy,  Real _dz )
+void Camera::move( Real _dx, Real _dy,  Real _dz ) noexcept
 {
 // simply add the translation to the current eye point
 	m_eye.m_x += _dx;
@@ -184,7 +184,7 @@ void Camera::move( Real _dx, Real _dy,  Real _dz )
 	setViewMatrix();
 }
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::moveBoth( Real _dx, Real _dy, Real _dz )
+void Camera::moveBoth( Real _dx, Real _dy, Real _dz ) noexcept
 {
 	m_eye.m_x +=_dx;
 	m_eye.m_y +=_dy;
@@ -203,7 +203,7 @@ void Camera::moveBoth( Real _dx, Real _dy, Real _dz )
 	setViewMatrix();
 }
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::rotAxes( Vec4& io_a, Vec4& io_b,  const Real _angle  )
+void Camera::rotAxes( Vec4& io_a, Vec4& io_b,  const Real _angle  ) noexcept
 {
 // rotate orthogonal vectors a (like x axis) and b(like y axis) through angle degrees
 	// convert to radians
@@ -220,28 +220,28 @@ void Camera::rotAxes( Vec4& io_a, Vec4& io_b,  const Real _angle  )
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::roll(Real _angle  )
+void Camera::roll(Real _angle  ) noexcept
 {
   rotAxes(m_u, m_v, -_angle);
   setViewMatrix();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::pitch(Real _angle )
+void Camera::pitch(Real _angle ) noexcept
 {
   rotAxes(m_n, m_v, _angle);
   setViewMatrix();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::yaw(Real _angle )
+void Camera::yaw(Real _angle ) noexcept
 {
   rotAxes(m_u, m_n, _angle);
   setViewMatrix();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::moveEye( Real _dx, Real _dy,   Real _dz  )
+void Camera::moveEye( Real _dx, Real _dy,   Real _dz  ) noexcept
 {
 	m_eye.m_x+=_dx;
 	m_eye.m_y+=_dy;
@@ -258,7 +258,7 @@ void Camera::moveEye( Real _dx, Real _dy,   Real _dz  )
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::moveLook(Real _dx,  Real _dy,  Real _dz   )
+void Camera::moveLook(Real _dx,  Real _dy,  Real _dz   ) noexcept
 {
 	m_look.m_x+=_dx;
 	m_look.m_y+=_dy;
@@ -275,13 +275,13 @@ void Camera::moveLook(Real _dx,  Real _dy,  Real _dz   )
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::update()
+void Camera::update() noexcept
 {
 	setViewMatrix();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::normalisedYaw( Real _angle )
+void Camera::normalisedYaw( Real _angle ) noexcept
 {
   // build a rotation matrix around the y axis
   Mat4 mat;
@@ -295,7 +295,7 @@ void Camera::normalisedYaw( Real _angle )
   setViewMatrix();
 }
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::normalisedRoll(Real _angle  )
+void Camera::normalisedRoll(Real _angle  ) noexcept
 {
   // build a rotation matrix around the y axis
   Mat4 mat;
@@ -310,7 +310,7 @@ void Camera::normalisedRoll(Real _angle  )
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::normalisedPitch(Real _angle  )
+void Camera::normalisedPitch(Real _angle  ) noexcept
 {
   // build a rotation matrix around the y axis
   Mat4 mat;
@@ -327,7 +327,7 @@ void Camera::normalisedPitch(Real _angle  )
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::writeRib( RibExport &_rib ) const
+void Camera::writeRib( RibExport &_rib ) const noexcept
 {
 	if(_rib.isOpen()!=0)
 	{
@@ -352,7 +352,7 @@ void Camera::writeRib( RibExport &_rib ) const
 //----------------------------------------------------------------------------------------------------------------------
 /// Code modified from http://www.lighthouse3d.com/opengl/viewfrustum/index.php?intro
 ///
-void Camera::calculateFrustum()
+void Camera::calculateFrustum() noexcept
 {
 
     Real tang = (Real)tan(radians(m_fov) * 0.5) ;
@@ -381,7 +381,7 @@ void Camera::calculateFrustum()
     m_planes[FARP].setPoints(m_ftr,m_ftl,m_fbl);
 }
 
-void Camera::drawFrustum()
+void Camera::drawFrustum() noexcept
 {
   std::vector<Vec3>points;
 
@@ -435,7 +435,7 @@ void Camera::drawFrustum()
 }
 
 
-CAMERAINTERCEPT Camera::isPointInFrustum( const Vec3 &_p ) const
+CAMERAINTERCEPT Camera::isPointInFrustum( const Vec3 &_p ) const noexcept
 {
 	CAMERAINTERCEPT result = INSIDE;
 	for(int i=0; i < 6; ++i)
@@ -451,7 +451,7 @@ CAMERAINTERCEPT Camera::isPointInFrustum( const Vec3 &_p ) const
 }
 
 
-CAMERAINTERCEPT Camera::isSphereInFrustum(const Vec3 &_p,  Real _radius ) const
+CAMERAINTERCEPT Camera::isSphereInFrustum(const Vec3 &_p,  Real _radius ) const noexcept
 {
 
 	CAMERAINTERCEPT result = INSIDE;
@@ -491,46 +491,6 @@ int Camera::boxInFrustum(AABox &b) {
 
 
 /// end citation http://www.lighthouse3d.com/opengl/viewfrustum/index.php?intro
-
-
-/*
-<Camera>
-    <fov>45</fov>
-    <aspect>0.964198</aspect>
-    <near>0.0001</near>
-    <far>350</far>
-    <eye>0 2 2 1 </eye>
-    <look>0 0 0 1 </look>
-    <up>0 1 0 1 </up>
-</Camera>
-*/
-void Camera::writeXML(rapidxml::xml_document<> &_doc ,std::string _tag) const
-{
-//  char *nodeName = _doc.allocate_string(_tag.c_str());        // Allocate string and copy name into it
-//  rapidxml::xml_node<>* root = _doc.allocate_node(rapidxml::node_element,nodeName);
-//  _doc.append_node(root);
-//  char *value = _doc.allocate_string(boost::str( boost::format(" %f") % m_fov).c_str());
-//  rapidxml::xml_node<>* child = _doc.allocate_node(rapidxml::node_element, "fov",value);
-//  root->append_node(child);
-
-//  value = _doc.allocate_string(boost::str( boost::format(" %f") % m_aspect).c_str());
-//  child = _doc.allocate_node(rapidxml::node_element, "aspect",value);
-//  root->append_node(child);
-
-//  value = _doc.allocate_string(boost::str( boost::format(" %f") % m_zNear).c_str());
-//  child = _doc.allocate_node(rapidxml::node_element, "near",value);
-//  root->append_node(child);
-
-//  value = _doc.allocate_string(boost::str( boost::format(" %f") % m_zFar).c_str());
-//  child = _doc.allocate_node(rapidxml::node_element, "far",value);
-//  root->append_node(child);
-//  m_eye.writeXML(_doc,root,"eye");
-//  m_look.writeXML(_doc,root,"look");
-//  m_up.writeXML(_doc,root,"up");
-
-
-
-}
 
 
 } // end namespace ngl
