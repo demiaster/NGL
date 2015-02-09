@@ -20,6 +20,7 @@
 #include <boost/foreach.hpp>
 #include <boost/tokenizer.hpp>
 #include <list>
+#include "NGLStream.h"
 //----------------------------------------------------------------------------------------------------------------------
 /// @file AbstractMesh.cpp
 /// @brief a series of classes used to define an abstract 3D mesh of Faces, Vertex Normals and TexCords
@@ -34,12 +35,12 @@ namespace ngl
 //----------------------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::drawBBox() const
+void AbstractMesh::drawBBox() const noexcept
 {
   m_ext->draw();
 }
 
-void AbstractMesh::scale(Real _sx, Real _sy, Real _sz )
+void AbstractMesh::scale(Real _sx, Real _sy, Real _sz ) noexcept
 {
   m_center=0;
   // in c++ 11 we can use
@@ -59,7 +60,7 @@ void AbstractMesh::scale(Real _sx, Real _sy, Real _sz )
 
 
 //----------------------------------------------------------------------------------------------------------------------
-AbstractMesh::~AbstractMesh()
+AbstractMesh::~AbstractMesh() noexcept
 {
   if(m_loaded == true)
   {
@@ -87,7 +88,7 @@ AbstractMesh::~AbstractMesh()
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::loadTexture( const std::string& _fName  )
+void AbstractMesh::loadTexture( const std::string& _fName  ) noexcept
 {
 	// load in the texture
 	Texture  *t=new Texture(_fName);
@@ -105,7 +106,7 @@ void AbstractMesh::loadTexture( const std::string& _fName  )
 /// @endverbatim
 
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::writeToRibSubdiv(RibExport& _ribFile )const
+void AbstractMesh::writeToRibSubdiv(RibExport& _ribFile )const noexcept
 {
 	// Declare the variables
 	std::list< int > lVertLink;
@@ -193,7 +194,7 @@ void AbstractMesh::writeToRibSubdiv(RibExport& _ribFile )const
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-bool AbstractMesh::isTriangular()
+bool AbstractMesh::isTriangular() noexcept
 {
   for(unsigned int i=0; i<m_nFaces; ++i)
   {
@@ -222,7 +223,7 @@ bool AbstractMesh::isTriangular()
 // generate a new vertex index....
 //
 //----------------------------------------------------------------------------------------------------------------------
-bool AbstractMesh::addIndex(const unsigned _v, const unsigned _n,  const unsigned _t, std::vector<IndexRef>& io_indices, std::vector<GLuint>& io_outIndices  )
+bool AbstractMesh::addIndex(const unsigned _v, const unsigned _n,  const unsigned _t, std::vector<IndexRef>& io_indices, std::vector<GLuint>& io_outIndices  ) noexcept
 {
 	size_t size=io_indices.size();
 
@@ -259,7 +260,7 @@ struct VertData
 };
 
 
-void AbstractMesh::createVAO()
+void AbstractMesh::createVAO() noexcept
 {
 	// if we have already created a VBO just return.
 	if(m_vao == true)
@@ -383,7 +384,7 @@ void AbstractMesh::createVAO()
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::draw() const
+void AbstractMesh::draw() const noexcept
 {
   if(m_vao == true)
   {
@@ -400,7 +401,7 @@ void AbstractMesh::draw() const
 
 
 //----------------------------------------------------------------------------------------------------------------------
-Real * AbstractMesh::mapVAOVerts()
+Real * AbstractMesh::mapVAOVerts() noexcept
 {
 
 	Real* ptr=0;
@@ -418,7 +419,7 @@ Real * AbstractMesh::mapVAOVerts()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::unMapVAO()
+void AbstractMesh::unMapVAO() noexcept
 {
 
 	if(m_vboMapped==true)
@@ -430,7 +431,7 @@ void AbstractMesh::unMapVAO()
 
 }
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::calcDimensions()
+void AbstractMesh::calcDimensions() noexcept
 {
   // Calculate the center of the object.
   m_center=0.0;
@@ -444,17 +445,7 @@ void AbstractMesh::calcDimensions()
   m_maxY=m_minY=m_center.m_y;
   m_maxZ=m_minZ=m_center.m_z;
 
-  BOOST_FOREACH(Vec3 v,m_verts)
-  {
-    if     (v.m_x >m_maxX) { m_maxX=v.m_x; }
-    else if(v.m_x <m_minX) { m_minX=v.m_x; }
-    if     (v.m_y >m_maxY) { m_maxY=v.m_y; }
-    else if(v.m_y <m_minY) { m_minY=v.m_y; }
-    if     (v.m_z >m_maxZ) { m_maxZ=v.m_z; }
-    else if(v.m_z <m_minZ) { m_minZ=v.m_z; }
-  } // end BOOST_FOREACH
-// c++ 11 version
- /*
+
   // Calculate the center of the object.
   m_center=0.0;
   for( auto  v :m_verts)
@@ -476,7 +467,7 @@ void AbstractMesh::calcDimensions()
     if     (v.m_z >m_maxZ) { m_maxZ=v.m_z; }
     else if(v.m_z <m_minZ) { m_minZ=v.m_z; }
   } // end BOOST_FOREACH
-*/
+
 
   // destroy the previous bounding box
   if(m_ext !=0)
@@ -489,7 +480,7 @@ void AbstractMesh::calcDimensions()
 
 }
 
-void AbstractMesh::saveNCCABinaryMesh( const std::string &_fname  )
+void AbstractMesh::saveNCCABinaryMesh( const std::string &_fname  ) noexcept
 {
 // so basically we need to save all the state data from the abstract mesh
 // then map the vbo on the gpu and dump that in one go, this means we have to
@@ -544,18 +535,13 @@ void AbstractMesh::saveNCCABinaryMesh( const std::string &_fname  )
   size=m_outIndices.size();
   std::cout<<"Size of out indices ="<<size<<std::endl;
   file.write(reinterpret_cast <char *>(&size),sizeof(unsigned int));
-  for( unsigned int i=0; i<size; ++i)
-   {
-     file.write(reinterpret_cast <char *>(&m_outIndices[i]),sizeof(unsigned int));
-   }
 
-  // c++ 11 version
-  /*
+
   for (auto d : m_outIndices)
   {
     file.write(reinterpret_cast <char *>(d),sizeof(unsigned int));
   }
-*/
+
 
 
   file.close();
@@ -566,7 +552,7 @@ void AbstractMesh::saveNCCABinaryMesh( const std::string &_fname  )
 /// modified from example in Rick Parent book
 /// Computer Animation Algorithms and Techniques
 /// Morgan Korfman Appendix B
-void AbstractMesh::calcBoundingSphere()
+void AbstractMesh::calcBoundingSphere() noexcept
 {
 unsigned int size=m_verts.size();
 if( size <=0 )
@@ -629,46 +615,7 @@ Real newRad;
 Real dist2;
 Real dist;
 Real delta;
-for (unsigned int i=0; i<size; ++i)
-{
-  dx=m_verts[i].m_x-m_sphereCenter.m_x;
-  dy=m_verts[i].m_y-m_sphereCenter.m_y;
-  dz=m_verts[i].m_z-m_sphereCenter.m_z;
-  // distance squared of old center to current point
-  dist2=dx*dx+dy*dy+dz*dz;
-  // need to update the sphere if this point is outside the radius
-  if(dist2 > radTwo)
-  {
-    dist=sqrt(dist2);
-    newRad=(rad+dist)/2.0;
-    newRad2=newRad*newRad;
-    delta=dist-newRad;
-    // now compute new center using the weights above
-    newCenter.m_x=(newRad*m_sphereCenter.m_x+delta*m_verts[i].m_x)/dist;
-    newCenter.m_y=(newRad*m_sphereCenter.m_y+delta*m_verts[i].m_y)/dist;
-    newCenter.m_z=(newRad*m_sphereCenter.m_z+delta*m_verts[i].m_z)/dist;
-    // now test to see if we have a fit
-    dx=m_verts[i].m_x-newCenter.m_x;
-    dy=m_verts[i].m_y-newCenter.m_y;
-    dz=m_verts[i].m_z-newCenter.m_z;
-    dist2=dx*dx+dy*dy+dz*dz;
-    if(dist2 > newRad2)
-    {
-      std::cerr<<"something wrong here caluculating bounding sphere\n";
-      std::cerr<<"error margin "<<dist2-newRad2<<"\n";
-    }
-    m_sphereCenter=newCenter;
-    rad=newRad;
-    radTwo=rad*rad;
-  } // end if dist2>rad2
-  m_sphereRadius=rad;
 
-}
-
-m_sphereRadius=rad;
-std::cout<<&m_sphereCenter<<"  rad "<<&m_sphereRadius<<"\n";
-
-/* c++ 11 version
 for (auto v : m_verts)
 {
   dx=v.m_x-m_sphereCenter.m_x;
@@ -707,7 +654,7 @@ for (auto v : m_verts)
 
 m_sphereRadius=rad;
 std::cout<<m_sphereCenter<<"  rad "<<m_sphereRadius<<"\n";
-*/
+
 }
 /// end of citation
 

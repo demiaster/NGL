@@ -39,7 +39,7 @@ typedef spt::rule<spt::phrase_scanner_t> srule;
 
 //----------------------------------------------------------------------------------------------------------------------
 // parse a vertex
-void Obj::parseVertex( const char *_begin )
+void Obj::parseVertex( const char *_begin )  noexcept
 {
   std::vector<Real> values;
   // here is the parse rule to load the data into a vector (above)
@@ -57,7 +57,7 @@ void Obj::parseVertex( const char *_begin )
 
 //----------------------------------------------------------------------------------------------------------------------
 // parse a texture coordinate
-void Obj::parseTextureCoordinate(const char * _begin )
+void Obj::parseTextureCoordinate(const char * _begin ) noexcept
 {
   std::vector<Real> values;
   // generate our parse rule for a tex cord,
@@ -77,7 +77,7 @@ void Obj::parseTextureCoordinate(const char * _begin )
 
 //----------------------------------------------------------------------------------------------------------------------
 // parse a normal
-void Obj::parseNormal( const char *_begin )
+void Obj::parseNormal( const char *_begin )  noexcept
 {
   std::vector<Real> values;
   // here is our rule for normals
@@ -93,7 +93,7 @@ void Obj::parseNormal( const char *_begin )
 
 //----------------------------------------------------------------------------------------------------------------------
 // parse face
-void Obj::parseFace(const char * _begin   )
+void Obj::parseFace(const char * _begin   )  noexcept
 {
   // ok this one is quite complex first create some lists for our face data
   // list to hold the vertex data indices
@@ -176,7 +176,7 @@ void Obj::parseFace(const char * _begin   )
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-bool Obj::load(const std::string &_fname,bool _calcBB )
+bool Obj::load(const std::string &_fname,bool _calcBB )  noexcept
 {
  // here we build up our ebnf rules for parsing
   // so first we have a comment
@@ -232,7 +232,7 @@ bool Obj::load(const std::string &_fname,bool _calcBB )
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Obj::Obj( const std::string& _fname  ) :AbstractMesh()
+Obj::Obj( const std::string& _fname  )  noexcept :AbstractMesh()
 {
     m_vbo=false;
     m_ext=0;
@@ -250,7 +250,7 @@ Obj::Obj( const std::string& _fname  ) :AbstractMesh()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Obj::Obj( const std::string& _fname,const std::string& _texName   ):AbstractMesh()
+Obj::Obj( const std::string& _fname,const std::string& _texName   )  noexcept:AbstractMesh()
 {
     m_vbo=false;
     m_vao=false;
@@ -270,7 +270,7 @@ Obj::Obj( const std::string& _fname,const std::string& _texName   ):AbstractMesh
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Obj::save(const std::string& _fname)const
+void Obj::save(const std::string& _fname)const noexcept
 {
   // Open the stream and parse
   std::fstream fileOut;
