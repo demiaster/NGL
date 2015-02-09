@@ -44,87 +44,87 @@ namespace ngl
 /// @param[in] _output the stream to write to
 /// @param[in] _s the Vec2 to write
 //----------------------------------------------------------------------------------------------------------------------
- NGL_DLLEXPORT std::ostream &operator<<(std::ostream& _output, const Vec2& _s);
+ NGL_DLLEXPORT std::ostream &operator<<(std::ostream& _output, const Vec2& _s) noexcept;
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief extraction operator to read in  the Vec2
 /// @param[in] _input the stream read from
 /// @param[in] _s the Vec2 to write
 //----------------------------------------------------------------------------------------------------------------------
- NGL_DLLEXPORT std::istream& operator>>(std::istream& _input, Vec2 &_s);
+ NGL_DLLEXPORT std::istream& operator>>(std::istream& _input, Vec2 &_s) noexcept;
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief insertion operator to print out the Vec3
 /// @param[in] _output the stream to write to
 /// @param[in] _s the Vec3 to write
 //----------------------------------------------------------------------------------------------------------------------
- NGL_DLLEXPORT std::ostream& operator<<(std::ostream& _output, const Vec3& _s);
+ NGL_DLLEXPORT std::ostream& operator<<(std::ostream& _output, const Vec3& _s) noexcept;
  //----------------------------------------------------------------------------------------------------------------------
 /// @brief extraction operator to read in  the Vec3
 /// @param[in] _input the stream read from
 /// @param[in] _s the Vec3 to write
 //----------------------------------------------------------------------------------------------------------------------
- NGL_DLLEXPORT std::istream& operator>>(std::istream& _input, Vec3 &_s);
+ NGL_DLLEXPORT std::istream& operator>>(std::istream& _input, Vec3 &_s) noexcept;
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief insertion operator to print out the vector
 /// @param[in] _output the stream to write to
 /// @param[in] _s the vector to write
 //----------------------------------------------------------------------------------------------------------------------
- NGL_DLLEXPORT std::ostream& operator<<(std::ostream& _output, const Vec4& _s);
+ NGL_DLLEXPORT std::ostream& operator<<(std::ostream& _output, const Vec4& _s) noexcept;
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief extraction operator to read in  the vector
 /// @param[in] _input the stream read from
 /// @param[in] _s the vector to write
 //----------------------------------------------------------------------------------------------------------------------
- NGL_DLLEXPORT std::istream& operator>>(std::istream& _input, Vec4 &_s);
+ NGL_DLLEXPORT std::istream& operator>>(std::istream& _input, Vec4 &_s) noexcept;
  //----------------------------------------------------------------------------------------------------------------------
  /// @brief << extraction operator to prints out the colour in the format [r,g,b,a]
  /// @param[in] _output the outstream class pointer
  /// @param[in] _c the camera to print out
  //----------------------------------------------------------------------------------------------------------------------
- NGL_DLLEXPORT std::ostream& operator<<(std::ostream& _output, const Camera& _c);
+ NGL_DLLEXPORT std::ostream& operator<<(std::ostream& _output, const Camera& _c) noexcept;
  //----------------------------------------------------------------------------------------------------------------------
  /// @brief << extraction operator to prints out the colour in the format [r,g,b,a]
  /// @param[in] _output the outstream class pointer
  /// @param[in] _s the colour to print out
  //----------------------------------------------------------------------------------------------------------------------
- NGL_DLLEXPORT  std::ostream&  operator<<( std::ostream& _output, const Colour& _s );
+ NGL_DLLEXPORT  std::ostream&  operator<<( std::ostream& _output, const Colour& _s ) noexcept;
  //----------------------------------------------------------------------------------------------------------------------
  /// @brief >> insertion operator to read in the colour data r -> g -> b -> a
  /// @param[in] _input the instream class pointer
  /// @param[in] _s the colour to read in to
  //----------------------------------------------------------------------------------------------------------------------
- NGL_DLLEXPORT  std::istream& operator>>( std::istream& _input, Colour& _s );
+ NGL_DLLEXPORT  std::istream& operator>>( std::istream& _input, Colour& _s ) noexcept;
 
  //----------------------------------------------------------------------------------------------------------------------
  /// @brief  insertion operator to write matrix to stream
  /// @param[in] output the stream to write to
  /// @param[in] M the matrix to write
  //----------------------------------------------------------------------------------------------------------------------
- NGL_DLLEXPORT std::ostream& operator<<(std::ostream& output, const Mat3& M);
+ NGL_DLLEXPORT std::ostream& operator<<(std::ostream& output, const Mat3& _m) noexcept;
  //----------------------------------------------------------------------------------------------------------------------
  /// @brief  insertion operator to write matrix to stream
  /// @param[in] output the stream to write to
  /// @param[in] M the matrix to write
  //----------------------------------------------------------------------------------------------------------------------
- NGL_DLLEXPORT std::ostream& operator<<(std::ostream& output, const Mat4& M);
+ NGL_DLLEXPORT std::ostream& operator<<(std::ostream& output, const Mat4& _m) noexcept;
  //----------------------------------------------------------------------------------------------------------------------
  /// @brief  insertion operator to write matrix to stream
  /// @param[in] _output the stream to write to
  /// @param[in] _m the matrix-stack to write
  //----------------------------------------------------------------------------------------------------------------------
- NGL_DLLEXPORT std::ostream& operator<<(std::ostream& _output,  TransformStack& _m);
+ NGL_DLLEXPORT std::ostream& operator<<(std::ostream& _output,  TransformStack& _m) noexcept;
  //----------------------------------------------------------------------------------------------------------------------
  /// @brief  the streaming operator for the quaternion
  /// @param [in]  _ifs  -  the input stream
  /// @param [in]  _q  -  the place to read the values into
  //----------------------------------------------------------------------------------------------------------------------
- NGL_DLLEXPORT std::istream& operator >> ( std::istream& _ifs, Quaternion &_q );
+ NGL_DLLEXPORT std::istream& operator >> ( std::istream& _ifs, Quaternion &_q ) noexcept;
 
  //----------------------------------------------------------------------------------------------------------------------
  /// @brief  the streaming operator for the quaternion
  /// @param [in]  i_ifs  -  the input stream
  /// @param [in]  i_q  -  the place to read the values into
  //----------------------------------------------------------------------------------------------------------------------
- NGL_DLLEXPORT std::ostream& operator << ( std::ostream& i_s, const Quaternion &i_q);
+ NGL_DLLEXPORT std::ostream& operator << ( std::ostream& i_s, const Quaternion &i_q) noexcept;
 
 
 

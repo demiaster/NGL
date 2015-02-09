@@ -25,7 +25,7 @@ namespace ngl
 {
 
 //----------------------------------------------------------------------------------------------------------------------
-RibExport::RibExport(const std::string &_fileName)
+RibExport::RibExport(const std::string &_fileName) noexcept
 {
 	m_attribCount=0;
 	m_transformCount=0;
@@ -37,7 +37,7 @@ RibExport::RibExport(const std::string &_fileName)
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-RibExport::~RibExport()
+RibExport::~RibExport() noexcept
 {
 	if(m_attribCount !=0)
 	{
@@ -61,7 +61,7 @@ RibExport::~RibExport()
 // Writes the Comment parameters to
 // the rib file.
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::comment(const std::string &_sText  )
+void RibExport::comment(const std::string &_sText  ) noexcept
 {
 	// Append Comment
 	m_ribFile << "\n#======================================================\n";
@@ -71,7 +71,7 @@ void RibExport::comment(const std::string &_sText  )
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::open()
+void RibExport::open() noexcept
 {
 	std::string fName;
 	fName=(boost::str(boost::format("%s.%03d.rib") % m_ribFileName.c_str() % m_frameNumber));
@@ -86,14 +86,14 @@ void RibExport::open()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::close()
+void RibExport::close() noexcept
 {
 	m_ribFile.close();
 	++m_frameNumber;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::writeTabs()
+void RibExport::writeTabs() noexcept
 {
 	for(int i=0; i<m_tabs; ++i)
 	{
@@ -102,7 +102,7 @@ void RibExport::writeTabs()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::AttributeBegin()
+void RibExport::AttributeBegin() noexcept
 {
 	writeTabs();
 	m_ribFile<<"AttributeBegin "<<std::endl;
@@ -111,7 +111,7 @@ void RibExport::AttributeBegin()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::AttributeEnd()
+void RibExport::AttributeEnd() noexcept
 {
 	--m_tabs;
 	writeTabs();
@@ -120,7 +120,7 @@ void RibExport::AttributeEnd()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::TransformBegin()
+void RibExport::TransformBegin() noexcept
 {
 	writeTabs();
 	m_ribFile<<"TransformBegin "<<std::endl;
@@ -129,7 +129,7 @@ void RibExport::TransformBegin()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::TransformEnd()
+void RibExport::TransformEnd() noexcept
 {
 	--m_tabs;
 	writeTabs();
@@ -138,7 +138,7 @@ void RibExport::TransformEnd()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::WorldBegin()
+void RibExport::WorldBegin() noexcept
 {
 	writeTabs();
 	m_ribFile<<"WorldBegin "<<std::endl;
@@ -147,7 +147,7 @@ void RibExport::WorldBegin()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::WorldEnd()
+void RibExport::WorldEnd() noexcept
 {
 	--m_tabs;
 	writeTabs();
@@ -156,7 +156,7 @@ void RibExport::WorldEnd()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::writeToFile( std::string _string   )
+void RibExport::writeToFile( std::string _string) noexcept
 {
 	writeTabs();
 	m_ribFile<<_string<<std::endl;
@@ -165,70 +165,70 @@ void RibExport::writeToFile( std::string _string   )
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::Translate( const Real _x,   const Real _y,  const Real _z   )
+void RibExport::Translate( const Real _x,   const Real _y,  const Real _z) noexcept
 {
 	writeTabs();
 	m_ribFile<<"Translate "<<_x<<" "<<_y<<" "<<_z<<std::endl;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::Rotate(const Real _angle,const Real _x, const Real _y, const Real _z )
+void RibExport::Rotate(const Real _angle,const Real _x, const Real _y, const Real _z) noexcept
 {
 	writeTabs();
 	m_ribFile<<"Rotate "<<_angle<<" "<<_x<<" "<<_y<<" "<<_z<<std::endl;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::Scale(const Real _x, const Real _y, const Real _z )
+void RibExport::Scale(const Real _x, const Real _y, const Real _z ) noexcept
 {
 	writeTabs();
 	m_ribFile<<"Scale "<<_x<<" "<<_y<<" "<<_z<<std::endl;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::Sphere(const Real _radius, const Real _zMin,const Real _zMax, const Real _sweep )
+void RibExport::Sphere(const Real _radius, const Real _zMin,const Real _zMax, const Real _sweep ) noexcept
 {
 	writeTabs();
 	m_ribFile<<"Sphere "<<_radius<<" "<<_zMin<<" "<<_zMax<<" "<<_sweep<<std::endl;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::Cylinder( const Real _radius, const Real _zMin,  const Real _zMax, const Real _sweep  )
+void RibExport::Cylinder( const Real _radius, const Real _zMin,  const Real _zMax, const Real _sweep) noexcept
 {
 	writeTabs();
 	m_ribFile<<"Cylinder "<<_radius<<" "<<_zMin<<" "<<_zMax<<" "<<_sweep<<std::endl;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::Cone(const Real _height,  const Real _radius, const Real _sweep    )
+void RibExport::Cone(const Real _height,  const Real _radius, const Real _sweep) noexcept
 {
 	writeTabs();
 	m_ribFile<<"Cone "<<_height<<" "<<_radius<<" "<<_sweep<<std::endl;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::Paraboloid(const Real _topRad,const Real _zMin, const Real _zMax,  const Real _sweep   )
+void RibExport::Paraboloid(const Real _topRad,const Real _zMin, const Real _zMax,  const Real _sweep) noexcept
 {
 	writeTabs();
 	m_ribFile<<"Paraboloid "<<_topRad<<" "<<_zMin<<" "<<_zMax<<" "<<_sweep<<std::endl;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::Hyperboloid( const Real _p1, const Real _p2, const Real _sweep )
+void RibExport::Hyperboloid( const Real _p1, const Real _p2, const Real _sweep) noexcept
 {
 	writeTabs();
 	m_ribFile<<"Hyperboloid "<<_p1<<" "<<_p2<<" "<<_sweep<<std::endl;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::Disk( const Real _height,const Real _radius, const Real _sweep )
+void RibExport::Disk( const Real _height,const Real _radius, const Real _sweep ) noexcept
 {
 	writeTabs();
 	m_ribFile<<"Disk "<<_height<<" "<<_radius<<" "<<_sweep<<std::endl;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void RibExport::Torus( const Real _major, const Real _minor, const Real _phiMin,const Real _phiMax, const Real _sweep  )
+void RibExport::Torus( const Real _major, const Real _minor, const Real _phiMin,const Real _phiMax, const Real _sweep) noexcept
 {
 	writeTabs();
 	m_ribFile<<"Torus "<<_major<<" "<<_minor<<" "<<_phiMin<<" "<<_phiMax<<" "<<_sweep<<std::endl;

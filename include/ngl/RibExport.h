@@ -44,65 +44,65 @@ public :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method to auto write tabs
   //----------------------------------------------------------------------------------------------------------------------
-  void writeTabs();
+  void writeTabs() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief ctor passing in the name of the rib file to open
   /// @param[in] _fileName the rib file to open
   //----------------------------------------------------------------------------------------------------------------------
-  RibExport(  const std::string &_fileName );
+  RibExport(const std::string &_fileName ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief destructor
   //----------------------------------------------------------------------------------------------------------------------
-  ~RibExport();
+  ~RibExport() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  write a comment to the rib stream
   /// @param[in] _sText the text to write
   //----------------------------------------------------------------------------------------------------------------------
-  void comment( const std::string &_sText );
+  void comment( const std::string &_sText ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief open a rib file for writing
   //----------------------------------------------------------------------------------------------------------------------
-  void open();
+  void open() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Close the rib file
   //----------------------------------------------------------------------------------------------------------------------
-  void close();
+  void close() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write world begin and auto tab
   //----------------------------------------------------------------------------------------------------------------------
-  void WorldBegin();
+  void WorldBegin() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write world begin and un tab
   //----------------------------------------------------------------------------------------------------------------------
-  void WorldEnd();
+  void WorldEnd() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write attribute begin and tab in
   //----------------------------------------------------------------------------------------------------------------------
-  void AttributeBegin();
+  void AttributeBegin() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write attribute end and un tab
   //----------------------------------------------------------------------------------------------------------------------
-  void AttributeEnd();
+  void AttributeEnd() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write transform begin and tab in
   //----------------------------------------------------------------------------------------------------------------------
-  void TransformBegin();
+  void TransformBegin() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write transform end and un tab
   //----------------------------------------------------------------------------------------------------------------------
-  void TransformEnd();
+  void TransformEnd() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Write text to rib file
   /// @param[in] _string the string to write
   //----------------------------------------------------------------------------------------------------------------------
-  void writeToFile(std::string _string);
+  void writeToFile(std::string _string) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write an RiTranslate to file
   /// @param[in] _x the x translate value
   /// @param[in] _y the y translate value
   /// @param[in] _z the z translate value
   //----------------------------------------------------------------------------------------------------------------------
-  void Translate(const Real _x, const Real _y, const Real _z );
+  void Translate(const Real _x, const Real _y, const Real _z ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write an RiRotate
   /// @param[in] _angle the angle to rotate around the axis specified
@@ -110,7 +110,7 @@ public :
   /// @param[in] _y the y axis value
   /// @param[in] _z the z axis value
   //----------------------------------------------------------------------------------------------------------------------
-  void Rotate( const Real _angle, const Real _x, const Real _y, const Real _z );
+  void Rotate( const Real _angle, const Real _x, const Real _y, const Real _z ) noexcept;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write an RiScale
@@ -118,7 +118,7 @@ public :
   /// @param[in] _y the y scale value
   /// @param[in] _z the z scale value
   //----------------------------------------------------------------------------------------------------------------------
-  void Scale( const Real _x, const Real _y, const Real _z );
+  void Scale( const Real _x, const Real _y, const Real _z ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write an RiSphere
   /// @param[in] _radius the radius of the sphere
@@ -126,7 +126,7 @@ public :
   /// @param[in] _zMax the max z sweep
   /// @param[in] _sweep how much of the sphere to draw
   //----------------------------------------------------------------------------------------------------------------------
-  void Sphere( const Real _radius, const Real _zMin, const Real _zMax, const Real _sweep    );
+  void Sphere( const Real _radius, const Real _zMin, const Real _zMax, const Real _sweep) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write an RiCylinder
   /// @param[in] _radius the radius of the Cylinder
@@ -134,14 +134,14 @@ public :
   /// @param[in] _zMax the max z sweep
   /// @param[in] _sweep how much of the sphere to draw
   //----------------------------------------------------------------------------------------------------------------------
-  void Cylinder(const Real _radius, const Real _zMin,  const Real _zMax, const Real _sweep);
+  void Cylinder(const Real _radius, const Real _zMin,  const Real _zMax, const Real _sweep) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write an RiCone to the stream
   /// @param[in] _height the height of the cone
   /// @param[in] _radius the radius of the cone
   /// @param[in] _sweep the sweep of the cone
   //----------------------------------------------------------------------------------------------------------------------
-  void Cone( const Real _height, const Real _radius, const Real _sweep );
+  void Cone( const Real _height, const Real _radius, const Real _sweep ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write an RiParaboloid to the stream
   /// @param[in] _topRad the top radius of the paraboloid
@@ -149,21 +149,21 @@ public :
   /// @param[in] _zMax the max z sweep
   /// @param[in] _sweep the sweep of the paraboloid
   //----------------------------------------------------------------------------------------------------------------------
-  void Paraboloid( const Real _topRad, const Real _zMin, const Real _zMax,  const Real _sweep  );
+  void Paraboloid( const Real _topRad, const Real _zMin, const Real _zMax,  const Real _sweep) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief draw a hyperboloid to the stream
   /// @param[in] _p1 the first point of the hyperboloid sweep
   /// @param[in] _p2 the 2nd point of the hyperboloid sweep
   /// @param[in] _sweep the sweep of the hyperboloid
   //----------------------------------------------------------------------------------------------------------------------
-  void Hyperboloid( const Real _p1, const Real _p2, const Real _sweep );
+  void Hyperboloid( const Real _p1, const Real _p2, const Real _sweep ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief draw an RiDisk to the stream
   /// @param[in] _height the height of the disk
   /// @param[in] _radius the radius of the disk
   /// @param[in] _sweep the sweep of the disk
   //----------------------------------------------------------------------------------------------------------------------
-  void Disk( const Real _height, const Real _radius, const Real _sweep );
+  void Disk( const Real _height, const Real _radius, const Real _sweep ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief draw an  RiTorus to the stream
   /// @param[in] _major the major radius of the torus
@@ -172,15 +172,15 @@ public :
   /// @param[in] _phiMax the max value of the radial sweep
   /// @param[in] _sweep the sweep of the torus
   //----------------------------------------------------------------------------------------------------------------------
-  void Torus( const Real _major,const Real _minor,const Real _phiMin,  const Real _phiMax,const Real _sweep);
+  void Torus( const Real _major,const Real _minor,const Real _phiMin,  const Real _phiMax,const Real _sweep) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method to see if stream is open
   //----------------------------------------------------------------------------------------------------------------------
-  inline bool isOpen(){return m_isOpen;}
+  inline bool isOpen() noexcept{return m_isOpen;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief a method to get the rib stream
   //----------------------------------------------------------------------------------------------------------------------
-  inline std::fstream & getStream(){return m_ribFile;}
+  inline std::fstream & getStream() noexcept{return m_ribFile;}
 
 protected :
   //----------------------------------------------------------------------------------------------------------------------

@@ -27,7 +27,7 @@ namespace ngl
 
 /// @enum Type of shader this object is
 // for c++ 11 use enum class
-enum  SHADERTYPE{VERTEX,FRAGMENT,GEOMETRY,TESSCONTROL,TESSEVAL};
+enum  class SHADERTYPE{VERTEX,FRAGMENT,GEOMETRY,TESSCONTROL,TESSEVAL};
 /// @class Shader
 /// @brief and encapsulation of an OpenGL Shader object with
 /// associations for source code, etc.
@@ -45,51 +45,51 @@ public :
   /// @param _name the name of the program object
   /// @param[in] _type the type of shader we are building
   //----------------------------------------------------------------------------------------------------------------------
-  Shader( std::string _name,  SHADERTYPE _type );
+  Shader( std::string _name,  SHADERTYPE _type ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief dtor, will clean up shader source and remove shader from GL
   //----------------------------------------------------------------------------------------------------------------------
-  ~Shader();
+  ~Shader() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief compile the current shader will check to see if source
   /// is attached and issue warning if not
   //----------------------------------------------------------------------------------------------------------------------
-  void compile();
+  void compile() noexcept;
   /// @brief load in shader source and attach it to the shader object
   /// if source is already loaded it will re-load and re-attached
   /// @param _name the file name for the source we are loading
   //----------------------------------------------------------------------------------------------------------------------
-  void load( std::string _name );
+  void load( std::string _name ) noexcept;
    //----------------------------------------------------------------------------------------------------------------------
-  void loadFromString(const std::string &_string  );
+  void loadFromString(const std::string &_string  ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief toggle the debug state
   //----------------------------------------------------------------------------------------------------------------------
-  void toggleDebug(){m_debugState ^=true;}
+  void toggleDebug() noexcept{m_debugState ^=true;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get the shader handle for this shader
   /// @return the hand for this shader
   //----------------------------------------------------------------------------------------------------------------------
-  inline GLuint getShaderHandle()const {return m_shaderHandle;}
+  inline GLuint getShaderHandle()const  noexcept{return m_shaderHandle;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief increment the shader ref count so we can see how many
   /// program objects are using this shader
   //----------------------------------------------------------------------------------------------------------------------
-  inline void incrementRefCount(){ ++m_refCount;}
+  inline void incrementRefCount() noexcept{ ++m_refCount;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief decrement the reference counteer
   //----------------------------------------------------------------------------------------------------------------------
-  inline void decrementRefCount(){ --m_refCount;}
+  inline void decrementRefCount() noexcept{ --m_refCount;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief return the number of ProgramObjects referencing this shader
   /// @returns the number of references
   //----------------------------------------------------------------------------------------------------------------------
-  inline int getRefCount()const { return m_refCount; }
+  inline int getRefCount()const  noexcept{ return m_refCount; }
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief the shader source
   /// @returns the shader source
   //----------------------------------------------------------------------------------------------------------------------
-  inline const std::string  getShaderSource() const  {return m_source;}
+  inline const std::string  getShaderSource() const   noexcept{return m_source;}
 
 private :
   //----------------------------------------------------------------------------------------------------------------------

@@ -32,7 +32,7 @@ namespace ngl
 //----------------------------------------------------------------------------------------------------------------------
 
 
-NGLInit::NGLInit()
+NGLInit::NGLInit() noexcept
 {
   // set this first so that new driver features are included.
   glewExperimental = true;
@@ -65,11 +65,11 @@ NGLInit::NGLInit()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-NGLInit::~NGLInit()
+NGLInit::~NGLInit() noexcept
 {
 }
 
-void NGLInit::NGLQuit()
+void NGLInit::NGLQuit() noexcept
 {
   VAOPrimitives *prim=VAOPrimitives::instance();
   prim->clear();

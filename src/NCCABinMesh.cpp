@@ -26,7 +26,7 @@ namespace ngl
 {
 
 //----------------------------------------------------------------------------------------------------------------------
-bool NCCABinMesh::load(const std::string &_fname,bool _calcBB)
+bool NCCABinMesh::load(const std::string &_fname,bool _calcBB) noexcept
 {
 
   // open a file stream for ip in binary mode
@@ -116,7 +116,7 @@ bool NCCABinMesh::load(const std::string &_fname,bool _calcBB)
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-NCCABinMesh::NCCABinMesh(const std::string& _fname ) :AbstractMesh()
+NCCABinMesh::NCCABinMesh(const std::string& _fname )  noexcept:AbstractMesh()
 {
   m_vbo=false;
   m_ext=0;
@@ -125,7 +125,7 @@ NCCABinMesh::NCCABinMesh(const std::string& _fname ) :AbstractMesh()
  }
 
 //----------------------------------------------------------------------------------------------------------------------
-NCCABinMesh::NCCABinMesh(const std::string& _fname,const std::string& _texName   ):AbstractMesh()
+NCCABinMesh::NCCABinMesh(const std::string& _fname,const std::string& _texName   ) noexcept:AbstractMesh()
 {
   m_vbo=false;
   m_ext=0;
@@ -137,7 +137,7 @@ NCCABinMesh::NCCABinMesh(const std::string& _fname,const std::string& _texName  
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void NCCABinMesh::save( const std::string& _fname )
+void NCCABinMesh::save( const std::string& _fname) noexcept
 {
   AbstractMesh::saveNCCABinaryMesh(_fname);
 }

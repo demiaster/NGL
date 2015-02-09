@@ -36,7 +36,7 @@ namespace ngl
   /// @brief enumerated list of the different distributions we can
   /// add to the generator,
   //----------------------------------------------------------------------------------------------------------------------
-  enum  RANDDIST{ uniform_smallint,uniform_int,uniform_real
+  enum  class RANDDIST{ uniform_smallint,uniform_int,uniform_real
                 ,bernoulli_distribution,binomial_distribution,cauchy_distribution
                 ,gamma_distribution,poisson_distribution,geometric_distribution
                 ,triangle_distribution,exponential_distribution,normal_distribution
@@ -82,51 +82,51 @@ public :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief set the seed using std::time(NULL)
   //----------------------------------------------------------------------------------------------------------------------
-  void setSeed();
+  void setSeed() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief set the seed using a param value
   /// @param _value the seed value
   //----------------------------------------------------------------------------------------------------------------------
-  void setSeed( int _value );
+  void setSeed( int _value) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief gets a pre-generated Real value for a genetator
   /// @param _name the name of the generator to use for the number
   /// @brief returns a random number created by the generator or 0
   /// if the generator is not found
   //----------------------------------------------------------------------------------------------------------------------
-  Real getFloatFromGeneratorName( const std::string &_name);
+  Real getFloatFromGeneratorName( const std::string &_name) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief return a random colour with rgb components clamped between 0-1
   //----------------------------------------------------------------------------------------------------------------------
-  Colour getRandomColour();
+  Colour getRandomColour() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief return a random colour with rgba components clamped between 0-1
   //----------------------------------------------------------------------------------------------------------------------
-  Colour getRandomColourAndAlpha();
+  Colour getRandomColourAndAlpha() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get a random vector with componets ranged from +/- 1
   //----------------------------------------------------------------------------------------------------------------------
-  Vec4 getRandomVec4();
+  Vec4 getRandomVec4() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get a random vector with componets ranged from +/- 1 and Normalized
   //----------------------------------------------------------------------------------------------------------------------
-  Vec4 getRandomNormalizedVec4();
+  Vec4 getRandomNormalizedVec4() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get a random vector with componets ranged from +/- 1
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 getRandomVec3();
+  Vec3 getRandomVec3() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get a random vector with componets ranged from +/- 1 and Normalized
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 getRandomNormalizedVec3();
+  Vec3 getRandomNormalizedVec3() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get a random vector with componets ranged from +/- 1
   //----------------------------------------------------------------------------------------------------------------------
-  Vec2 getRandomVec2();
+  Vec2 getRandomVec2() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get a random vector with componets ranged from +/- 1 and Normalized
   //----------------------------------------------------------------------------------------------------------------------
-  Vec2 getRandomNormalizedVec2();
+  Vec2 getRandomNormalizedVec2() noexcept;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get a random point in 3D space defaults to +/- 1 else user defined range
@@ -135,21 +135,21 @@ public :
   /// @param  _zRange the +/-z range
   /// @returns a random point
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 getRandomPoint( Real _xRange=1.0, Real _yRange=1.0, Real _zRange=1.0 );
+  Vec3 getRandomPoint( Real _xRange=1.0, Real _yRange=1.0, Real _zRange=1.0 ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief a replacement for the old RandomNumber func
   /// this is basically a convinience function
   /// @param _mult an optional multiplyer for the output
   /// @returns (uniform_random(-1-0-+1) * _mult)
   //----------------------------------------------------------------------------------------------------------------------
-  Real randomNumber(Real _mult=1);
+  Real randomNumber(Real _mult=1) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief a replacement for the old ReandomPosNum
   /// this is basically a convinience function
   /// @param _mult an optional multiplyer for the output
   /// @returns (uniform_random(0-1) * _mult)
   //----------------------------------------------------------------------------------------------------------------------
-  Real randomPositiveNumber(  Real _mult=1  );
+  Real randomPositiveNumber(  Real _mult=1) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method to add a new generator, we must choose which distribution
   /// as well as a range for the distribution (if appropriate)
@@ -158,7 +158,7 @@ public :
   /// @param _max the max value for distribution note will be cast to (int) if needed
   /// @param _prob, the triangle dist uses this (see http://www.boost.org/doc/libs/1_43_0/doc/html/boost/triangle_distribution.html)
   //----------------------------------------------------------------------------------------------------------------------
-  void addGenerator( const std::string &_name, RANDDIST _distribution, Real _min=0.0, Real _max=1.0,Real _prob=0.5);
+  void addGenerator( const std::string &_name, RANDDIST _distribution, Real _min=0.0, Real _max=1.0,Real _prob=0.5) noexcept;
 
 protected :
 
@@ -173,7 +173,7 @@ protected :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief ctor hidden in protected as we are a singleton class
   //----------------------------------------------------------------------------------------------------------------------
-  Random();
+  Random() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief our map to hold the generator data basically we are going to hold
   /// a name / function pair, and this function will be called returning a Real
