@@ -13,7 +13,7 @@ namespace ngl
 {
 
 
-  void XMLSerializer::writeToXML(const std::string &_s, const std::string &_tag)
+  void XMLSerializer::writeToXML(const std::string &_s, const std::string &_tag) noexcept
   {
     char *nodeName = m_doc.allocate_string(_tag.c_str());        // Allocate string and copy name into it
 
@@ -22,7 +22,7 @@ namespace ngl
     m_doc.append_node(root);
   }
 
-  void XMLSerializer::writeToXML(const std::string &_s, rapidxml::xml_node<> *_parent,const std::string &_tag)
+  void XMLSerializer::writeToXML(const std::string &_s, rapidxml::xml_node<> *_parent,const std::string &_tag) noexcept
   {
     char *nodeName = m_doc.allocate_string(_tag.c_str());        // Allocate string and copy name into it
     char *value = m_doc.allocate_string(_s.c_str());
@@ -30,7 +30,7 @@ namespace ngl
     _parent->append_node(root);
   }
 
-  void XMLSerializer::addNode(const std::string &_tag)
+  void XMLSerializer::addNode(const std::string &_tag) noexcept
   {
     char *nodeName = m_doc.allocate_string(_tag.c_str());        // Allocate string and copy name into it
     rapidxml::xml_node<>* root = m_doc.allocate_node(rapidxml::node_element,nodeName);
@@ -38,7 +38,7 @@ namespace ngl
     m_doc.append_node(m_currentNode);
   }
 
-  void XMLSerializer::addNode(const std::string &_tag,rapidxml::xml_node<> *_parent)
+  void XMLSerializer::addNode(const std::string &_tag,rapidxml::xml_node<> *_parent) noexcept
   {
     char *nodeName = m_doc.allocate_string(_tag.c_str());        // Allocate string and copy name into it
     rapidxml::xml_node<>* root = m_doc.allocate_node(rapidxml::node_element,nodeName);
@@ -46,7 +46,7 @@ namespace ngl
     _parent->append_node(m_currentNode);
   }
 
-  XMLSerializer::XMLSerializer(const std::string &_fname, ACCESSMODE _mode)
+  XMLSerializer::XMLSerializer(const std::string &_fname, ACCESSMODE _mode) noexcept
   {
     rapidxml::xml_node<>* declatation;
 
@@ -58,9 +58,9 @@ namespace ngl
     m_mode=_mode;
   }
 
-  XMLSerializer::~XMLSerializer()
+  XMLSerializer::~XMLSerializer() noexcept
   {
-    if(m_mode ==WRITE)
+    if(m_mode ==ACCESSMODE::WRITE)
     {
       std::ofstream file_stored(m_fname.c_str());
       file_stored << m_doc;
@@ -69,44 +69,44 @@ namespace ngl
     }
   }
 
-  void XMLSerializer::read(AABB &_s)
+  void XMLSerializer::read(AABB &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::write(const AABB &_s)
+  void XMLSerializer::write(const AABB &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::read(BBox &_s)
+  void XMLSerializer::read(BBox &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::write(const BBox &_s)
+  void XMLSerializer::write(const BBox &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::read(BezierCurve &_s)
+  void XMLSerializer::read(BezierCurve &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::write(const BezierCurve &_s)
+  void XMLSerializer::write(const BezierCurve &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::read(Camera &_s)
+  void XMLSerializer::read(Camera &_s) noexcept
   {
 
   }
 
 
 
-  void XMLSerializer::write(const Camera &_s,const std::string &_tag)
+  void XMLSerializer::write(const Camera &_s,const std::string &_tag) noexcept
   {
 
     char *nodeName = m_doc.allocate_string(_tag.c_str());        // Allocate string and copy name into it
@@ -122,28 +122,28 @@ namespace ngl
 
   }
 
-  void XMLSerializer::read(Colour &_s)
+  void XMLSerializer::read(Colour &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::write(const Colour &_s,std::string _tag)
+  void XMLSerializer::write(const Colour &_s,std::string _tag) noexcept
   {
     writeToXML(boost::str( boost::format(" %f %f %f %f") % _s.m_r % _s.m_g % _s.m_b % _s.m_a ),_tag);
   }
 
 
-  void XMLSerializer::write(const Colour &_s,rapidxml::xml_node<> *_parent, std::string _tag)
+  void XMLSerializer::write(const Colour &_s,rapidxml::xml_node<> *_parent, std::string _tag) noexcept
   {
     writeToXML(boost::str( boost::format(" %f %f %f %f") % _s.m_r % _s.m_g % _s.m_b % _s.m_a ),_parent,_tag);
   }
 
-  void XMLSerializer::read(Light &_s)
+  void XMLSerializer::read(Light &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::write(const Light &_s,const std::string &_tag)
+  void XMLSerializer::write(const Light &_s,const std::string &_tag) noexcept
   {
     char *nodeName = m_doc.allocate_string(_tag.c_str());        // Allocate string and copy name into it
     rapidxml::xml_node<>* root = m_doc.allocate_node(rapidxml::node_element,nodeName);
@@ -169,12 +169,12 @@ namespace ngl
     //  root->append_node(child);
   }
 
-  void XMLSerializer::read(Mat3 &_s)
+  void XMLSerializer::read(Mat3 &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::write( Mat3 &_s, std::string _tag)
+  void XMLSerializer::write( Mat3 &_s, std::string _tag) noexcept
   {
         writeToXML(boost::str(  boost::format(" %f %f %f %f %f %f %f %f %f")
                             % _s.m_openGL[0] %_s.m_openGL[1] % _s.m_openGL[2]
@@ -183,12 +183,12 @@ namespace ngl
 
   }
 
-  void XMLSerializer::read(Mat4 &_s)
+  void XMLSerializer::read(Mat4 &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::write( Mat4 &_s, std::string _tag)
+  void XMLSerializer::write( Mat4 &_s, std::string _tag) noexcept
   {
     Real *openGL= _s.openGL();
 
@@ -200,12 +200,12 @@ namespace ngl
 
   }
 
-  void XMLSerializer::read(Material &_s)
+  void XMLSerializer::read(Material &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::write(const Material &_s, const std::string &_tag)
+  void XMLSerializer::write(const Material &_s, const std::string &_tag) noexcept
   {
     char *nodeName = m_doc.allocate_string(_tag.c_str());        // Allocate string and copy name into it
 
@@ -219,55 +219,55 @@ namespace ngl
     writeToXML(boost::str( boost::format(" %f") % _s.getRoughness() ),root,"roughness");
   }
 
-  void XMLSerializer::read(PathCamera &_s)
+  void XMLSerializer::read(PathCamera &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::write(const PathCamera &_s, const std::string &_tag)
+  void XMLSerializer::write(const PathCamera &_s, const std::string &_tag) noexcept
   {
 
   }
 
-  void XMLSerializer::read(Plane &_s)
+  void XMLSerializer::read(Plane &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::write(const Plane &_s,const std::string &_tag)
+  void XMLSerializer::write(const Plane &_s,const std::string &_tag) noexcept
   {
 
   }
 
-  void XMLSerializer::read(Quaternion &_s)
+  void XMLSerializer::read(Quaternion &_s) noexcept
   {
 
   }
 
 
-  void XMLSerializer::write(const Quaternion &_s, const std::string &_tag)
+  void XMLSerializer::write(const Quaternion &_s, const std::string &_tag) noexcept
   {
     writeToXML(boost::str( boost::format(" %f %f %f %f") % _s.getS() % _s.getX() % _s.getY() % _s.getZ() ),_tag);
 
   }
 
-  void XMLSerializer::read(SpotLight &_s)
+  void XMLSerializer::read(SpotLight &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::write(const SpotLight &_s, const std::string &_tag)
+  void XMLSerializer::write(const SpotLight &_s, const std::string &_tag) noexcept
   {
 
   }
 
 
-  void XMLSerializer::read(Transformation &_s)
+  void XMLSerializer::read(Transformation &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::write(const Transformation &_s, const std::string &_tag)
+  void XMLSerializer::write(const Transformation &_s, const std::string &_tag) noexcept
   {
 
 
@@ -283,41 +283,41 @@ namespace ngl
 
    }
 
-  void XMLSerializer::read(Vec2 &_s)
+  void XMLSerializer::read(Vec2 &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::write(const Vec2 &_s,std::string _tag)
+  void XMLSerializer::write(const Vec2 &_s,std::string _tag) noexcept
   {
     writeToXML(boost::str( boost::format(" %f %f ") % _s.m_x % _s.m_y  ),_tag);
 
 
   }
 
-  void XMLSerializer::write(const Vec2 &_s,rapidxml::xml_node<> *_parent, std::string _tag)
+  void XMLSerializer::write(const Vec2 &_s,rapidxml::xml_node<> *_parent, std::string _tag) noexcept
   {
     writeToXML(boost::str( boost::format(" %f %f  ") % _s.m_x % _s.m_y ),_parent,_tag);
   }
 
 
 
-  void XMLSerializer::read(Vec3 &_s)
+  void XMLSerializer::read(Vec3 &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::write(const Vec3 &_s, std::string _tag)
+  void XMLSerializer::write(const Vec3 &_s, std::string _tag) noexcept
   {
     writeToXML(boost::str( boost::format(" %f %f %f ") % _s.m_x % _s.m_y % _s.m_z ),_tag);
   }
-  void XMLSerializer::write(const Vec3 &_s,rapidxml::xml_node<> *_parent, std::string _tag)
+  void XMLSerializer::write(const Vec3 &_s,rapidxml::xml_node<> *_parent, std::string _tag) noexcept
   {
 
     writeToXML(boost::str( boost::format(" %f %f %f ") % _s.m_x % _s.m_y % _s.m_z  ),_parent,_tag);
 
   }
-  void XMLSerializer::read(Vec4 &_s)
+  void XMLSerializer::read(Vec4 &_s) noexcept
   {
     //  if(_doc->tokenType() != QXmlStreamReader::StartElement &&
     //     _doc->name() == "Vec3")
@@ -328,14 +328,14 @@ namespace ngl
 
   }
 
-  void XMLSerializer::write(const Vec4 &_s, std::string _tag)
+  void XMLSerializer::write(const Vec4 &_s, std::string _tag) noexcept
   {
     writeToXML(boost::str( boost::format(" %f %f %f %f") % _s.m_x % _s.m_y % _s.m_z % _s.m_w),_tag);
   }
 
 
 
-  void XMLSerializer::write(const Vec4 &_s, rapidxml::xml_node<> *_parent, std::string _tag)
+  void XMLSerializer::write(const Vec4 &_s, rapidxml::xml_node<> *_parent, std::string _tag) noexcept
   {
    writeToXML(boost::str( boost::format(" %f %f %f %f") % _s.m_x % _s.m_y % _s.m_z % _s.m_w),_parent,_tag);
   }

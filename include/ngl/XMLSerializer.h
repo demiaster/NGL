@@ -35,206 +35,206 @@ class NGL_DLLEXPORT XMLSerializer
 {
 
 public :
-  enum ACCESSMODE{READ,WRITE};
+  enum class ACCESSMODE{READ,WRITE};
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief ctor, uses RAII to open the file, flag indicates if we have read or write mode
   /// @param[in]  &_fname the name of file to serialize
   //----------------------------------------------------------------------------------------------------------------------
-  XMLSerializer(const std::string &_fname,ACCESSMODE _mode);
+  XMLSerializer(const std::string &_fname,ACCESSMODE _mode) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief dtor will close the file
   //----------------------------------------------------------------------------------------------------------------------
-  ~XMLSerializer();
+  ~XMLSerializer() noexcept;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an AABB must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(AABB &_s);
+  virtual void read(AABB &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an AABB must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const AABB &_s);
+  virtual void write(const AABB &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an BBox must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(BBox &_s);
+  virtual void read(BBox &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an BBox must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const BBox &_s);
+  virtual void write(const BBox &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an BezierCurve must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(BezierCurve &_s);
+  virtual void read(BezierCurve &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an BezierCurve must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const BezierCurve &_s);
+  virtual void write(const BezierCurve &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an Camera must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(Camera &_s);
+  virtual void read(Camera &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an Camera must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const Camera &_s, const std::string &_tag);
+  virtual void write(const Camera &_s, const std::string &_tag) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an Colour must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(Colour &_s);
+  virtual void read(Colour &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an Colour must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const Colour &_s,std::string _tag="Colour");
-  virtual void write(const Colour &_s,rapidxml::xml_node<> *_parent,std::string _tag="Colour");
+  virtual void write(const Colour &_s,std::string _tag="Colour") noexcept;
+  virtual void write(const Colour &_s,rapidxml::xml_node<> *_parent,std::string _tag="Colour") noexcept;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an Light must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(Light &_s);
+  virtual void read(Light &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an Light must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const Light &_s, const std::string &_tag) ;
+  virtual void write(const Light &_s, const std::string &_tag)  noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an Mat3 must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(Mat3 &_s);
+  virtual void read(Mat3 &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an Mat3 must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(Mat3 &_s, std::string _tag="Mat3");
+  virtual void write(Mat3 &_s, std::string _tag="Mat3") noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an Mat4 must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(Mat4 &_s);
+  virtual void read(Mat4 &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an Mat4 must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write( Mat4 &_s, std::string _tag="Mat4");
+  virtual void write( Mat4 &_s, std::string _tag="Mat4") noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an Material must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(Material &_s);
+  virtual void read(Material &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an Material must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const Material &_s, const std::string &_tag);
+  virtual void write(const Material &_s, const std::string &_tag) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an PathCamera must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(PathCamera &_s);
+  virtual void read(PathCamera &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an PathCamera must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const PathCamera &_s, const std::string &_tag);
+  virtual void write(const PathCamera &_s, const std::string &_tag) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an Plane must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(Plane &_s);
+  virtual void read(Plane &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an Plane must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const Plane &_s, const std::string &_tag);
+  virtual void write(const Plane &_s, const std::string &_tag) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an Quaternion must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(Quaternion &_s);
+  virtual void read(Quaternion &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an Quaternion must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const Quaternion &_s,const std::string &_tag="Quat");
+  virtual void write(const Quaternion &_s,const std::string &_tag="Quat") noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an SpotLight must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(SpotLight &_s);
+  virtual void read(SpotLight &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an SpotLight must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const SpotLight &_s, const std::string &_tag);
+  virtual void write(const SpotLight &_s, const std::string &_tag) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an Transformation must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(Transformation &_s);
+  virtual void read(Transformation &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an Transformation must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const Transformation &_s,const std::string &_tag);
+  virtual void write(const Transformation &_s,const std::string &_tag) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an Vec2 must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(Vec2 &_s);
+  virtual void read(Vec2 &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an Vec2 must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const Vec2 &_s,std::string _tag="Vec2");
-  void write(const Vec2 &_s,rapidxml::xml_node<> *_parent,std::string _tag) ;
+  virtual void write(const Vec2 &_s,std::string _tag="Vec2") noexcept;
+  void write(const Vec2 &_s,rapidxml::xml_node<> *_parent,std::string _tag)  noexcept;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an Vec3 must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(Vec3 &_s);
+  virtual void read(Vec3 &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an Vec3 must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const Vec3 &_s, std::string _tag="Vec3");
-  void write(const Vec3 &_s,rapidxml::xml_node<> *_parent,std::string _tag) ;
+  virtual void write(const Vec3 &_s, std::string _tag="Vec3") noexcept;
+  void write(const Vec3 &_s,rapidxml::xml_node<> *_parent,std::string _tag) noexcept ;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an Vec4 must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(Vec4 &_s);
+  virtual void read(Vec4 &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief write from an Vec4 must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const Vec4 &_s,std::string _tag="Vec4") ;
-  void write(const Vec4 &_s,rapidxml::xml_node<> *_parent,std::string _tag) ;
-  void writeToXML(const std::string &_s, const std::string &_tag);
-  void writeToXML(const std::string &_s, rapidxml::xml_node<> *_parent,const std::string &_tag);
-  void addNode(const std::string &_tag);
-  void addNode(const std::string &_tag,rapidxml::xml_node<> *_parent);
+  virtual void write(const Vec4 &_s,std::string _tag="Vec4")  noexcept;
+  void write(const Vec4 &_s,rapidxml::xml_node<> *_parent,std::string _tag)  noexcept;
+  void writeToXML(const std::string &_s, const std::string &_tag) noexcept;
+  void writeToXML(const std::string &_s, rapidxml::xml_node<> *_parent,const std::string &_tag) noexcept;
+  void addNode(const std::string &_tag) noexcept;
+  void addNode(const std::string &_tag,rapidxml::xml_node<> *_parent) noexcept;
 
 
-  rapidxml::xml_node<>* getCurrentNode() const {return m_currentNode;}
+  rapidxml::xml_node<>* getCurrentNode() const noexcept {return m_currentNode;}
 private :
   /// @brief make sure we can't copy this class;
-  XMLSerializer(const AbstractSerializer &){;}
+  XMLSerializer(const AbstractSerializer &) noexcept{;}
   /// @brief make sure we can't copy this class;
-  XMLSerializer &operator=(const XMLSerializer &);
+  XMLSerializer &operator=(const XMLSerializer &) noexcept;
 
 private :
   rapidxml::xml_document<> m_doc;

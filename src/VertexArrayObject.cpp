@@ -24,7 +24,7 @@ namespace ngl
 {
 
 //----------------------------------------------------------------------------------------------------------------------
-VertexArrayObject::VertexArrayObject(GLenum _mode)
+VertexArrayObject::VertexArrayObject(GLenum _mode) noexcept
 {
   m_allocated=false;
   // first we create a vertex array Object
@@ -37,19 +37,19 @@ VertexArrayObject::VertexArrayObject(GLenum _mode)
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void VertexArrayObject::bind()
+void VertexArrayObject::bind() noexcept
 {
   glBindVertexArray(m_id);
   m_bound=true;
 }
 //----------------------------------------------------------------------------------------------------------------------
-void VertexArrayObject::unbind()
+void VertexArrayObject::unbind() noexcept
 {
   glBindVertexArray(0);
   m_bound=false;
 }
 //----------------------------------------------------------------------------------------------------------------------
-void VertexArrayObject::removeVOA()
+void VertexArrayObject::removeVOA() noexcept
 {
   if(m_bound == true)
   {
@@ -66,7 +66,7 @@ void VertexArrayObject::removeVOA()
   }
 }
 //----------------------------------------------------------------------------------------------------------------------
-void VertexArrayObject::setData(unsigned int _size,const GLfloat &_data,GLenum _mode)
+void VertexArrayObject::setData(unsigned int _size,const GLfloat &_data,GLenum _mode) noexcept
 {
   if(m_bound == false)
   {
@@ -83,7 +83,7 @@ void VertexArrayObject::setData(unsigned int _size,const GLfloat &_data,GLenum _
 }
 
 
-void VertexArrayObject::setIndexedData(unsigned int _size,const GLfloat &_data, unsigned int _indexSize, const GLvoid *_indexData,GLenum _indexType,GLenum _mode  )
+void VertexArrayObject::setIndexedData(unsigned int _size,const GLfloat &_data, unsigned int _indexSize, const GLvoid *_indexData,GLenum _indexType,GLenum _mode) noexcept
 {
 
   if(m_bound == false)
@@ -122,7 +122,7 @@ void VertexArrayObject::setIndexedData(unsigned int _size,const GLfloat &_data, 
 }
 
 
-void VertexArrayObject::setRawIndexedData(unsigned int _size, const GLvoid *_data, unsigned int _indexSize,const GLvoid *_indexData, GLenum _indexType,GLenum _mode)
+void VertexArrayObject::setRawIndexedData(unsigned int _size, const GLvoid *_data, unsigned int _indexSize,const GLvoid *_indexData, GLenum _indexType,GLenum _mode) noexcept
 {
 
   if(m_bound == false)
@@ -163,7 +163,7 @@ void VertexArrayObject::setRawIndexedData(unsigned int _size, const GLvoid *_dat
 
 
 
-void VertexArrayObject::updateIndexedData( unsigned int _size, const GLfloat &_data,GLenum _mode )
+void VertexArrayObject::updateIndexedData( unsigned int _size, const GLfloat &_data,GLenum _mode ) noexcept
 {
 
   if(m_bound == false)
@@ -179,7 +179,7 @@ void VertexArrayObject::updateIndexedData( unsigned int _size, const GLfloat &_d
 }
 
 
-void VertexArrayObject::updateIndexedData(GLuint vboidx, unsigned int _size,const GLfloat &_data,GLenum _mode)
+void VertexArrayObject::updateIndexedData(GLuint vboidx, unsigned int _size,const GLfloat &_data,GLenum _mode) noexcept
 {
     if(m_bound == false)
     {
@@ -193,7 +193,7 @@ void VertexArrayObject::updateIndexedData(GLuint vboidx, unsigned int _size,cons
     }
 }
 
-GLuint VertexArrayObject::getVBOid(unsigned int _index)
+GLuint VertexArrayObject::getVBOid(unsigned int _index) noexcept
 {
   GLuint id=0;
   /// _index >=0 && picked up by g++4.3 so removed from below
@@ -205,7 +205,7 @@ GLuint VertexArrayObject::getVBOid(unsigned int _index)
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void VertexArrayObject::setVertexAttributePointer(GLuint _id, GLint _size, GLenum _type, GLsizei _stride, unsigned int _dataOffset, bool _normalise )
+void VertexArrayObject::setVertexAttributePointer(GLuint _id, GLint _size, GLenum _type, GLsizei _stride, unsigned int _dataOffset, bool _normalise ) noexcept
 {
   if(m_bound !=true)
   {
@@ -217,7 +217,7 @@ void VertexArrayObject::setVertexAttributePointer(GLuint _id, GLint _size, GLenu
 }
 
 
-void VertexArrayObject::setVertexAttributeIPointer( GLuint _id,  GLint _size, GLenum _type, GLsizei _stride, unsigned int _dataOffset )
+void VertexArrayObject::setVertexAttributeIPointer( GLuint _id,  GLint _size, GLenum _type, GLsizei _stride, unsigned int _dataOffset ) noexcept
 {
   if(m_bound !=true)
   {
@@ -231,7 +231,7 @@ void VertexArrayObject::setVertexAttributeIPointer( GLuint _id,  GLint _size, GL
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void VertexArrayObject::draw() const
+void VertexArrayObject::draw() const noexcept
 {
   if(m_allocated == false)
   {
@@ -253,7 +253,7 @@ void VertexArrayObject::draw() const
 }
 
 
-void VertexArrayObject::draw(unsigned int _startIndex, unsigned int _numVerts, GLenum _mode  ) const
+void VertexArrayObject::draw(unsigned int _startIndex, unsigned int _numVerts, GLenum _mode  ) const noexcept
 {
   if(m_allocated == false)
   {
@@ -266,7 +266,7 @@ void VertexArrayObject::draw(unsigned int _startIndex, unsigned int _numVerts, G
   glDrawArrays(_mode, _startIndex, _numVerts);	// draw first object
 }
 
-void VertexArrayObject::draw(GLenum _mode) const
+void VertexArrayObject::draw(GLenum _mode) const noexcept
 {
   if(m_allocated == false)
   {
@@ -287,7 +287,7 @@ void VertexArrayObject::draw(GLenum _mode) const
   }
 }
 
-void VertexArrayObject::drawInstanced(unsigned int _n) const
+void VertexArrayObject::drawInstanced(unsigned int _n) const noexcept
 {
   if(m_allocated == false)
   {
@@ -310,7 +310,7 @@ void VertexArrayObject::drawInstanced(unsigned int _n) const
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Real *VertexArrayObject::getDataPointer(unsigned int _vbo, GLenum _accessMode)
+Real *VertexArrayObject::getDataPointer(unsigned int _vbo, GLenum _accessMode) noexcept
 {
   Real *ptr=0;
 //  code was this but g++ 4.2 gives warning about it always being true
@@ -326,12 +326,12 @@ Real *VertexArrayObject::getDataPointer(unsigned int _vbo, GLenum _accessMode)
   return ptr;
 }
 
-void VertexArrayObject::freeDataPointer()
+void VertexArrayObject::freeDataPointer() noexcept
 {
   glUnmapBuffer(GL_ARRAY_BUFFER); // unmap it after use
 }
 
-int VertexArrayObject::getSize() const
+int VertexArrayObject::getSize() const noexcept
 {
   if(m_bound == false)
   {
