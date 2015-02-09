@@ -28,7 +28,7 @@ namespace ngl
 {
 
 //----------------------------------------------------------------------------------------------------------------------
-NGL_DLLEXPORT Vec3 calcNormal(const Vec4 &_p1, const Vec4 &_p2, const Vec4 &_p3 )
+NGL_DLLEXPORT Vec3 calcNormal(const Vec4 &_p1, const Vec4 &_p2, const Vec4 &_p3 ) noexcept
 {
 
 	Real coa, cob, coc ;
@@ -58,7 +58,7 @@ NGL_DLLEXPORT Vec3 calcNormal(const Vec4 &_p1, const Vec4 &_p2, const Vec4 &_p3 
 
 
 //----------------------------------------------------------------------------------------------------------------------
-NGL_DLLEXPORT Vec3 calcNormal (const Vec3 &_p1,  const Vec3 &_p2, const Vec3 &_p3  )
+NGL_DLLEXPORT Vec3 calcNormal (const Vec3 &_p1,  const Vec3 &_p2, const Vec3 &_p3  ) noexcept
 {
 
   Real coa, cob, coc ;
@@ -86,19 +86,19 @@ NGL_DLLEXPORT Vec3 calcNormal (const Vec3 &_p1,  const Vec3 &_p2, const Vec3 &_p
   return norm;
 }
 
-NGL_DLLEXPORT Real radians(const Real _deg )
+NGL_DLLEXPORT Real radians(const Real _deg ) noexcept
 {
   return (_deg/180.0f) * M_PI;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-NGL_DLLEXPORT Real degrees( const Real _rad   )
+NGL_DLLEXPORT Real degrees( const Real _rad   ) noexcept
 {
   return (_rad / M_PI) * 180.0f;
 }
 
 
-NGL_DLLEXPORT  void NGLCheckGLError( const std::string  &_file, const int _line )
+NGL_DLLEXPORT  void NGLCheckGLError( const std::string  &_file, const int _line ) noexcept
 {
  int errNum = glGetError();
 
@@ -123,7 +123,7 @@ NGL_DLLEXPORT  void NGLCheckGLError( const std::string  &_file, const int _line 
 }
 
 
-NGL_DLLEXPORT Mat4 perspective(Real _fovy,Real _aspect, Real _zNear, Real _zFar)
+NGL_DLLEXPORT Mat4 perspective(Real _fovy,Real _aspect, Real _zNear, Real _zFar) noexcept
 {
     Real range = tan(radians(_fovy / 2.0)) * _zNear;
     Real left = -range * _aspect;
@@ -140,7 +140,7 @@ NGL_DLLEXPORT Mat4 perspective(Real _fovy,Real _aspect, Real _zNear, Real _zFar)
 }
 
 
-NGL_DLLEXPORT Mat4 perspectiveFov(Real const & _fov, Real const & _width, Real const & _height, Real const & _zNear, Real const & _zFar)
+NGL_DLLEXPORT Mat4 perspectiveFov(Real const & _fov, Real const & _width, Real const & _height, Real const & _zNear, Real const & _zFar) noexcept
 {
     Real rad = radians(_fov);
     Real h = cos(0.5f * rad) / sin(0.5f * rad);
@@ -155,7 +155,7 @@ NGL_DLLEXPORT Mat4 perspectiveFov(Real const & _fov, Real const & _width, Real c
 }
 
 
-NGL_DLLEXPORT Mat4 infinitePerspective(Real _fovy, Real _aspect, Real _zNear)
+NGL_DLLEXPORT Mat4 infinitePerspective(Real _fovy, Real _aspect, Real _zNear) noexcept
 {
   Real const range = tan(radians(_fovy / 2.0f)) * _zNear;
   Real left = -range * _aspect;
@@ -173,7 +173,7 @@ NGL_DLLEXPORT Mat4 infinitePerspective(Real _fovy, Real _aspect, Real _zNear)
 }
 
 
-NGL_DLLEXPORT Mat4 lookAt(const Vec3  & _eye,const Vec3  & _center,const Vec3  & _up)
+NGL_DLLEXPORT Mat4 lookAt(const Vec3  & _eye,const Vec3  & _center,const Vec3  & _up) noexcept
 {
 
     Vec3 n =   _center-_eye;
@@ -200,7 +200,7 @@ NGL_DLLEXPORT Mat4 lookAt(const Vec3  & _eye,const Vec3  & _center,const Vec3  &
     return result;
 }
 
-NGL_DLLEXPORT Mat4 ortho(Real _left, Real _right, Real _bottom, Real _top, Real _zNear, Real _zFar)
+NGL_DLLEXPORT Mat4 ortho(Real _left, Real _right, Real _bottom, Real _top, Real _zNear, Real _zFar) noexcept
 {
   Mat4 result(1);
   result.m_00= 2.0f / (_right - _left);
@@ -212,7 +212,7 @@ NGL_DLLEXPORT Mat4 ortho(Real _left, Real _right, Real _bottom, Real _top, Real 
   return result;
 }
 
-NGL_DLLEXPORT Mat4 ortho(Real _left, Real _right, Real _bottom, Real _top)
+NGL_DLLEXPORT Mat4 ortho(Real _left, Real _right, Real _bottom, Real _top) noexcept
 {
   Mat4 result(1);
   result.m_00= Real(2) / (_right - _left);
@@ -223,7 +223,7 @@ NGL_DLLEXPORT Mat4 ortho(Real _left, Real _right, Real _bottom, Real _top)
   return result;
 }
 
-NGL_DLLEXPORT Mat4 frustum(Real _left, Real _right, Real _bottom, Real _top, Real _nearVal, Real _farVal)
+NGL_DLLEXPORT Mat4 frustum(Real _left, Real _right, Real _bottom, Real _top, Real _nearVal, Real _farVal) noexcept
 {
   Mat4 result=0.0f;
   result.m_00 = (2.0f * _nearVal) / (_right - _left);
@@ -238,7 +238,7 @@ NGL_DLLEXPORT Mat4 frustum(Real _left, Real _right, Real _bottom, Real _top, Rea
 
 // for more details see this site some greate stuff here (this code was modified from it)
 // http://www.exploringbinary.com/ten-ways-to-check-if-an-integer-is-a-power-of-two-in-c/
-NGL_DLLEXPORT bool isPowerOfTwo (unsigned int _x)
+NGL_DLLEXPORT bool isPowerOfTwo (unsigned int _x) noexcept
 {
  while (((_x % 2) == 0) && _x > 1) /* While x is even and > 1 */
  {
@@ -249,7 +249,7 @@ NGL_DLLEXPORT bool isPowerOfTwo (unsigned int _x)
 
 // from http://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2
 
-NGL_DLLEXPORT unsigned int nextPow2(unsigned int _x)
+NGL_DLLEXPORT unsigned int nextPow2(unsigned int _x) noexcept
 {
 	_x -= 1;
 	_x |= _x >> 1;

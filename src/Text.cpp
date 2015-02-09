@@ -34,7 +34,7 @@ namespace ngl
 // OpenGL needs textures to be in powers of two, this function will get the
 // nearest power of two to the current value passed in
 //---------------------------------------------------------------------------
-unsigned int nearestPowerOfTwo ( unsigned int _num )
+unsigned int nearestPowerOfTwo ( unsigned int _num ) noexcept
 {
     unsigned int j, k;
     (j = _num & 0xFFFF0000) || (j = _num);
@@ -47,7 +47,7 @@ unsigned int nearestPowerOfTwo ( unsigned int _num )
 // end citation
 
 //---------------------------------------------------------------------------
-Text::Text( const QFont &_f)
+Text::Text( const QFont &_f) noexcept
 {
 
   // so first we grab the font metric of the font being used
@@ -241,7 +241,7 @@ Text::Text( const QFont &_f)
 
 
 //---------------------------------------------------------------------------
-Text::~Text()
+Text::~Text() noexcept
 {
   // our dtor should clear out the textures and remove the VAO's
   foreach( FontChar m, m_characters)
@@ -256,7 +256,7 @@ Text::~Text()
 
 
 //---------------------------------------------------------------------------
-void Text::renderText( float _x, float _y,  const QString &text ) const
+void Text::renderText( float _x, float _y,  const QString &text ) const noexcept
 {
   // make sure we are in texture unit 0 as this is what the
   // shader expects
@@ -305,7 +305,7 @@ void Text::renderText( float _x, float _y,  const QString &text ) const
 }
 
 //---------------------------------------------------------------------------
-void Text::setScreenSize(int _w, int _h )
+void Text::setScreenSize(int _w, int _h ) noexcept
 {
 
   float scaleX=2.0/_w;
@@ -331,7 +331,7 @@ void Text::setScreenSize(int _w, int _h )
 // fragColour.rgb=textColour.rgb;
 // fragColour.a=text.a;
 
-void Text::setColour(const Colour &_c )
+void Text::setColour(const Colour &_c ) noexcept
 {
   // get shader instance
   ShaderLib *shader=ShaderLib::instance();
@@ -343,7 +343,7 @@ void Text::setColour(const Colour &_c )
 
 
 //---------------------------------------------------------------------------
-void Text::setColour(Real _r,  Real _g, Real _b)
+void Text::setColour(Real _r,  Real _g, Real _b) noexcept
 {
 
   ShaderLib *shader=ShaderLib::instance();
@@ -352,7 +352,7 @@ void Text::setColour(Real _r,  Real _g, Real _b)
   shader->setRegisteredUniform3f("textColour",_r,_g,_b);
 }
 
-void Text::setTransform(float _x, float _y)
+void Text::setTransform(float _x, float _y) noexcept
 {
 
   ShaderLib *shader=ShaderLib::instance();

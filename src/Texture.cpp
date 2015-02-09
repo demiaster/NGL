@@ -27,7 +27,7 @@ namespace ngl
 {
 
 //----------------------------------------------------------------------------------------------------------------------
-bool Texture::loadImage( const std::string &_fName  )
+bool Texture::loadImage( const std::string &_fName) noexcept
 {
  // std::cout<<"NGL loading texture\n";
   QImage *image = new QImage();
@@ -82,7 +82,7 @@ bool Texture::loadImage( const std::string &_fName  )
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Texture::Texture()
+Texture::Texture() noexcept
 {
 	m_width=0;
 	m_height=0;
@@ -92,7 +92,7 @@ Texture::Texture()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Texture::Texture( const std::string &_fName  )
+Texture::Texture( const std::string &_fName) noexcept
 {
 	m_width=0;
 	m_height=0;
@@ -103,13 +103,13 @@ Texture::Texture( const std::string &_fName  )
 
 
 //----------------------------------------------------------------------------------------------------------------------
-Texture::~Texture()
+Texture::~Texture() noexcept
 {
 	// smart pointer clears for us
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-double Texture::getFromXY(	const GLuint _x, const GLuint _y  ) const
+double Texture::getFromXY(	const GLuint _x, const GLuint _y) const noexcept
 {
 // make sure were in the image range
 	NGL_ASSERT(_x<=m_width && _y<=m_height);
@@ -129,7 +129,7 @@ double Texture::getFromXY(	const GLuint _x, const GLuint _y  ) const
 /// Could actually be worth creating a texture manager class at some stage along the lines of the
 /// Shader manager class, or even a generic manager framework which we could then add items to
 
-GLuint Texture::setTextureGL() const
+GLuint Texture::setTextureGL() const noexcept
 {
   GLuint textureName;
   glGenTextures(1,&textureName);
@@ -144,12 +144,12 @@ GLuint Texture::setTextureGL() const
 }
 //----------------------------------------------------------------------------------------------------------------------
 
-void Texture::setMultiTexture( const GLint _id  )
+void Texture::setMultiTexture( const GLint _id) noexcept
 {
  m_multiTextureID=_id;
 }
 
-Colour Texture::getColourFromXY(const GLuint _x,const GLuint _y ) const
+Colour Texture::getColourFromXY(const GLuint _x,const GLuint _y ) const noexcept
 {
 // make sure were in the image range
 	NGL_ASSERT(_x<=m_width && _y<=m_height);
@@ -165,7 +165,7 @@ Colour Texture::getColourFromXY(const GLuint _x,const GLuint _y ) const
 }
 
 
-Colour Texture::getColour(const Real _uvX, const Real _uvY ) const
+Colour Texture::getColour(const Real _uvX, const Real _uvY ) const noexcept
 {
 
   GLuint xx = _uvX * (m_width-1);

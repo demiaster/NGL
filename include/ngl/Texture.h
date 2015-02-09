@@ -47,45 +47,45 @@ public :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Constructor using no parameters
   //----------------------------------------------------------------------------------------------------------------------
-  Texture();
+  Texture() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  destructor will free m_data
   //----------------------------------------------------------------------------------------------------------------------
-  ~Texture();
+  ~Texture() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Constructor passing the file to load
   /// @param[in] &_fName the name of the file to load
   //----------------------------------------------------------------------------------------------------------------------
-  Texture(const std::string  &_fName );
+  Texture(const std::string  &_fName ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method to load the image file into the texture class
   /// @param[in] _fName the name of the file to load
   /// imageMagick will determine if it can load the file
   /// @returns true on success else false if load fails
   //----------------------------------------------------------------------------------------------------------------------
-  bool loadImage( const std::string  &_fName );
+  bool loadImage( const std::string  &_fName ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get the pixel data from x,y cords
   /// @param[in] _x the x position of the pixel
   /// @param[in] _y the y position of the pixel */
   //----------------------------------------------------------------------------------------------------------------------
-  double getFromXY(const GLuint _x, const GLuint _y ) const;
+  double getFromXY(const GLuint _x, const GLuint _y ) const noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief set the image as an OpenGL texture object
   /// @returns the texture object id
   //----------------------------------------------------------------------------------------------------------------------
-  GLuint setTextureGL() const;
+  GLuint setTextureGL() const noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief set the texture object to be different texture in multitexture
   /// @param _id the texture id
   //----------------------------------------------------------------------------------------------------------------------
-  void setMultiTexture(const GLint _id );
+  void setMultiTexture(const GLint _id ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get the colour value from X,Y co-ordinates (image absolute 0,0 = top Left)
   /// @param[in] _x the x position in the image
   /// @param[in] _y the y position in the image
   //----------------------------------------------------------------------------------------------------------------------
-  Colour getColourFromXY(const GLuint _x, const GLuint _y ) const;
+  Colour getColourFromXY(const GLuint _x, const GLuint _y ) const noexcept;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Get the colour information at the uv locations uvX and uvY
@@ -94,17 +94,17 @@ public :
   /// @return The colour at that uv coordinate
   /// @author Luis Pereira
   //----------------------------------------------------------------------------------------------------------------------
-  Colour getColour( const Real _uvX, const Real _uvY  ) const;
+  Colour getColour( const Real _uvX, const Real _uvY  ) const noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Get the width of the texture
   /// @return width of the texture
   //----------------------------------------------------------------------------------------------------------------------
-  inline GLuint getWidth()const {return m_width;}
+  inline GLuint getWidth()const  noexcept{return m_width;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Get the height of the texture
   /// @return height of the texture
   //----------------------------------------------------------------------------------------------------------------------
-  inline GLuint getHeight()const {return m_height;}
+  inline GLuint getHeight()const  noexcept{return m_height;}
 
 protected :
 		//----------------------------------------------------------------------------------------------------------------------
