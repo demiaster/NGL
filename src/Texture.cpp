@@ -86,7 +86,7 @@ Texture::Texture() noexcept
 {
 	m_width=0;
 	m_height=0;
-	m_data.reset(0);
+    m_data.reset(nullptr);
 	m_multiTextureID=0;
 	m_hasAlpha=false;
 }
@@ -96,7 +96,7 @@ Texture::Texture( const std::string &_fName) noexcept
 {
 	m_width=0;
 	m_height=0;
-	m_data.reset(0);
+    m_data.reset(nullptr);
 	m_multiTextureID=0;
 	loadImage(_fName);
 }

@@ -10,7 +10,7 @@ QT += opengl
 QT += core
 QT += gui
 QT -=xml
-
+CONFIG+=c++11
 # use this to remove any marked as deprecated classes from NGL
 DEFINES += REMOVEDDEPRECATED
 # as I want to support 4.8 and 5 this will set a flag for some of the mac stuff
@@ -33,7 +33,10 @@ QMAKE_LFLAGS_SHLIB -= -single_module
 QMAKE_LFLAGS_VERSION=
 QMAKE_LFLAGS_COMPAT_VERSION=
 QMAKE_LFLAGS_SONAME=
-QMAKE_CXXFLAGS+=-std=c++11 -stdlib=libc++
+macx:QMAKE_CXXFLAGS+=-std=c++11 -stdlib=libc++
+linux-clang*:QMAKE_CXXFLAGS+=-std=c++11
+linux-g++*:QMAKE_CXXFLAGS+=-std=c++11
+
 # use this to suppress some warning from boost
 unix:QMAKE_CXXFLAGS_WARN_ON += "-Wno-unused-parameter"
 # define the NGL_DEBUG flag for the graphics lib
