@@ -21,10 +21,10 @@
 /// @brief a simple transformation object containing rot / tx / scale and final matrix
 //----------------------------------------------------------------------------------------------------------------------
 // Library includes
-#include "Mat4.h"
+#include <glm/mat4x4.hpp>
 #include "NGLassert.h"
 #include "Transformation.h"
-#include "Vec4.h"
+#include <glm/vec4.hpp>
 
 namespace ngl
 {
@@ -62,7 +62,7 @@ public:
   /// @brief method to set the scale value in the transform
   /// @param[in] _scale the scale value to set for the transform
   //----------------------------------------------------------------------------------------------------------------------
-  void setScale( const Vec3& _scale ) noexcept;
+  void setScale( const glm::vec3& _scale ) noexcept;
   void setScale( const Vec4& _scale ) noexcept;
 
   //----------------------------------------------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ public:
   /// @brief method to add to the existing the scale value in the transform
   /// @param[in] _scale the scale value to set for the transform
   //----------------------------------------------------------------------------------------------------------------------
-  void addScale( const Vec3& _scale) noexcept;
+  void addScale( const glm::vec3& _scale) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method to add to the existing the scale value in the transform
   /// @param[in] _x x scale value
@@ -93,7 +93,7 @@ public:
   /// @brief method to set the position
   /// @param[in] _position position
   //----------------------------------------------------------------------------------------------------------------------
-  void setPosition( const Vec3& _position) noexcept;
+  void setPosition( const glm::vec3& _position) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method to set the position value in the transform
   /// @param[in] _x x position value
@@ -110,7 +110,7 @@ public:
   /// @brief method add to the existing set the position
   /// @param[in] _position position
   //----------------------------------------------------------------------------------------------------------------------
-  void addPosition( const Vec3& _position) noexcept;
+  void addPosition( const glm::vec3& _position) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method to add to the existing position value in the transform
   /// @param[in] _x x position value
@@ -130,7 +130,7 @@ public:
   /// @note each value is an axis rotation as the values are calculated
   /// mRotationX * mRotationY * mRotationZ;
   //----------------------------------------------------------------------------------------------------------------------
-  void setRotation( const Vec3& _rotation) noexcept;
+  void setRotation( const glm::vec3& _rotation) noexcept;
   void setRotation( const Vec4& _rotation) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method to set the rotation value in the transform
@@ -147,7 +147,7 @@ public:
   /// @note each value is an axis rotation as the values are calculated
   /// mRotationX * mRotationY * mRotationZ;
   //----------------------------------------------------------------------------------------------------------------------
-  void addRotation( const Vec3& _rotation) noexcept;
+  void addRotation( const glm::vec3& _rotation) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method to add to the existing rotation value in the transform
   /// @note each value is an axis rotation as the values are calculated
@@ -165,17 +165,17 @@ public:
   /// @brief function to get the scale
   /// @returns the scale
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 getScale() const noexcept{ return m_scale;  }
+  glm::vec3 getScale() const noexcept{ return m_scale;  }
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief function to get the position
   /// @returns the position
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 getPosition() const  noexcept{ return m_position;  }
+  glm::vec3 getPosition() const  noexcept{ return m_position;  }
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief function to get the rotation
   /// @returns the rotation
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 getRotation() const noexcept{ return m_rotation;  }
+  glm::vec3 getRotation() const noexcept{ return m_rotation;  }
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief function to get the matrix. It computes the matrix if it's dirty
   /// @returns the matrix
@@ -223,15 +223,15 @@ protected :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief position
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 m_position;
+  glm::vec3 m_position;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  scale
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 m_scale;
+  glm::vec3 m_scale;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  rotation
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 m_rotation;
+  glm::vec3 m_rotation;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  boolean defines if the matrix is dirty or not
   //----------------------------------------------------------------------------------------------------------------------

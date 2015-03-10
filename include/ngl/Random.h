@@ -23,8 +23,7 @@
 // must include types.h first for Real and GLEW if required
 #include "Colour.h"
 #include "Singleton.h"
-#include "Vec4.h"
-
+#include <glm/glm.hpp>
 #include <map>
 #include <boost/random.hpp>
 #include <boost/function.hpp>
@@ -75,7 +74,7 @@ class NGL_DLLEXPORT Random : public  Singleton<Random>
 //----------------------------------------------------------------------------------------------------------------------
 friend class Singleton<Random>;
 friend class Colour;
-friend class Vec4;
+friend class glm::glm::vec4;
 
 public :
 
@@ -106,19 +105,19 @@ public :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get a random vector with componets ranged from +/- 1
   //----------------------------------------------------------------------------------------------------------------------
-  Vec4 getRandomVec4() noexcept;
+  glm::vec4 getRandomVec4() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get a random vector with componets ranged from +/- 1 and Normalized
   //----------------------------------------------------------------------------------------------------------------------
-  Vec4 getRandomNormalizedVec4() noexcept;
+  glm::vec4 getRandomNormalizedglm::vec4() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get a random vector with componets ranged from +/- 1
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 getRandomVec3() noexcept;
+  glm::vec3 getRandomVec3() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get a random vector with componets ranged from +/- 1 and Normalized
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 getRandomNormalizedVec3() noexcept;
+  glm::vec3 getRandomNormalizedVec3() noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get a random vector with componets ranged from +/- 1
   //----------------------------------------------------------------------------------------------------------------------
@@ -135,7 +134,7 @@ public :
   /// @param  _zRange the +/-z range
   /// @returns a random point
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 getRandomPoint( Real _xRange=1.0, Real _yRange=1.0, Real _zRange=1.0 ) noexcept;
+  glm::vec3 getRandomPoint( Real _xRange=1.0, Real _yRange=1.0, Real _zRange=1.0 ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief a replacement for the old RandomNumber func
   /// this is basically a convinience function

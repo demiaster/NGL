@@ -28,8 +28,7 @@
 
 // must include types.h first for Real and GLEW if required
 #include "Types.h"
-#include "Vec3.h"
-
+#include <glm/vec3.hpp>
 //----------------------------------------------------------------------------------------------------------------------
 /// @file Plane.h
 /// @brief encapsulates a simple plane
@@ -53,7 +52,7 @@ public :
 	/// @param[in] _v2 the second Point
 	/// @param[in] _v3 the third Point
 	//----------------------------------------------------------------------------------------------------------------------
-	Plane(	const Vec3 &_v1,const Vec3 &_v2,const Vec3 &_v3 ) noexcept;
+	Plane(	const glm::vec3 &_v1,const glm::vec3 &_v2,const glm::vec3 &_v3 ) noexcept;
 
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief default ctor
@@ -69,13 +68,13 @@ public :
 	/// @param[in] _v2 the second point
 	/// @param[in] _v3 the third point
 	//----------------------------------------------------------------------------------------------------------------------
-	void setPoints(const Vec3 &_v1,const Vec3 &_v2,const Vec3 &_v3) noexcept;
+	void setPoints(const glm::vec3 &_v1,const glm::vec3 &_v2,const glm::vec3 &_v3) noexcept;
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief set the plane from a normal and a point
 	/// @param[in] _normal the normal
 	/// @param[in] _point the point
 	//----------------------------------------------------------------------------------------------------------------------
-	void setNormalPoint(const Vec3 &_normal,const Vec3 &_point) noexcept;
+	void setNormalPoint(const glm::vec3 &_normal,const glm::vec3 &_point) noexcept;
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief set the plane from the co-efficients
 	/// @param[in] _a the first co-efficient
@@ -90,19 +89,19 @@ public :
 	/// @param[in] _p the position to check agains
 	/// @returns the distance from point to plane
 	//----------------------------------------------------------------------------------------------------------------------
-	Real distance(const Vec3 &_p) const noexcept;
+	Real distance(const glm::vec3 &_p) const noexcept;
 
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief accesor to get the normal
 	/// @returns the normal
 	//----------------------------------------------------------------------------------------------------------------------
-	inline Vec3 getNormal()const noexcept{return m_normal;}
+	inline glm::vec3 getNormal()const noexcept{return m_normal;}
 
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief accesor to get the point
 	/// @returns the point
 	//----------------------------------------------------------------------------------------------------------------------
-	inline Vec3 getPoint()const  noexcept{return m_point;}
+	inline glm::vec3 getPoint()const  noexcept{return m_point;}
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief accesor to get D
 	/// @returns the m_d
@@ -114,11 +113,11 @@ private :
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief the normal of the plane
 	//----------------------------------------------------------------------------------------------------------------------
-	Vec3 m_normal;
+	glm::vec3 m_normal;
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief the point position of the normal /  plane
 	//----------------------------------------------------------------------------------------------------------------------
-	Vec3 m_point;
+	glm::vec3 m_point;
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief the co-efficient of the plane
 	//----------------------------------------------------------------------------------------------------------------------

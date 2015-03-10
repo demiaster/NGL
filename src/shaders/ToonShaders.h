@@ -4,12 +4,12 @@
 const std::string toonVertexShader =
 R"DELIM(
   #version 150
-  in vec3 inVert;
-  in vec3 inNormal;
+  in glm::vec3 inVert;
+  in glm::vec3 inNormal;
   in vec2 inUV;
   uniform mat4 MVP;
   uniform mat3 normalMatrix;
-  out vec3 normalEyeSpace;
+  out glm::vec3 normalEyeSpace;
   void main()
   {
       normalEyeSpace = normalMatrix * inNormal;
@@ -21,13 +21,13 @@ R"DELIM(
   const std::string toonFragmentShader =
   R"DELIM(
   #version 150
-  in vec3 normalEyeSpace;
+  in glm::vec3 normalEyeSpace;
   out vec4 FragColor;
   uniform vec4 ambient;//=vec4(0.1,0.1,0.1,1.0);
   uniform vec4 Colour;//=vec4(1.0,1.0,1.0,1.0);
   uniform vec4 specular;//=vec4(1.0,1.0,1.0,1.0);
   uniform float shininess;//=20;
-  uniform vec3 lightPos;//=vec3(1,1,1);
+  uniform glm::vec3 lightPos;//=glm::vec3(1,1,1);
 
 
   float stepmix(float edge0, float edge1, float E, float x)
@@ -38,10 +38,10 @@ R"DELIM(
 
   void main()
   {
-      vec3 N = normalize(normalEyeSpace);
-      vec3 L = normalize(lightPos);
-      vec3 Eye = vec3(0, 0, 1);
-      vec3 H = normalize(L + Eye);
+      glm::vec3 N = normalize(normalEyeSpace);
+      glm::vec3 L = normalize(lightPos);
+      glm::vec3 Eye = glm::vec3(0, 0, 1);
+      glm::vec3 H = normalize(L + Eye);
       float df = max(0.0, dot(N, L));
       float sf = max(0.0, dot(N, H));
       sf = pow(sf, shininess);

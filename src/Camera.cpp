@@ -60,11 +60,11 @@ void Camera :: setDefaultCamera() noexcept
   m_fov=45.0f;
 
   setShape(m_fov, m_aspect, m_zNear, m_zFar); // good default values here
-  set(Vec3(5.0, 5.0, 5.0),Vec3( 0.0, 0.0, 0.0),Vec3(0, 1, 0));
+  set(glm::vec3(5.0, 5.0, 5.0),glm::vec3( 0.0, 0.0, 0.0),glm::vec3(0, 1, 0));
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera :: set(const Vec3 &_eye, const Vec3 &_look,  const Vec3 &_up  ) noexcept
+void Camera :: set(const glm::vec3 &_eye, const glm::vec3 &_look,  const glm::vec3 &_up  ) noexcept
 {
 	// make U, V, N vectors
 	m_eye=_eye;
@@ -80,7 +80,7 @@ void Camera :: set(const Vec3 &_eye, const Vec3 &_look,  const Vec3 &_up  ) noex
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Camera::Camera(const Vec3 &_eye, const Vec3 &_look, const Vec3 &_up ) noexcept
+Camera::Camera(const glm::vec3 &_eye, const glm::vec3 &_look, const glm::vec3 &_up ) noexcept
 {
 	setDefaultCamera();
 	set(_eye,_look,_up);
@@ -361,8 +361,8 @@ void Camera::calculateFrustum() noexcept
     Real fh = m_zFar  * tang;
     Real fw = fh * m_aspect;
 
-    Vec3 nc = (m_eye - m_n * m_zNear).toVec3();
-    Vec3 fc = (m_eye - m_n * m_zFar).toVec3();
+    glm::vec3 nc = (m_eye - m_n * m_zNear).toVec3();
+    glm::vec3 fc = (m_eye - m_n * m_zFar).toVec3();
 
     m_ntl = nc + m_v.toVec3() * nh - m_u.toVec3() * nw;
     m_ntr = nc + m_v.toVec3() * nh + m_u.toVec3() * nw;
@@ -383,7 +383,7 @@ void Camera::calculateFrustum() noexcept
 
 void Camera::drawFrustum() noexcept
 {
-  std::vector<Vec3>points;
+  std::vector<glm::vec3>points;
 
   // draw the sides as lines
   points.push_back(m_ntl);
@@ -422,9 +422,9 @@ void Camera::drawFrustum() noexcept
   // bind it so we can set values
   vao->bind();
   // set the vertex data (4 for x,y,z)
-  vao->setData(points.size()*sizeof(Vec3),points[0].m_x);
+  vao->setData(points.size()*sizeof(glm::vec3),points[0].x);
   // now we set the attribute pointer to be 0 (as this matches vertIn in our shader)
-  vao->setVertexAttributePointer(0,3,GL_FLOAT,sizeof(Vec3),0);
+  vao->setVertexAttributePointer(0,3,GL_FLOAT,sizeof(glm::vec3),0);
   // say how many indecis to be rendered
   vao->setNumIndices(points.size());
   vao->draw();
@@ -435,7 +435,7 @@ void Camera::drawFrustum() noexcept
 }
 
 
-CAMERAINTERCEPT Camera::isPointInFrustum( const Vec3 &_p ) const noexcept
+CAMERAINTERCEPT Camera::isPointInFrustum( const glm::vec3 &_p ) const noexcept
 {
 	CAMERAINTERCEPT result = INSIDE;
 	for(int i=0; i < 6; ++i)
@@ -451,7 +451,7 @@ CAMERAINTERCEPT Camera::isPointInFrustum( const Vec3 &_p ) const noexcept
 }
 
 
-CAMERAINTERCEPT Camera::isSphereInFrustum(const Vec3 &_p,  Real _radius ) const noexcept
+CAMERAINTERCEPT Camera::isSphereInFrustum(const glm::vec3 &_p,  Real _radius ) const noexcept
 {
 
 	CAMERAINTERCEPT result = INSIDE;

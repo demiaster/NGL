@@ -80,7 +80,7 @@ void ShaderLib::setRegisteredUniformFromColour(const std::string &_paramName, Co
   (*this)[m_currentShader]->setRegisteredUniform4f(_paramName,_p1.m_r,_p1.m_g,_p1.m_b,_p1.m_a);
 }
 //----------------------------------------------------------------------------------------------------------------------
-void ShaderLib::setRegisteredUniformVec3(const std::string &_paramName,Vec3 _p1) noexcept
+void ShaderLib::setRegisteredUniformVec3(const std::string &_paramName,glm::vec3 _p1) noexcept
 {
   (*this)[m_currentShader]->setRegisteredUniform3f(_paramName,_p1.m_x,_p1.m_y,_p1.m_z);
 }
@@ -759,11 +759,11 @@ void ShaderLib::setRegisteredUniform(const std::string &_paramName,Vec2 _v0) noe
 {
   (*this)[m_currentShader]->setRegisteredUniform2f(_paramName.c_str(),_v0.m_x,_v0.m_y);
 }
-void ShaderLib::setUniform(const std::string &_paramName,Vec3 _v0) noexcept
+void ShaderLib::setUniform(const std::string &_paramName,glm::vec3 _v0) noexcept
 {
   (*this)[m_currentShader]->setUniform3f(_paramName.c_str(),_v0.m_x,_v0.m_y,_v0.m_z);
 }
-void ShaderLib::setRegisteredUniform(const std::string &_paramName,Vec3 _v0) noexcept
+void ShaderLib::setRegisteredUniform(const std::string &_paramName,glm::vec3 _v0) noexcept
 {
   (*this)[m_currentShader]->setRegisteredUniform3f(_paramName.c_str(),_v0.m_x,_v0.m_y,_v0.m_z);
 }

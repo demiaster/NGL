@@ -26,7 +26,7 @@
 #include "BBox.h"
 #include "RibExport.h"
 #include "Texture.h"
-#include "Vec4.h"
+#include <glm/vec4.hpp>
 #include <string>
 #include <vector>
 //#include <boost/tokenizer.hpp>

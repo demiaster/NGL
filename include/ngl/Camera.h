@@ -20,9 +20,8 @@
 /// @brief a simple camera class based on the Hill Book
 // must include types.h first for Real and GLEW if required
 #include "Types.h"
-#include "Vec4.h"
-#include "Vec3.h"
-#include "Mat4.h"
+#include <glm/glm.hpp>
+
 #include <cmath>
 #include "RibExport.h"
 #include "Plane.h"
@@ -66,7 +65,7 @@ public :
   /// @param[in] _look where the camera is  looking
   /// @param[in] _up the notion of upwardness for the  camers (get re-calculated from the other vectors)
   //----------------------------------------------------------------------------------------------------------------------
-  Camera( const Vec3& _eye, const Vec3& _look,const Vec3& _up) noexcept;
+  Camera( const glm::vec3& _eye, const glm::vec3& _look,const glm::vec3& _up) noexcept;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief roll the cameara around the  Z axis
@@ -98,7 +97,7 @@ public :
   /// @param[in] _look the new look position
   /// @param[in] _up the notional up direction of the Camera
   //----------------------------------------------------------------------------------------------------------------------
-  void set( const Vec3 &_eye, const Vec3 &_look, const Vec3 &_up ) noexcept;
+  void set( const glm::vec3 &_eye, const glm::vec3 &_look, const glm::vec3 &_up ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief set the shape of the Camera
   /// @param[in] _viewAngle the view angle  of the camera from the eye
@@ -189,58 +188,58 @@ public :
   /// @brief accesor to get the view matrix
   /// @returns the current view matrix
   //----------------------------------------------------------------------------------------------------------------------
-  inline const Mat4 & getViewMatrix() noexcept{return m_viewMatrix;}
+  inline const glm::mat4 & getViewMatrix() noexcept{return m_viewMatrix;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief accesor to get the projection matrix
   /// @returns the current projection matrix
   //----------------------------------------------------------------------------------------------------------------------
-  inline const Mat4 & getProjectionMatrix() noexcept{return m_projectionMatrix;}
+  inline const glm::mat4 & getProjectionMatrix() noexcept{return m_projectionMatrix;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get the View * Projection matrix used as part of the MVP calculations
   /// @returns the m_projectionMatrix*m_viewMatrix
   //----------------------------------------------------------------------------------------------------------------------
-  inline Mat4  getVPMatrix()const  noexcept{return m_viewMatrix*m_projectionMatrix;}
+  inline glm::mat4  getVPMatrix()const  noexcept{return m_viewMatrix*m_projectionMatrix;}
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get the eye position
   /// @returns the current eye pos
   //----------------------------------------------------------------------------------------------------------------------
-  inline Vec4  getEye() const noexcept{return m_eye;}
+  inline glm::vec4  getEye() const noexcept{return m_eye;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief set the eye position and re-calculate the matrices
   //----------------------------------------------------------------------------------------------------------------------
-  inline void setEye(Vec4 _e) noexcept{m_eye=_e; update();}
+  inline void setEye(glm::vec4 _e) noexcept{m_eye=_e; update();}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief set the look position and re-calculate the matrices
   //----------------------------------------------------------------------------------------------------------------------
-  inline void setLook(Vec4 _e) noexcept{m_look=_e; update();}
+  inline void setLook(glm::vec4 _e) noexcept{m_look=_e; update();}
   //----------------------------------------------------------------------------------------------------------------------
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get the look position
   /// @returns the current look pos
   //----------------------------------------------------------------------------------------------------------------------
-  inline Vec4  getLook() const noexcept{return m_look;}
+  inline glm::vec4  getLook() const noexcept{return m_look;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get the up vector
   /// @returns the current up vector
   //----------------------------------------------------------------------------------------------------------------------
-  inline Vec4  getUp() const noexcept{return m_up;}
+  inline glm::vec4  getUp() const noexcept{return m_up;}
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get the u vector
   /// @returns the current u vector
   //----------------------------------------------------------------------------------------------------------------------
-  inline Vec4  getU() const noexcept{return m_u;}
+  inline glm::vec4  getU() const noexcept{return m_u;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get the v vector
   /// @returns the current v vector
   //----------------------------------------------------------------------------------------------------------------------
-  inline Vec4  getV()const  noexcept{return m_v;}
+  inline glm::vec4  getV()const  noexcept{return m_v;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get the n vector
   /// @returns the current n vector
   //----------------------------------------------------------------------------------------------------------------------
-  inline Vec4  getN() const  noexcept{return m_n;}
+  inline glm::vec4  getN() const  noexcept{return m_n;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief get the fov value
   /// @returns the current fov value
@@ -277,14 +276,14 @@ public :
   /// @param _p the point to check
   /// @returns the result of the test (inside outside intercept)
   //----------------------------------------------------------------------------------------------------------------------
-  CAMERAINTERCEPT isPointInFrustum(const Vec3 &_p ) const noexcept;
+  CAMERAINTERCEPT isPointInFrustum(const glm::vec3 &_p ) const noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief check to see if the sphere passed in is within the frustum
   /// @param[in] _p the center of the sphere
   /// @param[in] _radius the radius of the sphere
   /// @returns the result of the test (inside outside intercept)
   //----------------------------------------------------------------------------------------------------------------------
-  CAMERAINTERCEPT isSphereInFrustum(const Vec3 &_p, Real _radius  ) const noexcept;
+  CAMERAINTERCEPT isSphereInFrustum(const glm::vec3 &_p, Real _radius  ) const noexcept;
 
 protected :
 
@@ -298,7 +297,7 @@ protected :
   /// @param[in,out] io_b the second vector to be rotated
   /// @param[in] _angle the angle to rotate
   //----------------------------------------------------------------------------------------------------------------------
-  void rotAxes(Vec4& io_a, Vec4& io_b, const Real _angle ) noexcept;
+  void rotAxes(glm::vec4& io_a, glm::vec4& io_b, const Real _angle ) noexcept;
 
 
 protected :
@@ -306,27 +305,27 @@ protected :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief vector for the  Camera local cord frame
   //----------------------------------------------------------------------------------------------------------------------
-  Vec4 m_u;
+  glm::vec4 m_u;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief vector for the  Camera local cord frame
   //----------------------------------------------------------------------------------------------------------------------
-  Vec4 m_v;
+  glm::vec4 m_v;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief vector for the  Camera local cord frame
   //----------------------------------------------------------------------------------------------------------------------
-  Vec4 m_n;
+  glm::vec4 m_n;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  the position of the Camera  used to calculate the local cord frame
   //----------------------------------------------------------------------------------------------------------------------
-  Vec4 m_eye;
+  glm::vec4 m_eye;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  where the camera is looking to,  used with Eye to calculate the Vector m_n
   //----------------------------------------------------------------------------------------------------------------------
-  Vec4 m_look;
+  glm::vec4 m_look;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  gives a general indication of which way up the camera is
   //----------------------------------------------------------------------------------------------------------------------
-  Vec4 m_up;
+  glm::vec4 m_up;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  the width of the display image used for some perspective projection calculations
   //----------------------------------------------------------------------------------------------------------------------
@@ -354,7 +353,7 @@ protected :
   //----------------------------------------------------------------------------------------------------------------------
   ///  @brief a Matrix to hold  the combined modelling and viewing matrix to load into OpenGL
   //----------------------------------------------------------------------------------------------------------------------
-  Mat4 m_viewMatrix;
+  glm::mat4 m_viewMatrix;
   //----------------------------------------------------------------------------------------------------------------------
   ///  @brief array of planes for fustrum
   //----------------------------------------------------------------------------------------------------------------------
@@ -363,11 +362,11 @@ protected :
   ///  @brief index values for the planes array
   //----------------------------------------------------------------------------------------------------------------------
   enum  PROJPLANE { TOP = 0,BOTTOM,LEFT,RIGHT,NEARP,FARP};
-  Vec3 m_ntl,m_ntr,m_nbl,m_nbr,m_ftl,m_ftr,m_fbl,m_fbr;
+  glm::vec3 m_ntl,m_ntr,m_nbl,m_nbr,m_ftl,m_ftr,m_fbl,m_fbr;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Projection a Matrix to hold the perspective transfomatio matrix for the camera
   //----------------------------------------------------------------------------------------------------------------------
-  Mat4 m_projectionMatrix;
+  glm::mat4 m_projectionMatrix;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method to set the modelview matrix values for the current  camera, this method load the matrix Modelview into OpenGL
   //----------------------------------------------------------------------------------------------------------------------

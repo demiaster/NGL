@@ -302,16 +302,16 @@ namespace ngl
 
 
 
-  void XMLSerializer::read(Vec3 &_s) noexcept
+  void XMLSerializer::read(glm::vec3 &_s) noexcept
   {
 
   }
 
-  void XMLSerializer::write(const Vec3 &_s, std::string _tag) noexcept
+  void XMLSerializer::write(const glm::vec3 &_s, std::string _tag) noexcept
   {
     writeToXML(boost::str( boost::format(" %f %f %f ") % _s.m_x % _s.m_y % _s.m_z ),_tag);
   }
-  void XMLSerializer::write(const Vec3 &_s,rapidxml::xml_node<> *_parent, std::string _tag) noexcept
+  void XMLSerializer::write(const glm::vec3 &_s,rapidxml::xml_node<> *_parent, std::string _tag) noexcept
   {
 
     writeToXML(boost::str( boost::format(" %f %f %f ") % _s.m_x % _s.m_y % _s.m_z  ),_parent,_tag);
@@ -320,7 +320,7 @@ namespace ngl
   void XMLSerializer::read(Vec4 &_s) noexcept
   {
     //  if(_doc->tokenType() != QXmlStreamReader::StartElement &&
-    //     _doc->name() == "Vec3")
+    //     _doc->name() == "glm::vec3")
     //  {
     //    std::cerr<<"error with token type for xml parse\n";
     //  }

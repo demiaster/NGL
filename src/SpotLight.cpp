@@ -27,7 +27,7 @@ namespace ngl
 {
 
 //----------------------------------------------------------------------------------------------------------------------
-SpotLight::SpotLight(const Vec3& _pos, const Vec3& _aim, const Colour& _col  )  noexcept:
+SpotLight::SpotLight(const glm::vec3& _pos, const glm::vec3& _aim, const Colour& _col  )  noexcept:
             Light( _pos, _col,SPOTLIGHT )
 {
   // set up m_direction and default values
@@ -59,7 +59,7 @@ SpotLight::SpotLight(const SpotLight &_l)  noexcept: Light(_l)
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void SpotLight::set(const Vec3 &_pos, const Vec3 &_dir,const Colour& _col ) noexcept
+void SpotLight::set(const glm::vec3 &_pos, const glm::vec3 &_dir,const Colour& _col ) noexcept
 {
   // set up m_direction and default values
   m_dir = _dir;
@@ -126,7 +126,7 @@ void SpotLight::loadToShader( std::string _uniformName)const noexcept
   /// struct Lights
   /// {
   ///   vec4 position;
-  ///   vec3 direction;
+  ///   glm::vec3 direction;
   ///   vec4 ambient;
   ///   vec4 diffuse;
   ///   vec4 specular;

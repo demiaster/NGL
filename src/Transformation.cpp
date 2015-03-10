@@ -26,9 +26,9 @@ namespace ngl
 // Constructor -------------------------------------------------------------------------------------------------------------------
 Transformation::Transformation() noexcept
 {
-  m_position = Vec3(0.0f,0.0f,0.0f);
-  m_scale = Vec3(1.0f,1.0f,1.0f);
-  m_rotation = Vec3(0.0f,0.0f,0.0f);
+  m_position = glm::vec3(0.0f,0.0f,0.0f);
+  m_scale = glm::vec3(1.0f,1.0f,1.0f);
+  m_rotation = glm::vec3(0.0f,0.0f,0.0f);
   m_isMatrixComputed = false;
   m_matrix=1.0f;
   m_transposeMatrix=1.0f;
@@ -76,7 +76,7 @@ void Transformation::setMatrix( const Mat4 &_m) noexcept
 }
 
 // Set scale ---------------------------------------------------------------------------------------------------------------------
-void Transformation::setScale( const Vec3& _scale) noexcept
+void Transformation::setScale( const glm::vec3& _scale) noexcept
 {
   m_scale = _scale;
   m_isMatrixComputed = false;
@@ -95,7 +95,7 @@ void Transformation::setScale(Real _x, Real _y, Real _z) noexcept
 }
 
 // add scale ---------------------------------------------------------------------------------------------------------------------
-void Transformation::addScale( const Vec3& _scale ) noexcept
+void Transformation::addScale( const glm::vec3& _scale ) noexcept
 {
   m_scale += _scale;
   m_isMatrixComputed = false;
@@ -117,7 +117,7 @@ void Transformation::setPosition(const Vec4 &_position) noexcept
   m_position = _position;
   m_isMatrixComputed = false;
 }
-void Transformation::setPosition(const Vec3 &_position) noexcept
+void Transformation::setPosition(const glm::vec3 &_position) noexcept
 {
   m_position = _position;
   m_isMatrixComputed = false;
@@ -129,7 +129,7 @@ void Transformation::setPosition(Real _x, Real _y, Real _z) noexcept
 }
 
 // Set position --------------------------------------------------------------------------------------------------------------------
-void Transformation::addPosition( const Vec3& _position) noexcept
+void Transformation::addPosition( const glm::vec3& _position) noexcept
 {
   m_position+= _position;
   m_isMatrixComputed = false;
@@ -145,7 +145,7 @@ void Transformation::addPosition( Real _x, Real _y, Real _z) noexcept
 
 
 // set rotation -------------------------------------------------------------------------------------------------------------------
-void Transformation::setRotation( const Vec3 &_rotation) noexcept
+void Transformation::setRotation( const glm::vec3 &_rotation) noexcept
 {
   m_rotation = _rotation;
   m_isMatrixComputed = false;
@@ -166,7 +166,7 @@ void Transformation::setRotation(Real _x, Real _y,  Real _z) noexcept
 
 
 // set rotation -------------------------------------------------------------------------------------------------------------------
-void Transformation::addRotation(const Vec3 &_rotation) noexcept
+void Transformation::addRotation(const glm::vec3 &_rotation) noexcept
 {
   m_rotation+= _rotation;
   m_isMatrixComputed = false;
@@ -183,9 +183,9 @@ void Transformation::addRotation(Real _x, Real _y, Real _z) noexcept
 // reset matrix ---------------------------------------------------------------------------------------------------------------------
 void Transformation::reset() noexcept
 {
-  m_position = Vec3(0.0f,0.0f,0.0f);
-  m_scale = Vec3(1.0f,1.0f,1.0f);
-  m_rotation = Vec3(0.0f,0.0f,0.0f);
+  m_position = glm::vec3(0.0f,0.0f,0.0f);
+  m_scale = glm::vec3(1.0f,1.0f,1.0f);
+  m_rotation = glm::vec3(0.0f,0.0f,0.0f);
   m_isMatrixComputed = false;
   computeMatrices();
 }

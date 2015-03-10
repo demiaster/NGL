@@ -20,7 +20,7 @@
 /// @brief basic BezierCurve using CoxDeBoor algorithm
 // must include types.h first for Real and GLEW if required
 #include "Types.h"
-#include "Vec3.h"
+#include <glm/vec3.hpp>
 #include <vector>
 #include "VertexArrayObject.h"
 
@@ -55,7 +55,7 @@ public :
 	///  @param[in] _k and array of knot values
 	///  @param[in] _nKnots the size of the knot array
 	//----------------------------------------------------------------------------------------------------------------------
-	BezierCurve(const Vec3 *_p,int _nPoints,const Real  *_k,int _nKnots ) noexcept;
+    BezierCurve(const glm::vec3 *_p,int _nPoints,const Real  *_k,int _nKnots ) noexcept;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief ctor passing in an array of points, note the knot vector will be automatically
@@ -92,13 +92,13 @@ public :
   /// @param[in] _value the point to evaluate between 0 and 1
   /// @returns the value of the point at t
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 getPointOnCurve(  Real _value) const noexcept;
+  glm::vec3 getPointOnCurve(  Real _value) const noexcept;
 
 	 //----------------------------------------------------------------------------------------------------------------------
 	/// @brief add a control point to the Curve
 	/// @param[in] &_p the point to add
 	//----------------------------------------------------------------------------------------------------------------------
-	void addPoint( const Vec3 &_p ) noexcept;
+    void addPoint( const glm::vec3 &_p ) noexcept;
 
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief add a point to the curve using x,y,z values
@@ -168,7 +168,7 @@ protected :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  the contol points for the curve
   //----------------------------------------------------------------------------------------------------------------------
-  std::vector <Vec3> m_cp;
+  std::vector <glm::vec3> m_cp;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  the knot vector for the curve
   //----------------------------------------------------------------------------------------------------------------------

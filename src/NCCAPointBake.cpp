@@ -191,7 +191,7 @@ bool NCCAPointBake::loadBinaryPointBake( const std::string &_fileName) noexcept
     m_data[frame].resize(m_nVerts);
     for(unsigned int v=0; v< m_nVerts; ++v)
     {
-     file.read( reinterpret_cast <char *>(&m_data[frame][v].m_x),sizeof(Real));
+     file.read( reinterpret_cast <char *>(&m_data[frame][v].x),sizeof(Real));
      file.read( reinterpret_cast <char *>(&m_data[frame][v].m_y),sizeof(Real));
      file.read( reinterpret_cast <char *>(&m_data[frame][v].m_z),sizeof(Real));
    }
@@ -232,7 +232,7 @@ bool NCCAPointBake::saveBinaryPointBake( const std::string &_fileName) noexcept
     {
       for(unsigned int v=0; v< m_nVerts; ++v)
       {
-       file.write( reinterpret_cast <char *>(&m_data[frame][v].m_x),sizeof(Real));
+       file.write( reinterpret_cast <char *>(&m_data[frame][v].x),sizeof(Real));
        file.write( reinterpret_cast <char *>(&m_data[frame][v].m_y),sizeof(Real));
        file.write( reinterpret_cast <char *>(&m_data[frame][v].m_z),sizeof(Real));
      }
@@ -260,7 +260,7 @@ void NCCAPointBake::setMeshToFrame(  const unsigned int _frame) noexcept
 
       for(int j=0;j<3;++j)
       {
-        ptr[step+5]=m_data[_frame][faces[i].m_vert[j]].m_x;
+        ptr[step+5]=m_data[_frame][faces[i].m_vert[j]].x;
         ptr[step+6]=m_data[_frame][faces[i].m_vert[j]].m_y;
         ptr[step+7]=m_data[_frame][faces[i].m_vert[j]].m_z;
         step+=8;
@@ -297,7 +297,7 @@ bool NCCAPointBake::attachMesh(AbstractMesh *_mesh) noexcept
 
 
 //----------------------------------------------------------------------------------------------------------------------
-std::vector<Vec3> & NCCAPointBake::getRawDataPointerAtFrame(unsigned int _f) noexcept
+std::vector<glm::vec3> & NCCAPointBake::getRawDataPointerAtFrame(unsigned int _f) noexcept
 {
 	NGL_ASSERT(_f<=m_numFrames);
 	return m_data[_f];

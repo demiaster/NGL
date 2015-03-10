@@ -25,10 +25,7 @@
 #include "ShaderProgram.h"
 #include "Singleton.h"
 #include "Types.h"
-#include "Mat3.h"
-#include "Mat4.h"
-#include "Vec4.h"
-
+#include <glm/glm.hpp>
 #include <string>
 #include <map>
 
@@ -175,14 +172,14 @@ public :
   /// @param[in] _paramName the name of the parameter in the shader to set
   /// @param[in] _p1 the matrix to set from (float 16) value of the parameter to set
   //----------------------------------------------------------------------------------------------------------------------
-  void setShaderParamFromMat4(const std::string &_paramName, Mat4 _p1 ) noexcept;
+  void setShaderParamFromMat4(const std::string &_paramName, glm::mat4 _p1 ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief set a shader param by name for 1 int param note that the shader
   /// must be the currently active shader of else this will fail
   /// @param[in] _registeredUniformName the name of the registered uniform in the shader to set
   /// @param[in] _p1 the matrix to set from (float 16) value of the parameter to set
   //----------------------------------------------------------------------------------------------------------------------
-  void setRegisteredUniformFromMat4(const std::string &_registeredUniformName, Mat4 _p1  ) noexcept;
+  void setRegisteredUniformFromMat4(const std::string &_registeredUniformName, glm::mat4 _p1  ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief set a shader param by name for 1 int param note that the shader
   /// must be the currently active shader of else this will fail
@@ -230,7 +227,7 @@ public :
   /// @param[in] _paramName the name of the parameter in the shader to set
   /// @param[in] _p1 the vector to set from
   //----------------------------------------------------------------------------------------------------------------------
-  void setRegisteredUniformVec3( const std::string &_paramName, Vec3 _p1 ) noexcept;
+  void setRegisteredUniformVec3( const std::string &_paramName, glm::vec3 _p1 ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief set the pre-registered uniform from a Vector
   /// @param[in] _paramName the name of the parameter in the shader to set
@@ -535,7 +532,7 @@ public :
   /// @brief overloaded method to set shader Uniforms the shader
   /// must be the currently active shader of else this will fail
   /// @param[in] _paramName the name of the Uniform to set
-  /// @param[in] _v0 the Vec3 value of the parameter to set
+  /// @param[in] _v0 the glm::vec3 value of the parameter to set
   //----------------------------------------------------------------------------------------------------------------------
   void setUniform(const std::string &_paramName,Vec2 _v0) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
@@ -550,17 +547,17 @@ public :
   /// @brief overloaded method to set shader Uniforms the shader
   /// must be the currently active shader of else this will fail
   /// @param[in] _paramName the name of the Uniform to set
-  /// @param[in] _v0 the Vec3 value of the parameter to set
+  /// @param[in] _v0 the glm::vec3 value of the parameter to set
   //----------------------------------------------------------------------------------------------------------------------
-  void setUniform(const std::string &_paramName,Vec3 _v0) noexcept;
+  void setUniform(const std::string &_paramName,glm::vec3 _v0) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief overloaded method to set shader Uniforms that have been pre-registered
   /// using auto-register uniforms method
   /// must be the currently active shader of else this will fail
   /// @param[in] _paramName the name of the Uniform to set
-  /// @param[in] _v0 the Vec3 value of the parameter to set
+  /// @param[in] _v0 the glm::vec3 value of the parameter to set
   //----------------------------------------------------------------------------------------------------------------------
-  void setRegisteredUniform(const std::string &_paramName,Vec3 _v0) noexcept;
+  void setRegisteredUniform(const std::string &_paramName,glm::vec3 _v0) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief overloaded method to set shader Uniforms the shader
   /// must be the currently active shader of else this will fail
@@ -595,17 +592,17 @@ public :
   /// @brief overloaded method to set shader Uniforms the shader
   /// must be the currently active shader of else this will fail
   /// @param[in] _paramName the name of the Uniform to set
-  /// @param[in] _v0 the Mat4 value of the parameter to set
+  /// @param[in] _v0 the glm::Mat4 value of the parameter to set
   //----------------------------------------------------------------------------------------------------------------------
-  void setUniform(const std::string &_paramName,Mat4 _v0) noexcept;
+  void setUniform(const std::string &_paramName,glm::Mat4 _v0) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief overloaded method to set shader Uniforms that have been pre-registered
   /// using auto-register uniforms method
   /// must be the currently active shader of else this will fail
   /// @param[in] _paramName the name of the Uniform to set
-  /// @param[in] _v0 the Mat4 value of the parameter to set
+  /// @param[in] _v0 the glm::Mat4 value of the parameter to set
   //----------------------------------------------------------------------------------------------------------------------
-  void setRegisteredUniform(const std::string &_paramName,Mat4 _v0) noexcept;
+  void setRegisteredUniform(const std::string &_paramName,glm::Mat4 _v0) noexcept;
 
 
 protected:

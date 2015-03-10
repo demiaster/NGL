@@ -18,7 +18,10 @@
 #define UTIL_H__
 // must include types.h first for Real and GLEW if required
 #include "Types.h"
-#include "Vec4.h"
+#include <glm/vec4.hpp>
+#include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp>
+
 #include <cmath>
 #include <string>
 //----------------------------------------------------------------------------------------------------------------------
@@ -57,7 +60,7 @@ const static Real PI4=Real(M_PI/4.0); //0.785398163397448309615     //45
 /// @param[in]  _p3 the third point
 /// @returns  the normal of the 3 points
 //----------------------------------------------------------------------------------------------------------------------
-extern NGL_DLLEXPORT Vec3 calcNormal( const Vec4 &_p1, const Vec4 &_p2,   const Vec4 &_p3   ) noexcept;
+extern NGL_DLLEXPORT glm::vec3 calcNormal( const glm::vec4 &_p1, const glm::vec4 &_p2,   const glm::vec4 &_p3   ) noexcept;
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief calculates the normal from 3 points and return the new normal as a Vector
 /// @param[in]  _p1 the first point
@@ -65,7 +68,7 @@ extern NGL_DLLEXPORT Vec3 calcNormal( const Vec4 &_p1, const Vec4 &_p2,   const 
 /// @param[in]  _p3 the third point
 /// @returns  the normal of the 3 points
 //----------------------------------------------------------------------------------------------------------------------
-extern NGL_DLLEXPORT Vec3 calcNormal( const Vec3 &_p1,  const Vec3 &_p2, const Vec3 &_p3  ) noexcept;
+extern NGL_DLLEXPORT glm::vec3 calcNormal( const glm::vec3 &_p1,  const glm::vec3 &_p2, const glm::vec3 &_p3  ) noexcept;
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief computer a perspective projection matrix similar to the one from the GLM library
 /// this is to help make prorting glm code easier http://glm.g-truc.net/
@@ -75,7 +78,7 @@ extern NGL_DLLEXPORT Vec3 calcNormal( const Vec3 &_p1,  const Vec3 &_p2, const V
 /// @param[in] _zFar the far plane for the projection
 //----------------------------------------------------------------------------------------------------------------------
 
-NGL_DLLEXPORT  Mat4 perspective(Real _fovy,Real  _aspect, Real   _zNear, Real   _zFar) noexcept;
+NGL_DLLEXPORT  glm::mat4 perspective(Real _fovy,Real  _aspect, Real   _zNear, Real   _zFar) noexcept;
 
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief computer a perspective projection matrix similar to the one from the GLM library
@@ -86,7 +89,7 @@ NGL_DLLEXPORT  Mat4 perspective(Real _fovy,Real  _aspect, Real   _zNear, Real   
 /// @param[in] _zNear the near plane for projection
 /// @param[in] _zFar the far plane for the projection
 //----------------------------------------------------------------------------------------------------------------------
-NGL_DLLEXPORT Mat4 perspectiveFov(Real const & _fov, Real const & _width, Real const & _height, Real const & _zNear, Real const & _zFar) noexcept;
+NGL_DLLEXPORT glm::mat4 perspectiveFov(Real const & _fov, Real const & _width, Real const & _height, Real const & _zNear, Real const & _zFar) noexcept;
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief computer a perspective projection matrix similar to the one from the GLM library
 /// this is to help make prorting glm code easier http://glm.g-truc.net/
@@ -94,7 +97,7 @@ NGL_DLLEXPORT Mat4 perspectiveFov(Real const & _fov, Real const & _width, Real c
 /// @param[in] _aspect the aspect ratio of the screen
 /// @param[in] _zNear the near plane for projection
 //----------------------------------------------------------------------------------------------------------------------
-NGL_DLLEXPORT Mat4 infinitePerspective(Real _fovy, Real _aspect, Real _zNear) noexcept;
+NGL_DLLEXPORT glm::mat4 infinitePerspective(Real _fovy, Real _aspect, Real _zNear) noexcept;
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -104,7 +107,7 @@ NGL_DLLEXPORT Mat4 infinitePerspective(Real _fovy, Real _aspect, Real _zNear) no
 /// @param[in] _center where we are looking at
 /// @param[in] _up the nominal up direction of the camera
 //----------------------------------------------------------------------------------------------------------------------
-NGL_DLLEXPORT Mat4 lookAt(const Vec3  & _eye,const Vec3  & _center,const Vec3  & _up) noexcept;
+NGL_DLLEXPORT glm::mat4 lookAt(const glm::vec3  & _eye,const glm::vec3  & _center,const glm::vec3  & _up) noexcept;
 
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief calculate an ortho graphic projection at matrix similar to the one from the GLM library
@@ -116,7 +119,7 @@ NGL_DLLEXPORT Mat4 lookAt(const Vec3  & _eye,const Vec3  & _center,const Vec3  &
 /// @param[in] _zNear the near plane for projection
 /// @param[in] _zFar the far plane for the projection
 //----------------------------------------------------------------------------------------------------------------------
-NGL_DLLEXPORT Mat4 ortho(Real _left, Real _right, Real _bottom, Real _top, Real _zNear, Real _zFar) noexcept;
+NGL_DLLEXPORT glm::mat4 ortho(Real _left, Real _right, Real _bottom, Real _top, Real _zNear, Real _zFar) noexcept;
 
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief calculate an ortho graphic projection at matrix similar to the one from the GLM library
@@ -126,7 +129,7 @@ NGL_DLLEXPORT Mat4 ortho(Real _left, Real _right, Real _bottom, Real _top, Real 
 /// @param[in]  _bottom the bottom most value of the projection
 /// @param[in]  _top the top most value of the projection
 //----------------------------------------------------------------------------------------------------------------------
-NGL_DLLEXPORT Mat4 ortho(Real _left, Real _right, Real _bottom, Real _top) noexcept;
+NGL_DLLEXPORT glm::mat4 ortho(Real _left, Real _right, Real _bottom, Real _top) noexcept;
 
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief calculate frustum  matrix similar to the one from the GLM library
@@ -138,7 +141,7 @@ NGL_DLLEXPORT Mat4 ortho(Real _left, Real _right, Real _bottom, Real _top) noexc
 /// @param[in] _zNear the near plane for projection
 /// @param[in] _zFar the far plane for the projection
 //----------------------------------------------------------------------------------------------------------------------
-NGL_DLLEXPORT Mat4 frustum(Real _left, Real _right, Real _bottom, Real _top, Real _nearVal, Real _farVal) noexcept;
+NGL_DLLEXPORT glm::mat4 frustum(Real _left, Real _right, Real _bottom, Real _top, Real _nearVal, Real _farVal) noexcept;
 
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief converts Degrees to Radians

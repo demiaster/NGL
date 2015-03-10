@@ -201,16 +201,16 @@ public :
   void write(const Vec2 &_s,rapidxml::xml_node<> *_parent,std::string _tag)  noexcept;
 
   //----------------------------------------------------------------------------------------------------------------------
-  /// @brief read from an Vec3 must be overriden in child
+  /// @brief read from an glm::vec3 must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(Vec3 &_s) noexcept;
+  virtual void read(glm::vec3 &_s) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
-  /// @brief write from an Vec3 must be overriden in child
+  /// @brief write from an glm::vec3 must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const Vec3 &_s, std::string _tag="Vec3") noexcept;
-  void write(const Vec3 &_s,rapidxml::xml_node<> *_parent,std::string _tag) noexcept ;
+  virtual void write(const glm::vec3 &_s, std::string _tag="glm::vec3") noexcept;
+  void write(const glm::vec3 &_s,rapidxml::xml_node<> *_parent,std::string _tag) noexcept ;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an Vec4 must be overriden in child

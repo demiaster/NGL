@@ -62,7 +62,7 @@ BezierCurve::BezierCurve( Real const *_p,  unsigned int _nPoints  ) noexcept
 {
 	for(unsigned int i=0; i<_nPoints; i+=3)
 	{
-		m_cp.push_back(Vec3(_p[i],_p[i+1],_p[i+2]));
+        m_cp.push_back(glm::vec3(_p[i],_p[i+1],_p[i+2]));
 	}
 	m_numCP=_nPoints/3;
 	m_degree=_nPoints/3;
@@ -76,7 +76,7 @@ BezierCurve::BezierCurve( Real const *_p,  unsigned int _nPoints  ) noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-BezierCurve::BezierCurve(const Vec3 *_p, int _nPoints, Real const *_k, int _nKnots  ) noexcept
+BezierCurve::BezierCurve(const glm::vec3 *_p, int _nPoints, Real const *_k, int _nKnots  ) noexcept
 {
 	m_numCP=_nPoints;
 	m_degree=_nPoints;
@@ -85,7 +85,7 @@ BezierCurve::BezierCurve(const Vec3 *_p, int _nPoints, Real const *_k, int _nKno
 	m_lod=20;
 	for(int i=0; i<m_numCP; ++i)
 	{
-		m_cp.push_back(Vec3(_p[i]));
+        m_cp.push_back(glm::vec3(_p[i]));
 	}
 	for( int i=0; i<_nKnots; ++i)
 	{
@@ -164,9 +164,9 @@ m_vaoCurve->unbind();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Vec3 BezierCurve::getPointOnCurve( Real _value  ) const noexcept
+glm::vec3 BezierCurve::getPointOnCurve( Real _value  ) const noexcept
 {
-	Vec3 p;
+   glm::vec3 p;
 
 	// sum the effect of all CV's on the curve at this point to
 	// get the evaluated curve point
@@ -190,7 +190,7 @@ Vec3 BezierCurve::getPointOnCurve( Real _value  ) const noexcept
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void BezierCurve::addPoint( const Vec3 &_p    ) noexcept
+void BezierCurve::addPoint( const glm::vec3 &_p    ) noexcept
 {
 	m_cp.push_back(_p);
 	++m_numCP;
@@ -205,7 +205,7 @@ void BezierCurve::addPoint( const Vec3 &_p    ) noexcept
 //----------------------------------------------------------------------------------------------------------------------
 void BezierCurve::addPoint( Real _x,  Real _y, Real _z  ) noexcept
 {
-	m_cp.push_back(Vec3(_x,_y,_z));
+    m_cp.push_back(glm::vec3(_x,_y,_z));
 	++m_numCP;
 	++m_degree;
 	m_order=m_degree+1;
@@ -239,12 +239,14 @@ void BezierCurve::createVAO() noexcept
   m_vaoPoints=VertexArrayObject::createVOA(GL_POINTS);
   m_vaoPoints->bind();
   unsigned int size=m_cp.size();
-  std::vector <Vec3> points(size);
+  std::vector <glm::vec3> points(size);
   for(unsigned int i=0;i<size;++i)
   {
-    points[i].set(m_cp[i]);
+    points[i].x=m_cp[i].x;
+    points[i].y=m_cp[i].y;
+    points[i].z=m_cp[i].z;
   }
-  m_vaoPoints->setData(m_numCP*sizeof(Vec3),points[0].m_x);
+  m_vaoPoints->setData(m_numCP*sizeof(glm::vec3),points[0].x);
   m_vaoPoints->setNumIndices(m_numCP);
   m_vaoPoints->setVertexAttributePointer(0,3,GL_FLOAT,0,0);
   m_vaoPoints->unbind();
@@ -253,7 +255,7 @@ void BezierCurve::createVAO() noexcept
   m_vaoCurve=VertexArrayObject::createVOA(GL_LINE_STRIP);
   m_vaoCurve->bind();
 
-  std::vector <Vec3> lines(m_lod);
+  std::vector <glm::vec3> lines(m_lod);
   for(int i=0;i!=m_lod;++i)
   {
     Real t  = m_knots[m_numKnots-1] * i / (Real)(m_lod-1);
@@ -262,9 +264,13 @@ void BezierCurve::createVAO() noexcept
     {
       t-=0.001f;
     }
-    lines[i].set(getPointOnCurve(t));
+    glm::vec3 p=getPointOnCurve(t);
+    lines[i].x=p.x;
+    lines[i].y=p.y;
+    lines[i].z=p.z;
+
   }
-  m_vaoCurve->setData(m_lod*sizeof(Vec3),lines[0].m_x);
+  m_vaoCurve->setData(m_lod*sizeof(glm::vec3),lines[0].x);
   m_vaoCurve->setNumIndices(m_lod);
   m_vaoCurve->setVertexAttributePointer(0,3,GL_FLOAT,0,0);
   m_vaoCurve->unbind();

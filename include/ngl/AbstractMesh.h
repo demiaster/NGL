@@ -24,7 +24,7 @@
 #include "RibExport.h"
 #include "Texture.h"
 #include "NGLassert.h"
-#include "Vec4.h"
+#include <glm/vec3.hpp>
 #include "VertexArrayObject.h"
 
 #include <vector>
@@ -200,12 +200,12 @@ public :
   /// @brief accessor for the vertex data
   /// @returns a std::vector containing the vert data
   //----------------------------------------------------------------------------------------------------------------------
-  std::vector <Vec3> getVertexList() noexcept{return m_verts;}
+  std::vector <glm::vec3> getVertexList() noexcept{return m_verts;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief accessor for the vertex data
   /// @returns a std::vector containing the vert data
   //----------------------------------------------------------------------------------------------------------------------
-  inline Vec3 getVertexAtIndex( unsigned long int _i ) const noexcept
+  inline glm::vec3 getVertexAtIndex( unsigned long int _i ) const noexcept
   {
     //NGL_ASSERT(_i>0 && _i<m_nVerts);
     return m_verts[_i];
@@ -215,12 +215,12 @@ public :
   /// @brief accessor for the normals data
   /// @returns a std::vector containing the normal data
   //----------------------------------------------------------------------------------------------------------------------
-  std::vector <Vec3> getNormalList() noexcept{return m_norm;}
+  std::vector <glm::vec3> getNormalList() noexcept{return m_norm;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief accessor for the texture co-ordinates data
   /// @returns a std::vector containing the texture cord data
   //----------------------------------------------------------------------------------------------------------------------
-  std::vector <Vec3> getTextureCordList() noexcept{return m_tex;}
+  std::vector <glm::vec3> getTextureCordList() noexcept{return m_tex;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief accessor for the Face data
   /// @returns a std::vector containing the face data
@@ -246,7 +246,7 @@ public :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief accesor to get the bounding sphere center
   //----------------------------------------------------------------------------------------------------------------------
-  inline Vec3 getSphereCenter() const  noexcept{return m_sphereCenter;}
+  inline glm::vec3 getSphereCenter() const  noexcept{return m_sphereCenter;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief accesor to get the bounding sphere center
   //----------------------------------------------------------------------------------------------------------------------
@@ -254,7 +254,7 @@ public :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief accesor to get the center
   //----------------------------------------------------------------------------------------------------------------------
-  inline Vec3 getCenter() const  noexcept{return m_center;}
+  inline glm::vec3 getCenter() const  noexcept{return m_center;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief check to see if obj is triangulated as we only support tri or quad objs at the moment
   /// @returns true or false
@@ -281,15 +281,15 @@ protected :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Pointer to the Vertex list
   //----------------------------------------------------------------------------------------------------------------------
-  std::vector<Vec3> m_verts;
+  std::vector<glm::vec3> m_verts;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Pointer to the Normal List
   //----------------------------------------------------------------------------------------------------------------------
-  std::vector<Vec3> m_norm;
+  std::vector<glm::vec3> m_norm;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Pointer to the Texture co-ord list (note that only x and y are used)
   //----------------------------------------------------------------------------------------------------------------------
-  std::vector<Vec3> m_tex;
+  std::vector<glm::vec3> m_tex;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Pointer to the Face list
   //----------------------------------------------------------------------------------------------------------------------
@@ -297,7 +297,7 @@ protected :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Center of the object
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 m_center;
+  glm::vec3 m_center;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief a vector of indices used to pass the index into the Data arrays to the VBO
   //----------------------------------------------------------------------------------------------------------------------
@@ -397,7 +397,7 @@ protected :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  the center of the bounding sphere
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 m_sphereCenter;
+  glm::vec3 m_sphereCenter;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  the radius of the bounding sphere
   //----------------------------------------------------------------------------------------------------------------------

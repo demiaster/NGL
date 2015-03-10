@@ -61,9 +61,9 @@ bool NCCABinMesh::load(const std::string &_fname,bool _calcBB) noexcept
   /// the number of faces in the object
   file.read(reinterpret_cast <char *>(&m_nFaces),sizeof(unsigned long int));
   // now the x,y,z for the center could re-calc but why bother
-  file.read(reinterpret_cast <char *>(&m_center.m_x),sizeof(Real));
-  file.read(reinterpret_cast <char *>(&m_center.m_y),sizeof(Real));
-  file.read(reinterpret_cast <char *>(&m_center.m_z),sizeof(Real));
+  file.read(reinterpret_cast <char *>(&m_center.x),sizeof(Real));
+  file.read(reinterpret_cast <char *>(&m_center.y),sizeof(Real));
+  file.read(reinterpret_cast <char *>(&m_center.z),sizeof(Real));
   // now if texture is active
   file.read(reinterpret_cast <char *>(&m_texture),sizeof(bool));
   // the dimensions of the Bounding box

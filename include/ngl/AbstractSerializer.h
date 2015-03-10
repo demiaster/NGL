@@ -33,7 +33,7 @@ class Plane;
 class Mat3;
 class Mat4;
 class Vec2;
-class Vec3;
+class glm::vec3;
 class Vec4;
 class Quaternion;
 class AABB;
@@ -220,15 +220,15 @@ public :
   //----------------------------------------------------------------------------------------------------------------------
   virtual void write(const Vec2 &_s) noexcept=0;
   //----------------------------------------------------------------------------------------------------------------------
-  /// @brief read from an Vec3 must be overriden in child
+  /// @brief read from an glm::vec3 must be overriden in child
   /// @param [inout] _s the element to read
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void read(Vec3 &_s) noexcept=0;
+  virtual void read(glm::vec3 &_s) noexcept=0;
   //----------------------------------------------------------------------------------------------------------------------
-  /// @brief write from an Vec3 must be overriden in child
+  /// @brief write from an glm::vec3 must be overriden in child
   /// @param [in] _s the element to write
   //----------------------------------------------------------------------------------------------------------------------
-  virtual void write(const Vec3 &_s) noexcept=0;
+  virtual void write(const glm::vec3 &_s) noexcept=0;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief read from an Vec4 must be overriden in child
   /// @param [inout] _s the element to read

@@ -29,7 +29,7 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include "Vec4.h"
+#include <glm/glm.hpp>
 #include "AbstractMesh.h"
 #include "BBox.h"
 #include "RibExport.h"

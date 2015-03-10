@@ -51,7 +51,7 @@ void Obj::parseVertex( const char *_begin )  noexcept
   // should check this at some stage
   NGL_UNUSED(result);
   // and add it to our vert list in abstact mesh parent
-  m_verts.push_back(Vec3(values[0],values[1],values[2]));
+  m_verts.push_back(glm::vec3(values[0],values[1],values[2]));
 }
 
 
@@ -72,7 +72,7 @@ void Obj::parseTextureCoordinate(const char * _begin ) noexcept
   // build tex cord
   // if we have a value use it other wise set to 0
   Real vt3 = values.size() == 3 ? values[2] : 0.0f;
-  m_tex.push_back(Vec3(values[0],values[1],vt3));
+  m_tex.push_back(glm::vec3(values[0],values[1],vt3));
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ void Obj::parseNormal( const char *_begin )  noexcept
   spt::parse_info<> result = spt::parse(_begin, norm, spt::space_p);
   // should check the return values at some stage
   NGL_UNUSED(result);
-  m_norm.push_back(Vec3(values[0],values[1],values[2]));
+  m_norm.push_back(glm::vec3(values[0],values[1],values[2]));
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -282,21 +282,21 @@ void Obj::save(const std::string& _fname)const noexcept
   }
   // write out some comments
   fileOut<<"# This file was created by ngl Obj exporter "<<_fname.c_str()<<std::endl;
-  // was c++ 11  for(Vec3 v : m_norm) for all of these
+  // was c++ 11  for(glm::vec3 v : m_norm) for all of these
   // write out the verts
-  BOOST_FOREACH(Vec3 v , m_verts)
+  BOOST_FOREACH(glm::vec3 v , m_verts)
   {
     fileOut<<"v "<<v.m_x<<" "<<v.m_y<<" "<<v.m_z<<std::endl;
   }
 
   // write out the tex cords
-  BOOST_FOREACH(Vec3 v , m_tex)
+  BOOST_FOREACH(glm::vec3 v , m_tex)
   {
     fileOut<<"vt "<<v.m_x<<" "<<v.m_y<<std::endl;
   }
   // write out the normals
 
-  BOOST_FOREACH(Vec3 v , m_norm)
+  BOOST_FOREACH(glm::vec3 v , m_norm)
   {
     fileOut<<"vn "<<v.m_x<<" "<<v.m_y<<" "<<v.m_z<<std::endl;
   }

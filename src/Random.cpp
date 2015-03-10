@@ -112,17 +112,17 @@ Vec4 Random::getRandomNormalizedVec4() noexcept
 
 
 //----------------------------------------------------------------------------------------------------------------------
-Vec3 Random::getRandomVec3() noexcept
+glm::vec3 Random::getRandomVec3() noexcept
 {
   boost::function <Real (void)> gen=m_floatGenerators["RandomFloat"];
-  return Vec3(gen(),gen(),gen());
+  return glm::vec3(gen(),gen(),gen());
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Vec3 Random::getRandomNormalizedVec3() noexcept
+glm::vec3 Random::getRandomNormalizedVec3() noexcept
 {
   boost::function <Real (void)> gen=m_floatGenerators["RandomFloat"];
-  Vec3 v(gen(),gen(),gen());
+  glm::vec3 v(gen(),gen(),gen());
   v.normalize();
   return v;
 }
@@ -146,10 +146,10 @@ Vec2 Random::getRandomNormalizedVec2() noexcept
 
 
 
-Vec3 Random::getRandomPoint( Real _xRange, Real _yRange,  Real _zRange) noexcept
+glm::vec3 Random::getRandomPoint( Real _xRange, Real _yRange,  Real _zRange) noexcept
 {
   boost::function <Real (void)> gen=m_floatGenerators["RandomFloat"];
-  return Vec3(gen()*_xRange,gen()*_yRange,gen()*_zRange);
+  return glm::vec3(gen()*_xRange,gen()*_yRange,gen()*_zRange);
 
 }
 

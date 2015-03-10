@@ -29,7 +29,7 @@ Plane::Plane() noexcept
 
 }
 //----------------------------------------------------------------------------------------------------------------------
-Plane::Plane( const Vec3 &_v1, const Vec3 &_v2,  const Vec3 &_v3) noexcept
+Plane::Plane( const glm::vec3 &_v1, const glm::vec3 &_v2,  const glm::vec3 &_v3) noexcept
 {
   setPoints(_v1,_v2,_v3);
 }
@@ -40,9 +40,9 @@ Plane::~Plane() noexcept
 
 }
 //----------------------------------------------------------------------------------------------------------------------
-void Plane::setPoints(const Vec3 &_v1, const Vec3 &_v2, const Vec3 &_v3) noexcept
+void Plane::setPoints(const glm::vec3 &_v1, const glm::vec3 &_v2, const glm::vec3 &_v3) noexcept
 {
-	Vec3 aux1, aux2;
+	glm::vec3 aux1, aux2;
 
 	aux1 = _v1 - _v2;
 	aux2 = _v3 - _v2;
@@ -52,7 +52,7 @@ void Plane::setPoints(const Vec3 &_v1, const Vec3 &_v2, const Vec3 &_v3) noexcep
 	m_d = -(m_normal.inner(m_point));
 }
 //----------------------------------------------------------------------------------------------------------------------
-void Plane::setNormalPoint( const Vec3 &_normal, const Vec3 &_point) noexcept
+void Plane::setNormalPoint( const glm::vec3 &_normal, const glm::vec3 &_point) noexcept
 {
 	m_point=_point;
 	m_normal=_normal;
@@ -73,7 +73,7 @@ void Plane::setFloats(Real _a,Real _b,	Real _c,	Real _d) noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Real Plane::distance( const Vec3 &_p) const noexcept
+Real Plane::distance( const glm::vec3 &_p) const noexcept
 {
 	return (m_d + m_normal.inner(_p));
 }

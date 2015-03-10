@@ -38,7 +38,7 @@ linux-clang*:QMAKE_CXXFLAGS+=-std=c++11
 linux-g++*:QMAKE_CXXFLAGS+=-std=c++11
 
 # use this to suppress some warning from boost
-unix:QMAKE_CXXFLAGS_WARN_ON += "-Wno-unused-parameter"
+unix:QMAKE_CXXFLAGS_WARN_ON += "-Wno-unused-parameter" "-Wno-comment" "-Wno-strict-aliasing"
 # define the NGL_DEBUG flag for the graphics lib
 DEFINES += NGL_DEBUG
 # if you install boost to /usr/local/include/ we can find it from this line
@@ -53,6 +53,8 @@ macx:DEFINES +=GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
 # this is where to look for includes
 INCLUDEPATH += $$BASE_DIR/include/ngl
 INCLUDEPATH += $$BASE_DIR/glew/
+INCLUDEPATH += $$BASE_DIR/glm/
+
 
 INCLUDEPATH += $$BASE_DIR/src/ngl
 INCLUDEPATH +=$$BASE_DIR/src/shaders
@@ -104,18 +106,14 @@ win32{
 }
 
 
-SOURCES += $$SRC_DIR/Vec4.cpp \
-		$$SRC_DIR/VAOPrimitives.cpp \
+SOURCES += $$SRC_DIR/VAOPrimitives.cpp \
 		$$SRC_DIR/Util.cpp \
 		$$SRC_DIR/Texture.cpp \
 		$$SRC_DIR/SpotLight.cpp \
 		$$SRC_DIR/ShaderLib.cpp \
 		$$SRC_DIR/Transformation.cpp \
 		$$SRC_DIR/RibExport.cpp \
-		$$SRC_DIR/Quaternion.cpp \
-		$$SRC_DIR/PathCamera.cpp \
 		$$SRC_DIR/Obj.cpp \
-		$$SRC_DIR/Mat4.cpp \
 		$$SRC_DIR/Material.cpp \
 		$$SRC_DIR/Light.cpp \
 		$$SRC_DIR/NGLInit.cpp \
@@ -133,14 +131,11 @@ SOURCES += $$SRC_DIR/Vec4.cpp \
 		$$SRC_DIR/AABB.cpp \
 		$$SRC_DIR/VertexArrayObject.cpp \
 		$$SRC_DIR/createDefaultVAOs.cpp \
-		$$SRC_DIR/Vec3.cpp \
-		$$SRC_DIR/Vec2.cpp \
-		$$SRC_DIR/Text.cpp \
-		$$SRC_DIR/Mat3.cpp \
-		$$SRC_DIR/AbstractSerializer.cpp \
+                $$SRC_DIR/Text.cpp \
+                $$SRC_DIR/AbstractSerializer.cpp \
 		$$SRC_DIR/XMLSerializer.cpp \
 		$$SRC_DIR/NGLStream.cpp \
-		glew/glew.c
+                glew/glew.c
 
 
 
@@ -149,8 +144,7 @@ isEqual(QT_MAJOR_VERSION, 4) {
 			OBJECTIVE_SOURCES += $$SRC_DIR/setGL32VisualMac.mm
 }
 
-HEADERS += $$INC_DIR/Vec4.h \
-		$$INC_DIR/VAOPrimitives.h \
+HEADERS += $$INC_DIR/VAOPrimitives.h \
 		$$INC_DIR/Singleton.h \
 		$$INC_DIR/Util.h \
 		$$INC_DIR/Types.h \
@@ -159,11 +153,9 @@ HEADERS += $$INC_DIR/Vec4.h \
 		$$INC_DIR/ShaderLib.h \
 		$$INC_DIR/RibExport.h \
 		$$INC_DIR/Transformation.h \
-		$$INC_DIR/Quaternion.h \
-		$$INC_DIR/PathCamera.h \
+                $$INC_DIR/Quaternion.h \
 		$$INC_DIR/Obj.h \
 		$$INC_DIR/NGLassert.h \
-		$$INC_DIR/Mat4.h \
 		$$INC_DIR/Material.h \
 		$$INC_DIR/Light.h \
 		$$INC_DIR/NGLInit.h \
@@ -180,11 +172,8 @@ HEADERS += $$INC_DIR/Vec4.h \
 		$$INC_DIR/Plane.h \
 		$$INC_DIR/AABB.h \
 		$$INC_DIR/VertexArrayObject.h \
-		$$INC_DIR/Vec3.h \
-		$$INC_DIR/Vec2.h \
-		$$INC_DIR/Text.h \
-		$$INC_DIR/Mat3.h \
-		$$INC_DIR/AbstractSerializer.h \
+                $$INC_DIR/Text.h \
+                $$INC_DIR/AbstractSerializer.h \
 		$$INC_DIR/XMLSerializer.h \
 		$$INC_DIR/NGLStream.h \
 		$$SRC_DIR/shaders/TextShaders.h \

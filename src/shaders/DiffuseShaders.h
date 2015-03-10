@@ -4,9 +4,9 @@
 const std::string diffuseVertexShader =
 R"DELIM(
   #version 150
-  out vec3 fragmentNormal;
-  in vec3 inVert;
-  in vec3 inNormal;
+  out glm::vec3 fragmentNormal;
+  in glm::vec3 inVert;
+  in glm::vec3 inNormal;
   uniform mat4 MVP;
   uniform mat3 normalMatrix;
   void main()
@@ -19,16 +19,16 @@ R"DELIM(
 const std::string diffuseFragmentShader =
 R"DELIM(
  #version 150
- in vec3 fragmentNormal;
+ in glm::vec3 fragmentNormal;
  out vec4 fragColour;
  uniform vec4 Colour;
- uniform vec3 lightPos;
+ uniform glm::vec3 lightPos;
  uniform vec4 lightDiffuse;
  void main ()
  {
  fragColour= vec4(0.);
- vec3 N = normalize(fragmentNormal);
- vec3 L = normalize(lightPos);
+ glm::vec3 N = normalize(fragmentNormal);
+ glm::vec3 L = normalize(lightPos);
  fragColour += Colour*lightDiffuse *dot(L, N);
  }
 )DELIM";

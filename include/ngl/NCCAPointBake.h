@@ -23,7 +23,7 @@
 // must include types.h first for Real and GLEW if required
 #include "Obj.h"
 #include "Types.h"
-#include "Vec4.h"
+#include <glm/glm.hpp>
 #include <vector>
 #include <string>
 
@@ -121,13 +121,13 @@ public :
   /// @brief  get a Raw data pointer to the un-sorted PointBake data
   /// @returns a pointer to the data
   //----------------------------------------------------------------------------------------------------------------------
-  inline  std::vector < std::vector<Vec3> > & getRawDataPointer()   noexcept{return m_data;}
+  inline  std::vector < std::vector<glm::vec3> > & getRawDataPointer()   noexcept{return m_data;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  get a Raw data pointer to the un-sorted PointBake for a particular frame
   /// @param[in] _f the frame to access
   /// @returns a pointer to the data at frame _f
   //----------------------------------------------------------------------------------------------------------------------
-  std::vector<Vec3> & getRawDataPointerAtFrame(unsigned int _f) noexcept;
+  std::vector<glm::vec3> & getRawDataPointerAtFrame(unsigned int _f) noexcept;
 
 
 protected :
@@ -148,7 +148,7 @@ protected :
   /// @brief  The actual data of the clip stored per vertex in sequence v0 - vn and then per frame frame
   /// index is always frame 0- endframe despite the start / end values in the clip file
   //----------------------------------------------------------------------------------------------------------------------
-  std::vector < std::vector<Vec3> > m_data;
+  std::vector < std::vector<glm::vec3> > m_data;
    //----------------------------------------------------------------------------------------------------------------------
   /// @brief  Number of verts in the actual clip
   //----------------------------------------------------------------------------------------------------------------------

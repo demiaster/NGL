@@ -20,7 +20,7 @@
 // must include types.h first for Real
 #include "Singleton.h"
 #include "Types.h"
-#include "Vec3.h"
+#include <glm/vec3.hpp>
 #include "VertexArrayObject.h"
 #include <vector>
 #include <string>
@@ -54,7 +54,7 @@ class NGL_DLLEXPORT VAOPrimitives : public  Singleton<VAOPrimitives>
 {
 
   friend class Singleton<VAOPrimitives>;
-  friend class Vec3;
+  friend class vec3;
 
 public :
   //----------------------------------------------------------------------------------------------------------------------
@@ -131,7 +131,7 @@ public :
   ///    triangulated for each (wP == 1 will give 1 quad mad of 2 tris)
   /// @param[in] _vN The Vertex normal (used for each vertex)
   //----------------------------------------------------------------------------------------------------------------------
-  void createTrianglePlane( const std::string &_name,const Real _width,const Real _depth,const int _wP, const int _dP,const Vec3 &_vN ) noexcept;
+  void createTrianglePlane( const std::string &_name,const Real _width,const Real _depth,const int _wP, const int _dP,const glm::vec3 &_vN ) noexcept;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief create a triangulated capsule (Cylinder with spherical ends)

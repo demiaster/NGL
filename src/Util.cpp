@@ -15,8 +15,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "Types.h"
-#include "Mat4.h"
-#include "Vec4.h"
+#include <glm/mat4x4.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include <glm/glm.hpp>
 #include <cmath>
 #include <iostream>
 #include <string>
@@ -28,7 +30,7 @@ namespace ngl
 {
 
 //----------------------------------------------------------------------------------------------------------------------
-NGL_DLLEXPORT Vec3 calcNormal(const Vec4 &_p1, const Vec4 &_p2, const Vec4 &_p3 ) noexcept
+NGL_DLLEXPORT glm::vec3 calcNormal(const glm::vec4 &_p1, const glm::vec4 &_p2, const glm::vec4 &_p3 ) noexcept
 {
 
 	Real coa, cob, coc ;
@@ -36,10 +38,10 @@ NGL_DLLEXPORT Vec3 calcNormal(const Vec4 &_p1, const Vec4 &_p2, const Vec4 &_p3 
 	Real px2, py2, pz2 ;
 	Real px3, py3, pz3 ;
 	Real absvec;
-	Vec3 norm;
-	px1 = _p1.m_x; py1 = _p1.m_y; pz1 = _p1.m_z;
-	px2 = _p2.m_x; py2 = _p2.m_y; pz2 = _p2.m_z;
-	px3 = _p3.m_x; py3 = _p3.m_y; pz3 = _p3.m_z;
+	glm::vec3 norm;
+    px1 = _p1.x; py1 = _p1.y; pz1 = _p1.z;
+    px2 = _p2.x; py2 = _p2.y; pz2 = _p2.z;
+    px3 = _p3.x; py3 = _p3.y; pz3 = _p3.z;
 
 	// generate cross product
 
@@ -49,16 +51,16 @@ NGL_DLLEXPORT Vec3 calcNormal(const Vec4 &_p1, const Vec4 &_p2, const Vec4 &_p3 
 
   // normalise the results to get unit length normal
   absvec = sqrtf ( ((coa*coa) + (cob*cob) + (coc*coc))) ;
-  norm.m_x = coa/absvec ;
-  norm.m_y = cob/absvec ;
-  norm.m_z = coc/absvec ;
+  norm.x = coa/absvec ;
+  norm.y = cob/absvec ;
+  norm.z = coc/absvec ;
 
   return norm;
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------
-NGL_DLLEXPORT Vec3 calcNormal (const Vec3 &_p1,  const Vec3 &_p2, const Vec3 &_p3  ) noexcept
+NGL_DLLEXPORT glm::vec3 calcNormal (const glm::vec3 &_p1,  const glm::vec3 &_p2, const glm::vec3 &_p3  ) noexcept
 {
 
   Real coa, cob, coc ;
@@ -66,10 +68,10 @@ NGL_DLLEXPORT Vec3 calcNormal (const Vec3 &_p1,  const Vec3 &_p2, const Vec3 &_p
   Real px2, py2, pz2 ;
   Real px3, py3, pz3 ;
   Real absvec;
-  Vec3 norm;
-  px1 = _p1.m_x; py1 = _p1.m_y; pz1 = _p1.m_z;
-  px2 = _p2.m_x; py2 = _p2.m_y; pz2 = _p2.m_z;
-  px3 = _p3.m_x; py3 = _p3.m_y; pz3 = _p3.m_z;
+  glm::vec3 norm;
+  px1 = _p1.x; py1 = _p1.y; pz1 = _p1.z;
+  px2 = _p2.x; py2 = _p2.y; pz2 = _p2.z;
+  px3 = _p3.x; py3 = _p3.y; pz3 = _p3.z;
 
   // generate cross product
 
@@ -79,9 +81,9 @@ NGL_DLLEXPORT Vec3 calcNormal (const Vec3 &_p1,  const Vec3 &_p2, const Vec3 &_p
 
   // normalise the results to get unit length normal
   absvec = sqrtf ( ((coa*coa) + (cob*cob) + (coc*coc))) ;
-  norm.m_x = coa/absvec ;
-  norm.m_y = cob/absvec ;
-  norm.m_z = coc/absvec ;
+  norm.x = coa/absvec ;
+  norm.y = cob/absvec ;
+  norm.z = coc/absvec ;
 
   return norm;
 }
@@ -123,39 +125,39 @@ NGL_DLLEXPORT  void NGLCheckGLError( const std::string  &_file, const int _line 
 }
 
 
-NGL_DLLEXPORT Mat4 perspective(Real _fovy,Real _aspect, Real _zNear, Real _zFar) noexcept
+NGL_DLLEXPORT glm::mat4 perspective(Real _fovy,Real _aspect, Real _zNear, Real _zFar) noexcept
 {
     Real range = tan(radians(_fovy / 2.0)) * _zNear;
     Real left = -range * _aspect;
     Real right = range * _aspect;
     Real bottom = -range;
     Real top = range;
-    Mat4 result;
-    result.m_00 = (2.0f * _zNear) / (right - left);
-    result.m_11 = (2.0f * _zNear) / (top - bottom);
-    result.m_22 = - (_zFar + _zNear) / (_zFar - _zNear);
-    result.m_23 = - 1.0f;
-    result.m_32 = - (2.0f* _zFar * _zNear) / (_zFar - _zNear);
+    glm::mat4 result;
+    result[0].x = (2.0f * _zNear) / (right - left);
+    result[1].y = (2.0f * _zNear) / (top - bottom);
+    result[2].z = - (_zFar + _zNear) / (_zFar - _zNear);
+    result[2].w = - 1.0f;
+    result[3].z = - (2.0f* _zFar * _zNear) / (_zFar - _zNear);
     return result;
 }
 
 
-NGL_DLLEXPORT Mat4 perspectiveFov(Real const & _fov, Real const & _width, Real const & _height, Real const & _zNear, Real const & _zFar) noexcept
+NGL_DLLEXPORT glm::mat4 perspectiveFov(Real const & _fov, Real const & _width, Real const & _height, Real const & _zNear, Real const & _zFar) noexcept
 {
     Real rad = radians(_fov);
     Real h = cos(0.5f * rad) / sin(0.5f * rad);
     Real w = h * _height / _width;
-    Mat4 result;
-    result.m_00 = w;
-    result.m_11 = h;
-    result.m_22 = - (_zFar + _zNear) / (_zFar - _zNear);
-    result.m_23 = - 1.0f;
-    result.m_32 = - (2.0f* _zFar * _zNear) / (_zFar - _zNear);
+    glm::mat4 result;
+    result[0].x = w;
+    result[1].y = h;
+    result[2].z = - (_zFar + _zNear) / (_zFar - _zNear);
+    result[2].w = - 1.0f;
+    result[3].z = - (2.0f* _zFar * _zNear) / (_zFar - _zNear);
     return result;
 }
 
 
-NGL_DLLEXPORT Mat4 infinitePerspective(Real _fovy, Real _aspect, Real _zNear) noexcept
+NGL_DLLEXPORT glm::mat4 infinitePerspective(Real _fovy, Real _aspect, Real _zNear) noexcept
 {
   Real const range = tan(radians(_fovy / 2.0f)) * _zNear;
   Real left = -range * _aspect;
@@ -163,76 +165,76 @@ NGL_DLLEXPORT Mat4 infinitePerspective(Real _fovy, Real _aspect, Real _zNear) no
   Real bottom = -range;
   Real top = range;
 
-  Mat4 result;
-  result.m_00 = (2.0f * _zNear) / (right - left);
-  result.m_11 = (2.0f * _zNear) / (top - bottom);
-  result.m_22 = - 1.0f;
-  result.m_23 = - 1.0f;
-  result.m_32 = - 2.0f * _zNear;
+  glm::mat4 result;
+  result[0].x = (2.0f * _zNear) / (right - left);
+  result[1].y = (2.0f * _zNear) / (top - bottom);
+  result[2].z = - 1.0f;
+  result[2].w = - 1.0f;
+  result[3].z = - 2.0f * _zNear;
   return result;
 }
 
 
-NGL_DLLEXPORT Mat4 lookAt(const Vec3  & _eye,const Vec3  & _center,const Vec3  & _up) noexcept
+NGL_DLLEXPORT glm::mat4 lookAt(const glm::vec3  & _eye,const glm::vec3  & _center,const glm::vec3  & _up) noexcept
 {
 
-    Vec3 n =   _center-_eye;
-    Vec3 u = _up;
-    Vec3 v = n.cross(u);
-    u = v.cross(n);
-    n.normalize();
-    v.normalize();
-    u.normalize();
+    glm::vec3 n =   _center-_eye;
+    glm::vec3 u = _up;
+    glm::vec3 v = glm::cross( n,u);
+    u = glm::cross(v,n); //v.cross(n);
+    glm::normalize(n);
+    glm::normalize(v);
+    glm::normalize(u);
 
-    Mat4 result(1.0f);
-    result.m_00= v.m_x;
-    result.m_10= v.m_y;
-    result.m_20= v.m_z;
-    result.m_01= u.m_x;
-    result.m_11= u.m_y;
-    result.m_21= u.m_z;
-    result.m_02=-n.m_x;
-    result.m_12=-n.m_y;
-    result.m_22=-n.m_z;
-    result.m_30=-_eye.dot(v);
-    result.m_31=-_eye.dot(u);
-    result.m_32= _eye.dot(n);
+    glm::mat4 result(1.0f);
+    result[0].x= v.x;
+    result[1].x= v.y;
+    result[2].x= v.z;
+    result[0].y= u.x;
+    result[1].y= u.y;
+    result[2].y= u.z;
+    result[0].z=-n.x;
+    result[1].z=-n.y;
+    result[2].z=-n.z;
+    result[3].x=-glm::dot(_eye,v);
+    result[3].y=-glm::dot(_eye,u);
+    result[3].z=-glm::dot(_eye,n);
     return result;
 }
 
-NGL_DLLEXPORT Mat4 ortho(Real _left, Real _right, Real _bottom, Real _top, Real _zNear, Real _zFar) noexcept
+NGL_DLLEXPORT glm::mat4 ortho(Real _left, Real _right, Real _bottom, Real _top, Real _zNear, Real _zFar) noexcept
 {
-  Mat4 result(1);
-  result.m_00= 2.0f / (_right - _left);
-  result.m_11= 2.0f / (_top - _bottom);
-  result.m_22= - 2.0f / (_zFar - _zNear);
-  result.m_30= - (_right + _left) / (_right - _left);
-  result.m_31= - (_top + _bottom) / (_top - _bottom);
-  result.m_32= - (_zFar + _zNear) / (_zFar - _zNear);
+  glm::mat4 result(1);
+  result[0].x= 2.0f / (_right - _left);
+  result[1].y= 2.0f / (_top - _bottom);
+  result[2].z= - 2.0f / (_zFar - _zNear);
+  result[3].x= - (_right + _left) / (_right - _left);
+  result[3].y= - (_top + _bottom) / (_top - _bottom);
+  result[3].z= - (_zFar + _zNear) / (_zFar - _zNear);
   return result;
 }
 
-NGL_DLLEXPORT Mat4 ortho(Real _left, Real _right, Real _bottom, Real _top) noexcept
+NGL_DLLEXPORT glm::mat4 ortho(Real _left, Real _right, Real _bottom, Real _top) noexcept
 {
-  Mat4 result(1);
-  result.m_00= Real(2) / (_right - _left);
-  result.m_11= Real(2) / (_top - _bottom);
-  result.m_22= - Real(1);
-  result.m_30= - (_right + _left) / (_right - _left);
-  result.m_31= - (_top + _bottom) / (_top - _bottom);
+  glm::mat4 result(1);
+  result[0].x= Real(2) / (_right - _left);
+  result[1].y= Real(2) / (_top - _bottom);
+  result[2].z= - Real(1);
+  result[3].x= - (_right + _left) / (_right - _left);
+  result[3].y= - (_top + _bottom) / (_top - _bottom);
   return result;
 }
 
-NGL_DLLEXPORT Mat4 frustum(Real _left, Real _right, Real _bottom, Real _top, Real _nearVal, Real _farVal) noexcept
+NGL_DLLEXPORT glm::mat4 frustum(Real _left, Real _right, Real _bottom, Real _top, Real _nearVal, Real _farVal) noexcept
 {
-  Mat4 result=0.0f;
-  result.m_00 = (2.0f * _nearVal) / (_right - _left);
-  result.m_11 = (2.0f * _nearVal) / (_top - _bottom);
-  result.m_20 = (_right + _left) / (_right - _left);
-  result.m_21 = (_top + _bottom) / (_top - _bottom);
-  result.m_22 = -(_farVal + _nearVal) / (_farVal - _nearVal);
-  result.m_23 = -1.0f;
-  result.m_32 = -(2.0f * _farVal * _nearVal) / (_farVal - _nearVal);
+  glm::mat4 result(0.0f);
+  result[0].x = (2.0f * _nearVal) / (_right - _left);
+  result[1].y = (2.0f * _nearVal) / (_top - _bottom);
+  result[2].x = (_right + _left) / (_right - _left);
+  result[2].y = (_top + _bottom) / (_top - _bottom);
+  result[2].z = -(_farVal + _nearVal) / (_farVal - _nearVal);
+  result[2].w = -1.0f;
+  result[3].z = -(2.0f * _farVal * _nearVal) / (_farVal - _nearVal);
   return result;
 }
 

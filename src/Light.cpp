@@ -27,7 +27,7 @@ namespace ngl
 {
 
 //----------------------------------------------------------------------------------------------------------------------
-Light::Light(const Vec3 &_pos,const Colour& _col, LIGHTMODES _lightMode ) noexcept
+Light::Light(const glm::vec3 &_pos,const Colour& _col, LIGHTMODES _lightMode ) noexcept
 {
   // zero now means un-assigned
   m_position.set(_pos);
@@ -63,7 +63,7 @@ Light::Light(const Light &_l) noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Light::Light(const Vec3 &_pos,const Colour& _col, const Colour& _specColour,LIGHTMODES _lightMode  ) noexcept
+Light::Light(const glm::vec3 &_pos,const Colour& _col, const Colour& _specColour,LIGHTMODES _lightMode  ) noexcept
 {
   // zero now means un-assigned
   m_position.set(_pos);
@@ -110,7 +110,7 @@ void Light::loadToShader(std::string _uniformName )const noexcept
 /*
 /// struct Lights
 /// {
-///   vec3 position;
+///   glm::vec3 position;
 ///   vec4 ambient;
 ///   vec4 diffuse;
 ///   vec4 specular;

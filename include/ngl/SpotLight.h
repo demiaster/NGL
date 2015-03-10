@@ -41,7 +41,7 @@ namespace ngl
 /// struct Lights
 /// {
 ///   vec4 position;
-///   vec3 direction;
+///   glm::vec3 direction;
 ///   vec4 ambient;
 ///   vec4 diffuse;
 ///   vec4 specular;
@@ -69,7 +69,7 @@ public:
   /// @param[in]  _dir    -  the spot direction
   /// @param[in]  _col    -  the spot colour
   //----------------------------------------------------------------------------------------------------------------------
-  SpotLight( const Vec3 &_pos,const Vec3 &_dir,const Colour& _col ) noexcept;
+  SpotLight( const glm::vec3 &_pos,const glm::vec3 &_dir,const Colour& _col ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  copy ctor
   //----------------------------------------------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ public:
   /// @param [in] _dir the direction of the light
   /// @param [in] _col the colour of the light
   //----------------------------------------------------------------------------------------------------------------------
-  void set( const Vec3& _pos, const Vec3& _dir, const Colour& _col ) noexcept;
+  void set( const glm::vec3& _pos, const glm::vec3& _dir, const Colour& _col ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  enables the spot light
   //----------------------------------------------------------------------------------------------------------------------

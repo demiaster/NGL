@@ -12,7 +12,7 @@ R"DELIM(
 uniform mat4 MVP;
 
 // first attribute the vertex values from our VAO
-in vec3 inVert;
+in glm::vec3 inVert;
 /// @brief the colour to shade draw with
 uniform vec4 Colour;
 

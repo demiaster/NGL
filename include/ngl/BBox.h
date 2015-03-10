@@ -20,8 +20,9 @@
 /// @brief a simple bounding box class
 // must include types.h first for Real and GLEW if required
 #include "Types.h"
-#include "Vec3.h"
-#include "Vec4.h"
+#include <glm/vec4.hpp>
+#include <glm/vec3.hpp>
+
 #include "VertexArrayObject.h"
 
 
@@ -33,7 +34,7 @@ namespace ngl
 ///  @brief Simple Bounding box class used in various parts of ngl and other example programs
 ///  @author Jonathan Macey
 ///  @version 4.1
-///  @date Last Revision updated to use Vec3 to fit with new shader attribute pipeline
+///  @date Last Revision updated to use glm::vec3 to fit with new shader attribute pipeline
 /// Revision History : \n
 /// 07/03/11 Updated to draw with vertex arrays \n
 /// 14/02/03 Removed redundant data types \n
@@ -55,7 +56,7 @@ public :
   ///  @param[in]  _height the height of the BBox (== Y coord).
   ///  @param[in]  _depth the Depth of the BBox (== Z coord).
   //----------------------------------------------------------------------------------------------------------------------
-  BBox(const Vec3 &_center, Real _width,Real _height, Real _depth ) noexcept;
+  BBox(const glm::vec3 &_center, Real _width,Real _height, Real _depth ) noexcept;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief ctor using +/- x,y,z dimensions
@@ -118,7 +119,7 @@ public :
    //----------------------------------------------------------------------------------------------------------------------
    /// @brief This is the center of the BBox stored for caluculations in other classes s
    //----------------------------------------------------------------------------------------------------------------------
-   inline Vec3 center()const noexcept{ return m_center; }
+   inline glm::vec3 center()const noexcept{ return m_center; }
    //----------------------------------------------------------------------------------------------------------------------
    /// @brief accessor for the width of the BBox
    /// @returns the width of the BBox
@@ -153,18 +154,18 @@ public :
    //----------------------------------------------------------------------------------------------------------------------
    /// @brief the array of normals for the  BBox
    //----------------------------------------------------------------------------------------------------------------------
-   inline Vec3 * getNormalArray()noexcept{return &m_norm[0];}
+   inline glm::vec3 * getNormalArray()noexcept{return &m_norm[0];}
    //----------------------------------------------------------------------------------------------------------------------
    /// @brief the array of verts for the  BBox
    //----------------------------------------------------------------------------------------------------------------------
-   inline Vec3 * getVertexArray()noexcept{return &m_vert[0];}
+   inline glm::vec3 * getVertexArray()noexcept{return &m_vert[0];}
 
    //----------------------------------------------------------------------------------------------------------------------
    /// @brief set the center of the BBox and re-calculate the extents
    /// @param _center the new center of the BBox
    //----------------------------------------------------------------------------------------------------------------------
 
-   void setCenter(const Vec3 &_center, bool _recalc=true)noexcept;
+   void setCenter(const glm::vec3 &_center, bool _recalc=true)noexcept;
    //----------------------------------------------------------------------------------------------------------------------
    /// @brief recalculate the bbox values once things have been changed
    /// this will also re-do the VAO
@@ -184,7 +185,7 @@ protected :
   ///The Bottom Square is a mirror of the 1st verts with the Y value changed
   ///See constructor code for caluculations
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 m_vert[8];
+  glm::vec3 m_vert[8];
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief the min x value of the bbox
   //----------------------------------------------------------------------------------------------------------------------
@@ -212,11 +213,11 @@ protected :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief This is the center of the BBox stored for caluculations in other classes s
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 m_center;
+  glm::vec3 m_center;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief used to store the 6 Normal faces for the BBox used for calculating BBox  collisions if needed
   //----------------------------------------------------------------------------------------------------------------------
-  Vec3 m_norm[6];
+  glm::vec3 m_norm[6];
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Width of the BBox
   //----------------------------------------------------------------------------------------------------------------------

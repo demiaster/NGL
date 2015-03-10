@@ -47,7 +47,7 @@ void AbstractMesh::scale(Real _sx, Real _sy, Real _sz ) noexcept
   // for (auto &v : m_verts)
   for (unsigned long int i=0; i<m_nVerts; ++i)
   {
-    m_verts[i].m_x*=_sx;
+    m_verts[i].x*=_sx;
     m_verts[i].m_y*=_sy;
     m_verts[i].m_z*=_sz;
     m_center+=m_verts[i];
@@ -139,7 +139,7 @@ void AbstractMesh::writeToRibSubdiv(RibExport& _ribFile )const noexcept
 			{
 				// If the vertice if found in the vector, set the test
 				// flag and exit the loop. Else keep going.
-				if( ( FCompare(m_verts[i].m_x ,vVerts[j]) ) &&
+				if( ( FCompare(m_verts[i].x ,vVerts[j]) ) &&
 					( FCompare(m_verts[i].m_y,vVerts[j + 1]) ) &&
 					( FCompare(m_verts[i].m_y,vVerts[j + 2]) )
 					 )
@@ -156,7 +156,7 @@ void AbstractMesh::writeToRibSubdiv(RibExport& _ribFile )const noexcept
 			// Add the vertice to the vector if it is not found
 			if( bTest == false )
 			{
-				vVerts.push_back( m_verts[m_face[I].m_vert[i]].m_x );
+				vVerts.push_back( m_verts[m_face[I].m_vert[i]].x );
 				vVerts.push_back( m_verts[m_face[I].m_vert[i]].m_y );
 				vVerts.push_back( m_verts[m_face[I].m_vert[i]].m_z );
 				lVertLink.push_back( counter );
@@ -296,18 +296,18 @@ void AbstractMesh::createVAO() noexcept
 		{
 
 			// pack in the vertex data first
-			d.x=m_verts[m_face[i].m_vert[j]].m_x;
+			d.x=m_verts[m_face[i].m_vert[j]].x;
 			d.y=m_verts[m_face[i].m_vert[j]].m_y;
 			d.z=m_verts[m_face[i].m_vert[j]].m_z;
 			// now if we have norms of tex (possibly could not) pack them as well
 			if(m_nNorm >0 && m_nTex > 0)
 			{
 
-        d.nx=m_norm[m_face[i].m_norm[j]].m_x;
+        d.nx=m_norm[m_face[i].m_norm[j]].x;
         d.ny=m_norm[m_face[i].m_norm[j]].m_y;
         d.nz=m_norm[m_face[i].m_norm[j]].m_z;
 
-				d.u=m_tex[m_face[i].m_tex[j]].m_x;
+				d.u=m_tex[m_face[i].m_tex[j]].x;
 				d.v=m_tex[m_face[i].m_tex[j]].m_y;
 
       }
@@ -323,7 +323,7 @@ void AbstractMesh::createVAO() noexcept
       // here we've got norms but not tex
       else if(m_nNorm >0 && m_nTex==0)
       {
-        d.nx=m_norm[m_face[i].m_norm[j]].m_x;
+        d.nx=m_norm[m_face[i].m_norm[j]].x;
         d.ny=m_norm[m_face[i].m_norm[j]].m_y;
         d.nz=m_norm[m_face[i].m_norm[j]].m_z;
         d.u=0;
@@ -335,7 +335,7 @@ void AbstractMesh::createVAO() noexcept
         d.nx=0;
         d.ny=0;
         d.nz=0;
-        d.u=m_tex[m_face[i].m_tex[j]].m_x;
+        d.u=m_tex[m_face[i].m_tex[j]].x;
         d.v=m_tex[m_face[i].m_tex[j]].m_y;
       }
     vboMesh.push_back(d);
@@ -356,9 +356,9 @@ void AbstractMesh::createVAO() noexcept
 	// in this case we have packed our data in interleaved format as follows
 	// u,v,nx,ny,nz,x,y,z
 	// If you look at the shader we have the following attributes being used
-	// attribute vec3 inVert; attribute 0
+	// attribute glm::vec3 inVert; attribute 0
 	// attribute vec2 inUV; attribute 1
-	// attribute vec3 inNormal; attribure 2
+	// attribute glm::vec3 inNormal; attribure 2
 	// so we need to set the vertexAttributePointer so the correct size and type as follows
 	// vertex is attribute 0 with x,y,z(3) parts of type GL_FLOAT, our complete packed data is
 	// sizeof(vertData) and the offset into the data structure for the first x component is 5 (u,v,nx,ny,nz)..x
@@ -435,7 +435,7 @@ void AbstractMesh::calcDimensions() noexcept
 {
   // Calculate the center of the object.
   m_center=0.0;
-  BOOST_FOREACH(Vec3 v,m_verts)
+  BOOST_FOREACH(glm::vec3 v,m_verts)
   {
     m_center+=v;
   }
@@ -567,14 +567,14 @@ if( size <=0 )
 // into vert array
 int minXI=0; int minYI=0; int minZI=0;
 int maxXI=0; int maxYI=0; int maxZI=0;
-Real minX=m_verts[0].m_x; Real maxX=m_verts[0].m_x;
+Real minX=m_verts[0].x; Real maxX=m_verts[0].x;
 Real minY=m_verts[0].m_y; Real maxY=m_verts[0].m_y;
 Real minZ=m_verts[0].m_z; Real maxZ=m_verts[0].m_z;
 
 for(unsigned int i=0; i<size; ++i)
 {
-  if(m_verts[i].m_x < minX) { minXI=i; minX=m_verts[i].m_x; }
-  if(m_verts[i].m_x > maxX) { maxXI=i; maxX=m_verts[i].m_x; }
+  if(m_verts[i].x < minX) { minXI=i; minX=m_verts[i].x; }
+  if(m_verts[i].x > maxX) { maxXI=i; maxX=m_verts[i].x; }
   if(m_verts[i].m_y < minY) { minYI=i; minY=m_verts[i].m_y; }
   if(m_verts[i].m_y > maxY) { maxYI=i; maxY=m_verts[i].m_y; }
   if(m_verts[i].m_z < minZ) { minZI=i; minZ=m_verts[i].m_z; }
@@ -582,17 +582,17 @@ for(unsigned int i=0; i<size; ++i)
 }
 // now we find maximally seperated points from the 3 pairs
 // we will use this to initialise the spheres
-Real dx=m_verts[minXI].m_x-m_verts[maxXI].m_x;
+Real dx=m_verts[minXI].x-m_verts[maxXI].x;
 Real dy=m_verts[minXI].m_y-m_verts[maxXI].m_y;
 Real dz=m_verts[minXI].m_z-m_verts[maxXI].m_z;
 Real diam2x=dx*dx+dy*dy+dz*dz;
 
-dx=m_verts[minYI].m_x-m_verts[maxYI].m_x;
+dx=m_verts[minYI].x-m_verts[maxYI].x;
 dy=m_verts[minYI].m_y-m_verts[maxYI].m_y;
 dz=m_verts[minYI].m_z-m_verts[maxYI].m_z;
 Real diam2y=dx*dx+dy*dy+dz*dz;
 
-dx=m_verts[minZI].m_x-m_verts[maxZI].m_x;
+dx=m_verts[minZI].x-m_verts[maxZI].x;
 dy=m_verts[minZI].m_y-m_verts[maxZI].m_y;
 dz=m_verts[minZI].m_z-m_verts[maxZI].m_z;
 Real diam2z=dx*dx+dy*dy+dz*dz;
@@ -609,7 +609,7 @@ m_sphereCenter=(m_verts[p1i]+m_verts[p2i])/2.0;
 Real radTwo=diamTwo/4.0;
 Real rad=sqrt(radTwo);
 // now check and adjust for outlying points
-Vec3 newCenter;
+glm::vec3 newCenter;
 Real newRad2;
 Real newRad;
 Real dist2;

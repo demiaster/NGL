@@ -1,7 +1,7 @@
 #include "Camera.h"
 #include "Colour.h"
 #include "Vec2.h"
-#include "Vec3.h"
+#include "glm::vec3.h"
 #include "Vec4.h"
 #include "Mat3.h"
 #include "Mat4.h"
@@ -24,12 +24,12 @@ NGL_DLLEXPORT std::istream& operator>>( std::istream& _input, Vec2& _s	) noexcep
 
 
 //----------------------------------------------------------------------------------------------------------------------
-NGL_DLLEXPORT std::ostream& operator<<( std::ostream& _output, const Vec3& _v	) noexcept
+NGL_DLLEXPORT std::ostream& operator<<( std::ostream& _output, const glm::vec3& _v	) noexcept
 {
   return _output<<"["<<_v.m_x<<","<<_v.m_y<<","<<_v.m_z<<"]";
 }
 //----------------------------------------------------------------------------------------------------------------------
-NGL_DLLEXPORT std::istream& operator>>(std::istream& _input,	 Vec3& _s	) noexcept
+NGL_DLLEXPORT std::istream& operator>>(std::istream& _input,	 glm::vec3& _s	) noexcept
 {
   return _input >> _s.m_x >> _s.m_y >> _s.m_z;
 }

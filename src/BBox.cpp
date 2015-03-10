@@ -42,31 +42,31 @@ const static GLubyte lindices[]=  {
                                  };
 
 //----------------------------------------------------------------------------------------------------------------------
-BBox::BBox( const Vec3& _center,  Real _width, Real _height, Real _depth  ) noexcept
+BBox::BBox( const glm::vec3& _center,  Real _width, Real _height, Real _depth  ) noexcept
 {
 	// Calculate the Vertices based on the w,h,d params passed in the box is asumed
 	// to be centered on the _center with equal w / h / d
 	// -x +y -z
 
-	m_vert[0].m_x=_center.m_x-(_width/2.0f); m_vert[0].m_y=_center.m_y+(_height/2.0f); m_vert[0].m_z=_center.m_z-(_depth/2.0f);
+    m_vert[0].x=_center.x-(_width/2.0f); m_vert[0].y=_center.y+(_height/2.0f); m_vert[0].z=_center.z-(_depth/2.0f);
 	// + x -y -z
-	m_vert[1].m_x=_center.m_x+(_width/2.0f); m_vert[1].m_y=_center.m_y+(_height/2.0f); m_vert[1].m_z=_center.m_z-(_depth/2.0f);
-	m_vert[2].m_x=_center.m_x+(_width/2.0f); m_vert[2].m_y=_center.m_y+(_height/2.0f); m_vert[2].m_z=_center.m_z+(_depth/2.0f);
-	m_vert[3].m_x=_center.m_x-(_width/2.0f); m_vert[3].m_y=_center.m_y+(_height/2.0f); m_vert[3].m_z=_center.m_z+(_depth/2.0f);
-	m_vert[4].m_x=_center.m_x-(_width/2.0f); m_vert[4].m_y=_center.m_y-(_height/2.0f); m_vert[4].m_z=_center.m_z-(_depth/2.0f);
-	m_vert[5].m_x=_center.m_x+(_width/2.0f); m_vert[5].m_y=_center.m_y-(_height/2.0f); m_vert[5].m_z=_center.m_z-(_depth/2.0f);
-	m_vert[6].m_x=_center.m_x+(_width/2.0f); m_vert[6].m_y=_center.m_y-(_height/2.0f); m_vert[6].m_z=_center.m_z+(_depth/2.0f);
-	m_vert[7].m_x=_center.m_x-(_width/2.0f); m_vert[7].m_y=_center.m_y-(_height/2.0f); m_vert[7].m_z=_center.m_z+(_depth/2.0f);
+    m_vert[1].x=_center.x+(_width/2.0f); m_vert[1].y=_center.y+(_height/2.0f); m_vert[1].z=_center.z-(_depth/2.0f);
+    m_vert[2].x=_center.x+(_width/2.0f); m_vert[2].y=_center.y+(_height/2.0f); m_vert[2].z=_center.z+(_depth/2.0f);
+    m_vert[3].x=_center.x-(_width/2.0f); m_vert[3].y=_center.y+(_height/2.0f); m_vert[3].z=_center.z+(_depth/2.0f);
+    m_vert[4].x=_center.x-(_width/2.0f); m_vert[4].y=_center.y-(_height/2.0f); m_vert[4].z=_center.z-(_depth/2.0f);
+    m_vert[5].x=_center.x+(_width/2.0f); m_vert[5].y=_center.y-(_height/2.0f); m_vert[5].z=_center.z-(_depth/2.0f);
+    m_vert[6].x=_center.x+(_width/2.0f); m_vert[6].y=_center.y-(_height/2.0f); m_vert[6].z=_center.z+(_depth/2.0f);
+    m_vert[7].x=_center.x-(_width/2.0f); m_vert[7].y=_center.y-(_height/2.0f); m_vert[7].z=_center.z+(_depth/2.0f);
 
 	//Store the _center
 	m_center=_center;
 	// Setup the Plane Normals for Collision Detection
-	m_norm[0].set(0.0f,1.0f,0.0f);
-	m_norm[1].set(0.0f,-1.0f,0.0f);
-	m_norm[2].set(1.0f,0.0f,0.0f);
-	m_norm[3].set(-1.0f,0.0f,0.0f);
-	m_norm[4].set(0.0f,0.0f,1.0f);
-	m_norm[5].set(0.0f,0.0f,-1.0f);
+    m_norm[0]=glm::vec3(0.0f,1.0f,0.0f);
+    m_norm[1]=glm::vec3(0.0f,-1.0f,0.0f);
+    m_norm[2]=glm::vec3(1.0f,0.0f,0.0f);
+    m_norm[3]=glm::vec3(-1.0f,0.0f,0.0f);
+    m_norm[4]=glm::vec3(0.0f,0.0f,1.0f);
+    m_norm[5]=glm::vec3(0.0f,0.0f,-1.0f);
 	// store width height and depth
 	m_width=_width;
 	m_height=_height;
@@ -85,7 +85,7 @@ BBox::BBox( const Vec3& _center,  Real _width, Real _height, Real _depth  ) noex
 BBox::BBox() noexcept
 {
   //default constructor creates a unit BBox
-  m_center.m_x=m_center.m_y=m_center.m_z=0.0f;
+  m_center.x=m_center.y=m_center.z=0.0f;
   m_drawMode=GL_LINE;
   m_width=2.0;
   m_height=2.0;
@@ -124,17 +124,17 @@ BBox::BBox( Real _minX, Real _maxX,  Real _minY, Real _maxY, Real _minZ, Real _m
 	m_maxZ=_maxZ;
 
 
-	m_center.set(0,0,0);
+    m_center=glm::vec3(0,0,0);
 
-	m_vert[0].m_x=_minX; m_vert[0].m_y=_maxY; m_vert[0].m_z=_minZ;
-	m_vert[1].m_x=_maxX; m_vert[1].m_y=_maxY; m_vert[1].m_z=_minZ;
-	m_vert[2].m_x=_maxX; m_vert[2].m_y=_maxY; m_vert[2].m_z=_maxZ;
-	m_vert[3].m_x=_minX; m_vert[3].m_y=_maxY; m_vert[3].m_z=_maxZ;
+    m_vert[0].x=_minX; m_vert[0].y=_maxY; m_vert[0].z=_minZ;
+    m_vert[1].x=_maxX; m_vert[1].y=_maxY; m_vert[1].z=_minZ;
+    m_vert[2].x=_maxX; m_vert[2].y=_maxY; m_vert[2].z=_maxZ;
+    m_vert[3].x=_minX; m_vert[3].y=_maxY; m_vert[3].z=_maxZ;
 
-	m_vert[4].m_x=_minX; m_vert[4].m_y=_minY; m_vert[4].m_z=_minZ;
-	m_vert[5].m_x=_maxX; m_vert[5].m_y=_minY; m_vert[5].m_z=_minZ;
-	m_vert[6].m_x=_maxX; m_vert[6].m_y=_minY; m_vert[6].m_z=_maxZ;
-	m_vert[7].m_x=_minX; m_vert[7].m_y=_minY; m_vert[7].m_z=_maxZ;
+    m_vert[4].x=_minX; m_vert[4].y=_minY; m_vert[4].z=_minZ;
+    m_vert[5].x=_maxX; m_vert[5].y=_minY; m_vert[5].z=_minZ;
+    m_vert[6].x=_maxX; m_vert[6].y=_minY; m_vert[6].z=_maxZ;
+    m_vert[7].x=_minX; m_vert[7].y=_minY; m_vert[7].z=_maxZ;
 	m_drawMode=GL_LINE;
 	m_width=m_maxX-m_minX;
 	m_height=m_maxY-m_minY;
@@ -170,9 +170,9 @@ void BBox::setVAO()
     // a pointer to the first element of data (in this case the address of the first element of the
     // std::vector
     m_vao->bind();
-    m_vao->setIndexedData(8*sizeof(Vec3),m_vert[0].m_x,sizeof(indices),&indices[0],GL_UNSIGNED_BYTE,GL_STATIC_DRAW);
+    m_vao->setIndexedData(8*sizeof(glm::vec3),m_vert[0].x,sizeof(indices),&indices[0],GL_UNSIGNED_BYTE,GL_STATIC_DRAW);
 
-    m_vao->setVertexAttributePointer(0,3,GL_FLOAT,sizeof(Vec3),0);
+    m_vao->setVertexAttributePointer(0,3,GL_FLOAT,sizeof(glm::vec3),0);
 
     m_vao->setNumIndices(sizeof(indices));
     // finally we have finished for now so time to unbind the VAO
@@ -188,9 +188,9 @@ void BBox::setVAO()
 
 
     m_vao->bind();
-    m_vao->setIndexedData(8*sizeof(Vec3),m_vert[0].m_x,sizeof(lindices),&lindices[0],GL_UNSIGNED_BYTE,GL_STATIC_DRAW);
+    m_vao->setIndexedData(8*sizeof(glm::vec3),m_vert[0].x,sizeof(lindices),&lindices[0],GL_UNSIGNED_BYTE,GL_STATIC_DRAW);
 
-    m_vao->setVertexAttributePointer(0,3,GL_FLOAT,sizeof(Vec3),0);
+    m_vao->setVertexAttributePointer(0,3,GL_FLOAT,sizeof(glm::vec3),0);
 
     m_vao->setNumIndices(sizeof(lindices));
     // finally we have finished for now so time to unbind the VAO
@@ -214,21 +214,21 @@ void BBox::draw() const noexcept
 }
 //----------------------------------------------------------------------------------------------------------------------
 
-void BBox::setCenter(const Vec3 &_center, bool _recalc) noexcept
+void BBox::setCenter(const glm::vec3 &_center, bool _recalc) noexcept
 {
 	// Calculate the Vertices based on the w,h,d params passed in the box is asumed
 	// to be centered on the _center with equal w / h / d
 	// -x +y -z
 	m_center=_center;
-	m_vert[0].m_x=_center.m_x-(m_width/2.0f); m_vert[0].m_y=_center.m_y+(m_height/2.0f); m_vert[0].m_z=_center.m_z-(m_depth/2.0f);
+    m_vert[0].x=_center.x-(m_width/2.0f); m_vert[0].y=_center.y+(m_height/2.0f); m_vert[0].z=_center.z-(m_depth/2.0f);
 	// + x -y -z
-	m_vert[1].m_x=_center.m_x+(m_width/2.0f); m_vert[1].m_y=_center.m_y+(m_height/2.0f); m_vert[1].m_z=_center.m_z-(m_depth/2.0f);
-	m_vert[2].m_x=_center.m_x+(m_width/2.0f); m_vert[2].m_y=_center.m_y+(m_height/2.0f); m_vert[2].m_z=_center.m_z+(m_depth/2.0f);
-	m_vert[3].m_x=_center.m_x-(m_width/2.0f); m_vert[3].m_y=_center.m_y+(m_height/2.0f); m_vert[3].m_z=_center.m_z+(m_depth/2.0f);
-	m_vert[4].m_x=_center.m_x-(m_width/2.0f); m_vert[4].m_y=_center.m_y-(m_height/2.0f); m_vert[4].m_z=_center.m_z-(m_depth/2.0f);
-	m_vert[5].m_x=_center.m_x+(m_width/2.0f); m_vert[5].m_y=_center.m_y-(m_height/2.0f); m_vert[5].m_z=_center.m_z-(m_depth/2.0f);
-	m_vert[6].m_x=_center.m_x+(m_width/2.0f); m_vert[6].m_y=_center.m_y-(m_height/2.0f); m_vert[6].m_z=_center.m_z+(m_depth/2.0f);
-	m_vert[7].m_x=_center.m_x-(m_width/2.0f); m_vert[7].m_y=_center.m_y-(m_height/2.0f); m_vert[7].m_z=_center.m_z+(m_depth/2.0f);
+    m_vert[1].x=_center.x+(m_width/2.0f); m_vert[1].y=_center.y+(m_height/2.0f); m_vert[1].z=_center.z-(m_depth/2.0f);
+    m_vert[2].x=_center.x+(m_width/2.0f); m_vert[2].y=_center.y+(m_height/2.0f); m_vert[2].z=_center.z+(m_depth/2.0f);
+    m_vert[3].x=_center.x-(m_width/2.0f); m_vert[3].y=_center.y+(m_height/2.0f); m_vert[3].z=_center.z+(m_depth/2.0f);
+    m_vert[4].x=_center.x-(m_width/2.0f); m_vert[4].y=_center.y-(m_height/2.0f); m_vert[4].z=_center.z-(m_depth/2.0f);
+    m_vert[5].x=_center.x+(m_width/2.0f); m_vert[5].y=_center.y-(m_height/2.0f); m_vert[5].z=_center.z-(m_depth/2.0f);
+    m_vert[6].x=_center.x+(m_width/2.0f); m_vert[6].y=_center.y-(m_height/2.0f); m_vert[6].z=_center.z+(m_depth/2.0f);
+    m_vert[7].x=_center.x-(m_width/2.0f); m_vert[7].y=_center.y-(m_height/2.0f); m_vert[7].z=_center.z+(m_depth/2.0f);
 	if(_recalc)
 		recalculate();
 }
@@ -265,15 +265,15 @@ void BBox::recalculate() noexcept
   // Calculate the Vertices based on the w,h,d params passed in the box is asumed
   // to be centered on the _center with equal w / h / d
   // -x +y -z
-  m_vert[0].m_x=m_center.m_x-(m_width/2.0f); m_vert[0].m_y=m_center.m_y+(m_height/2.0f); m_vert[0].m_z=m_center.m_z-(m_depth/2.0f);
+  m_vert[0].x=m_center.x-(m_width/2.0f); m_vert[0].y=m_center.y+(m_height/2.0f); m_vert[0].z=m_center.z-(m_depth/2.0f);
   // + x -y -z
-  m_vert[1].m_x=m_center.m_x+(m_width/2.0f); m_vert[1].m_y=m_center.m_y+(m_height/2.0f); m_vert[1].m_z=m_center.m_z-(m_depth/2.0f);
-  m_vert[2].m_x=m_center.m_x+(m_width/2.0f); m_vert[2].m_y=m_center.m_y+(m_height/2.0f); m_vert[2].m_z=m_center.m_z+(m_depth/2.0f);
-  m_vert[3].m_x=m_center.m_x-(m_width/2.0f); m_vert[3].m_y=m_center.m_y+(m_height/2.0f); m_vert[3].m_z=m_center.m_z+(m_depth/2.0f);
-  m_vert[4].m_x=m_center.m_x-(m_width/2.0f); m_vert[4].m_y=m_center.m_y-(m_height/2.0f); m_vert[4].m_z=m_center.m_z-(m_depth/2.0f);
-  m_vert[5].m_x=m_center.m_x+(m_width/2.0f); m_vert[5].m_y=m_center.m_y-(m_height/2.0f); m_vert[5].m_z=m_center.m_z-(m_depth/2.0f);
-  m_vert[6].m_x=m_center.m_x+(m_width/2.0f); m_vert[6].m_y=m_center.m_y-(m_height/2.0f); m_vert[6].m_z=m_center.m_z+(m_depth/2.0f);
-  m_vert[7].m_x=m_center.m_x-(m_width/2.0f); m_vert[7].m_y=m_center.m_y-(m_height/2.0f); m_vert[7].m_z=m_center.m_z+(m_depth/2.0f);
+  m_vert[1].x=m_center.x+(m_width/2.0f); m_vert[1].y=m_center.y+(m_height/2.0f); m_vert[1].z=m_center.z-(m_depth/2.0f);
+  m_vert[2].x=m_center.x+(m_width/2.0f); m_vert[2].y=m_center.y+(m_height/2.0f); m_vert[2].z=m_center.z+(m_depth/2.0f);
+  m_vert[3].x=m_center.x-(m_width/2.0f); m_vert[3].y=m_center.y+(m_height/2.0f); m_vert[3].z=m_center.z+(m_depth/2.0f);
+  m_vert[4].x=m_center.x-(m_width/2.0f); m_vert[4].y=m_center.y-(m_height/2.0f); m_vert[4].z=m_center.z-(m_depth/2.0f);
+  m_vert[5].x=m_center.x+(m_width/2.0f); m_vert[5].y=m_center.y-(m_height/2.0f); m_vert[5].z=m_center.z-(m_depth/2.0f);
+  m_vert[6].x=m_center.x+(m_width/2.0f); m_vert[6].y=m_center.y-(m_height/2.0f); m_vert[6].z=m_center.z+(m_depth/2.0f);
+  m_vert[7].x=m_center.x-(m_width/2.0f); m_vert[7].y=m_center.y-(m_height/2.0f); m_vert[7].z=m_center.z+(m_depth/2.0f);
   setVAO();
 }
 

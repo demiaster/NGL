@@ -11,7 +11,7 @@ R"DELIM(
 in vec2 inVert;
 in vec2 inUV;
 out vec2 vertUV;
-uniform vec3 textColour;
+uniform glm::vec3 textColour;
 uniform float scaleX;
 uniform float scaleY;
 uniform float xpos;
@@ -32,7 +32,7 @@ R"DELIM(
 uniform sampler2D tex;
 in vec2 vertUV;
 out vec4 fragColour;
-uniform vec3 textColour;
+uniform glm::vec3 textColour;
 void main()
 {
   vec4 text=texture(tex,vertUV.st);

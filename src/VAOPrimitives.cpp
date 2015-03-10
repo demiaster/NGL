@@ -99,9 +99,9 @@ void VAOPrimitives::createVAOFromHeader(const std::string &_name, const Real *_d
     // in this case we have packed our data in interleaved format as follows
     // u,v,nx,ny,nz,x,y,z
     // If you look at the shader we have the following attributes being used
-    // attribute vec3 inVert; attribute 0
+    // attribute glm::vec3 inVert; attribute 0
     // attribute vec2 inUV; attribute 1
-    // attribute vec3 inNormal; attribute 2
+    // attribute glm::vec3 inNormal; attribute 2
     // so we need to set the vertexAttributePointer so the correct size and type as follows
     // vertex is attribute 0 with x,y,z(3) parts of type GL_FLOAT, our complete packed data is
     // sizeof(vertData) and the offset into the data structure for the first x component is 5 (u,v,nx,ny,nz)..x
@@ -358,9 +358,9 @@ void VAOPrimitives::createVAO(const std::string &_name,const std::vector<vertDat
   // in this case we have packed our data in interleaved format as follows
   // u,v,nx,ny,nz,x,y,z
   // If you look at the shader we have the following attributes being used
-  // attribute vec3 inVert; attribute 0
+  // attribute glm::vec3 inVert; attribute 0
   // attribute vec2 inUV; attribute 1
-  // attribute vec3 inNormal; attribure 2
+  // attribute glm::vec3 inNormal; attribure 2
   // so we need to set the vertexAttributePointer so the correct size and type as follows
   // vertex is attribute 0 with x,y,z(3) parts of type GL_FLOAT, our complete packed data is
   // sizeof(vertData) and the offset into the data structure for the first x component is 5 (u,v,nx,ny,nz)..x
@@ -830,7 +830,7 @@ void VAOPrimitives::createTorus(const std::string &_name,const Real _minorRadius
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void VAOPrimitives::createTrianglePlane(const std::string &_name,const Real _width,const Real _depth,const int _wP,const int _dP,const Vec3 &_vN) noexcept
+void VAOPrimitives::createTrianglePlane(const std::string &_name,const Real _width,const Real _depth,const int _wP,const int _dP,const glm::vec3 &_vN) noexcept
 {
     // calculate the VBO size basically we have 2 tris per quad based on the width and depth
     // _precision.
@@ -866,9 +866,9 @@ void VAOPrimitives::createTrianglePlane(const std::string &_name,const Real _wid
             1____2
             */
             // the normals are always the same so set them for d first
-            vert.nx=_vN.m_x;
-            vert.ny=_vN.m_y;
-            vert.nz=_vN.m_z;
+            vert.nx=_vN.x;
+            vert.ny=_vN.y;
+            vert.nz=_vN.z;
             // y is always 0 as in a plane
             vert.y=0.0;
             // now for the per vert stuff

@@ -21,9 +21,8 @@
 // must include types.h first for Real and GLEW if required
 #include "Types.h"
 #include "Colour.h"
-#include "Vec4.h"
-#include "Vec3.h"
-#include "Mat4.h"
+#include <glm/glm.hpp>
+
 #include <string>
 
 
@@ -52,10 +51,10 @@ enum LIGHTMODES
 ///
 /// struct Lights
 /// {
-///   vec4 position;
-///   vec4 ambient;
-///   vec4 diffuse;
-///   vec4 specular;
+///   glm::vec4 position;
+///   glm::vec4 ambient;
+///   glm::vec4 diffuse;
+///   glm::vec4 specular;
 /// };
 ///  @author Jon Macey
 ///  @version 5.0
@@ -73,7 +72,7 @@ public:
   /// @brief  set the light position
   /// @param[in]  _p the new light position
   //----------------------------------------------------------------------------------------------------------------------
-  inline void setPosition( const Vec3& _p ) noexcept
+  inline void setPosition( const glm::glm::vec3& _p ) noexcept
               {
                 m_position.set(_p.m_x,_p.m_y,_p.m_z,static_cast<Real>(m_lightMode));
               }
@@ -112,7 +111,7 @@ public:
   /// @param[in] _col the light colour
   /// @param[in] _lightmode the mode to set the light to either local or remote
   //----------------------------------------------------------------------------------------------------------------------
-  Light( const Vec3& _pos, const Colour& _col, LIGHTMODES _lightmode ) noexcept;
+  Light( const glm::glm::vec3& _pos, const Colour& _col, LIGHTMODES _lightmode ) noexcept;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief ctor to create the light
@@ -121,7 +120,7 @@ public:
   /// @param[in] _specColour the specular component of the light
   /// @param[in] _lightmode the mode to set the light to either local or remote
   //----------------------------------------------------------------------------------------------------------------------
-  Light(const Vec3& _pos, const Colour& _col,const Colour& _specColour,LIGHTMODES _lightmode) noexcept;
+  Light(const glm::glm::vec3& _pos, const Colour& _col,const Colour& _specColour,LIGHTMODES _lightmode) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   ///  @brief destructor when light is destroyed we turn it off
   ///
@@ -140,7 +139,7 @@ public:
   /// @brief returns the current light position as a Vector
   /// @returns Vector pos
   //----------------------------------------------------------------------------------------------------------------------
-  Vec4 getPos()const  noexcept{return m_position; }
+  glm::vec4 getPos()const  noexcept{return m_position; }
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief returns the current light colour
   /// @returns Colour colour
@@ -173,7 +172,7 @@ protected :
    //----------------------------------------------------------------------------------------------------------------------
    /// @brief m_pos is used to store the light position w used for point / dir light values
    //----------------------------------------------------------------------------------------------------------------------
-   Vec4 m_position;
+   glm::vec4 m_position;
    //----------------------------------------------------------------------------------------------------------------------
    /// @brief   Colour used to give the light a colour
    //----------------------------------------------------------------------------------------------------------------------
