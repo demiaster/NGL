@@ -40,11 +40,11 @@ namespace ngl
 ///
 /// struct Lights
 /// {
-///   vec4 position;
+///   glm::vec4position;
 ///   glm::vec3 direction;
-///   vec4 ambient;
-///   vec4 diffuse;
-///   vec4 specular;
+///   glm::vec4ambient;
+///   glm::vec4diffuse;
+///   glm::vec4specular;
 ///   float spotCosCutoff;
 ///   float spotCosInnerCutoff;
 ///   float spotExponent;
@@ -63,6 +63,7 @@ public:
   /// @brief default ctor
   //----------------------------------------------------------------------------------------------------------------------
   SpotLight() noexcept{;}
+  ~SpotLight() noexcept{}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  ctor
   /// @param[in]  _pos    -  the spot position
@@ -113,7 +114,7 @@ public:
   /// @brief  This function sets the light to aim at the specified point
   /// @param[in]  _pos  -  the aim position
   //----------------------------------------------------------------------------------------------------------------------
-  void aim( const Vec4& _pos ) noexcept;
+  void aim( const glm::vec4& _pos ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  this method loads the spotlight values to the shader
   /// @param[in]  _uniformName  the uniform base name to load shader values to the struct will be
@@ -132,10 +133,10 @@ public:
   void loadToShader(std::string _uniformName  )const noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief set the transform of the light this will be multiplied by the position
-  /// Vec4 pos=m_transform*m_position;
+  /// glm::vec4pos=m_transform*m_position;
   /// @param[in] _t the transform
   //----------------------------------------------------------------------------------------------------------------------
-  void setTransform(Mat4 &_t) noexcept;
+  void setTransform( glm::mat4 &_t) noexcept;
 
 
 protected :
@@ -150,11 +151,11 @@ protected :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief where the spot is to be aimed
   //----------------------------------------------------------------------------------------------------------------------
-  Vec4 m_aim;
+  glm::vec4 m_aim;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief the spot light direction vector
   //----------------------------------------------------------------------------------------------------------------------
-  Vec4 m_dir;
+  glm::vec4 m_dir;
 
   }; // end of class SpotLight
 }// end of namespace

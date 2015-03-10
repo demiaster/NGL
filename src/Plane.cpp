@@ -16,6 +16,7 @@
 */
 #include "Plane.h"
 #include <boost/format.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 //----------------------------------------------------------------------------------------------------------------------
 /// @file Plane.cpp
 /// @brief implementation files for Plane class
@@ -46,28 +47,28 @@ void Plane::setPoints(const glm::vec3 &_v1, const glm::vec3 &_v2, const glm::vec
 
 	aux1 = _v1 - _v2;
 	aux2 = _v3 - _v2;
-	m_normal = aux2.cross(aux1);
-	m_normal.normalize();
+    m_normal =  glm::normalize(glm::cross(aux2,aux1));
+
 	m_point=_v2;
-	m_d = -(m_normal.inner(m_point));
+    m_d = -glm::dot(m_normal,m_point);
 }
 //----------------------------------------------------------------------------------------------------------------------
 void Plane::setNormalPoint( const glm::vec3 &_normal, const glm::vec3 &_point) noexcept
 {
 	m_point=_point;
-	m_normal=_normal;
-	m_normal.normalize();
-	m_d = -(m_normal.inner(m_point));
+    m_normal=glm::normalize(_normal);
+
+    m_d = -( glm::dot(m_normal,m_point) );
 }
 //----------------------------------------------------------------------------------------------------------------------
 void Plane::setFloats(Real _a,Real _b,	Real _c,	Real _d) noexcept
 {
 	// set the normal vector
-	m_normal.set(_a,_b,_c);
+    m_normal=glm::vec3(_a,_b,_c);
 	//compute the lenght of the vector
-	Real l = m_normal.length();
+    Real l = glm::length(m_normal);
 	// normalize the vector
-	m_normal.normalize();
+    m_normal=glm::normalize(m_normal);
 	// and divide d by th length as well
 	m_d = _d/l;
 }
@@ -75,7 +76,7 @@ void Plane::setFloats(Real _a,Real _b,	Real _c,	Real _d) noexcept
 //----------------------------------------------------------------------------------------------------------------------
 Real Plane::distance( const glm::vec3 &_p) const noexcept
 {
-	return (m_d + m_normal.inner(_p));
+    return (m_d +  glm::dot(m_normal,_p));
 }
 
 } // end of ngl namespace

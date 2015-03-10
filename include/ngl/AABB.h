@@ -28,9 +28,8 @@
 
 // must include types.h first for Real and GLEW if required
 #include "Types.h"
-#include "Vec4.h"
 #include "BBox.h"
-
+#include <glm/glm.hpp>
 //----------------------------------------------------------------------------------------------------------------------
 /// @file AABB.h
 /// @brief Axis Aligned Bounding Box can be calculated stand alone
@@ -56,7 +55,7 @@ public :
 	/// @param[in] _y the y extent
 	/// @param[in] _z the z extent
 	//----------------------------------------------------------------------------------------------------------------------
-	AABB(const Vec4 &_corner,Real _x,Real _y,	Real _z ) noexcept;
+    AABB(const glm::vec4 &_corner,Real _x,Real _y,	Real _z ) noexcept;
 
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief default ctor
@@ -73,7 +72,7 @@ public :
 	/// @param[in] _y the y extent
 	/// @param[in] _z the z extent
 		//----------------------------------------------------------------------------------------------------------------------
-	void set(const Vec4 &_corner,Real _x,	Real _y,	Real _z )noexcept;
+    void set(const glm::vec4 &_corner,Real _x,	Real _y,	Real _z )noexcept;
 
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief set from a bounding box
@@ -83,12 +82,12 @@ public :
 	//----------------------------------------------------------------------------------------------------------------------
 
 	// for use in frustum computations
-		Vec4 getVertexP(const Vec4 &_normal)noexcept;
-		Vec4 getVertexN(const Vec4 &_normal)noexcept;
+        glm::vec4 getVertexP(const glm::vec4 &_normal)noexcept;
+        glm::vec4 getVertexN(const glm::vec4 &_normal)noexcept;
 private :
 	//----------------------------------------------------------------------------------------------------------------------
 	//----------------------------------------------------------------------------------------------------------------------
-	Vec4 m_corner;
+    glm::vec4 m_corner;
 	//----------------------------------------------------------------------------------------------------------------------
 	//----------------------------------------------------------------------------------------------------------------------
 	Real m_x;

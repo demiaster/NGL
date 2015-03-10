@@ -25,14 +25,14 @@ namespace ngl
 //-----------------------------------------------------------------------------
 AABB::AABB() noexcept
 {
-	m_corner.set(0,0,0,1);
+    m_corner=glm::vec4(0,0,0,1);
 
 	m_x = 1.0f;
 	m_y = 1.0f;
 	m_z = 1.0f;
 }
 //-----------------------------------------------------------------------------
-AABB::AABB(const Vec4 &_corner,  Real _x,  Real _y,  Real _z ) noexcept
+AABB::AABB(const glm::vec4 &_corner,  Real _x,  Real _y,  Real _z ) noexcept
 {
  set(_corner,_x,_y,_z);
 }
@@ -43,66 +43,66 @@ AABB::~AABB() noexcept
 
 }
 //-----------------------------------------------------------------------------
-void AABB::set(const Vec4 &_corner,Real _x,Real _y,	Real _z	) noexcept
+void AABB::set(const glm::vec4 &_corner,Real _x,Real _y,	Real _z	) noexcept
 {
 	m_corner=_corner;
 
 	if (_x < 0.0)
 	{
 		_x = -_x;
-		m_corner.m_x -= _x;
+        m_corner.x -= _x;
 	}
 	if (_y < 0.0)
 	{
 		_y = -_y;
-		m_corner.m_y -= _y;
+        m_corner.y -= _y;
 	}
 	if (_z < 0.0)
 	{
 		_z = -_z;
-		m_corner.m_z -= _z;
+        m_corner.z -= _z;
 	}
 	m_x = _x;
 	m_y = _y;
 	m_z = _z;
 }
 
-Vec4 AABB::getVertexP(const Vec4 &_normal) noexcept
+glm::vec4 AABB::getVertexP(const glm::vec4 &_normal) noexcept
 {
-	Vec4 res = m_corner;
+    glm::vec4 res = m_corner;
 
-	if (_normal.m_x > 0)
+    if (_normal.x > 0)
 	{
-		res.m_x += m_x;
+        res.x += m_x;
 	}
-	if (_normal.m_y > 0)
+    if (_normal.y > 0)
 	{
-		res.m_y += m_y;
+        res.y += m_y;
 	}
 
-	if (_normal.m_z > 0)
+    if (_normal.z > 0)
 	{
-		res.m_z += m_z;
+        res.z += m_z;
 	}
 	return res;
 }
 
-Vec4 AABB::getVertexN(const Vec4 &_normal) noexcept
+glm::vec4 AABB::getVertexN(const glm::vec4 &_normal) noexcept
 {
-	Vec4 res = m_corner;
+    glm::vec4 res = m_corner;
 
-	if (_normal.m_x < 0)
+    if (_normal.x < 0)
 	{
-		res.m_x += m_x;
+        res.x += m_x;
 	}
-	if (_normal.m_y < 0)
+    if (_normal.y < 0)
 	{
-		res.m_y += m_y;
+        res.y += m_y;
 	}
 
-	if (_normal.m_z < 0)
+    if (_normal.z < 0)
 	{
-		res.m_z += m_z;
+        res.z += m_z;
 	}
 	return res;
 }

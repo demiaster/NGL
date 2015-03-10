@@ -42,15 +42,14 @@ void AbstractMesh::drawBBox() const noexcept
 
 void AbstractMesh::scale(Real _sx, Real _sy, Real _sz ) noexcept
 {
-  m_center=0;
+  m_center=glm::vec3(0.0f);
   // in c++ 11 we can use
-  // for (auto &v : m_verts)
-  for (unsigned long int i=0; i<m_nVerts; ++i)
+  for (auto &v : m_verts)
   {
-    m_verts[i].x*=_sx;
-    m_verts[i].m_y*=_sy;
-    m_verts[i].m_z*=_sz;
-    m_center+=m_verts[i];
+    v.x*=_sx;
+    v.y*=_sy;
+    v.z*=_sz;
+    m_center+=v;
   }
 // calculate the center
   m_center/=m_nVerts;
@@ -140,8 +139,8 @@ void AbstractMesh::writeToRibSubdiv(RibExport& _ribFile )const noexcept
 				// If the vertice if found in the vector, set the test
 				// flag and exit the loop. Else keep going.
 				if( ( FCompare(m_verts[i].x ,vVerts[j]) ) &&
-					( FCompare(m_verts[i].m_y,vVerts[j + 1]) ) &&
-					( FCompare(m_verts[i].m_y,vVerts[j + 2]) )
+                    ( FCompare(m_verts[i].y,vVerts[j + 1]) ) &&
+                    ( FCompare(m_verts[i].y,vVerts[j + 2]) )
 					 )
 				{
 					bTest = true;
@@ -157,8 +156,8 @@ void AbstractMesh::writeToRibSubdiv(RibExport& _ribFile )const noexcept
 			if( bTest == false )
 			{
 				vVerts.push_back( m_verts[m_face[I].m_vert[i]].x );
-				vVerts.push_back( m_verts[m_face[I].m_vert[i]].m_y );
-				vVerts.push_back( m_verts[m_face[I].m_vert[i]].m_z );
+                vVerts.push_back( m_verts[m_face[I].m_vert[i]].y );
+                vVerts.push_back( m_verts[m_face[I].m_vert[i]].z );
 				lVertLink.push_back( counter );
 			}
 			else
@@ -297,18 +296,18 @@ void AbstractMesh::createVAO() noexcept
 
 			// pack in the vertex data first
 			d.x=m_verts[m_face[i].m_vert[j]].x;
-			d.y=m_verts[m_face[i].m_vert[j]].m_y;
-			d.z=m_verts[m_face[i].m_vert[j]].m_z;
+            d.y=m_verts[m_face[i].m_vert[j]].y;
+            d.z=m_verts[m_face[i].m_vert[j]].z;
 			// now if we have norms of tex (possibly could not) pack them as well
 			if(m_nNorm >0 && m_nTex > 0)
 			{
 
         d.nx=m_norm[m_face[i].m_norm[j]].x;
-        d.ny=m_norm[m_face[i].m_norm[j]].m_y;
-        d.nz=m_norm[m_face[i].m_norm[j]].m_z;
+        d.ny=m_norm[m_face[i].m_norm[j]].y;
+        d.nz=m_norm[m_face[i].m_norm[j]].z;
 
 				d.u=m_tex[m_face[i].m_tex[j]].x;
-				d.v=m_tex[m_face[i].m_tex[j]].m_y;
+                d.v=m_tex[m_face[i].m_tex[j]].y;
 
       }
       // now if neither are present (only verts like Zbrush models)
@@ -324,8 +323,8 @@ void AbstractMesh::createVAO() noexcept
       else if(m_nNorm >0 && m_nTex==0)
       {
         d.nx=m_norm[m_face[i].m_norm[j]].x;
-        d.ny=m_norm[m_face[i].m_norm[j]].m_y;
-        d.nz=m_norm[m_face[i].m_norm[j]].m_z;
+        d.ny=m_norm[m_face[i].m_norm[j]].y;
+        d.nz=m_norm[m_face[i].m_norm[j]].z;
         d.u=0;
         d.v=0;
       }
@@ -336,7 +335,7 @@ void AbstractMesh::createVAO() noexcept
         d.ny=0;
         d.nz=0;
         d.u=m_tex[m_face[i].m_tex[j]].x;
-        d.v=m_tex[m_face[i].m_tex[j]].m_y;
+        d.v=m_tex[m_face[i].m_tex[j]].y;
       }
     vboMesh.push_back(d);
     }
@@ -434,38 +433,38 @@ void AbstractMesh::unMapVAO() noexcept
 void AbstractMesh::calcDimensions() noexcept
 {
   // Calculate the center of the object.
-  m_center=0.0;
+  m_center=glm::vec3(0.0f);
   BOOST_FOREACH(glm::vec3 v,m_verts)
   {
     m_center+=v;
   }
   m_center/=m_nVerts;
   // calculate the extents
-  m_maxX=m_minX=m_center.m_x;
-  m_maxY=m_minY=m_center.m_y;
-  m_maxZ=m_minZ=m_center.m_z;
+  m_maxX=m_minX=m_center.x;
+  m_maxY=m_minY=m_center.y;
+  m_maxZ=m_minZ=m_center.z;
 
 
   // Calculate the center of the object.
-  m_center=0.0;
+  m_center=glm::vec3(0.0f);
   for( auto  v :m_verts)
   {
     m_center+=v;
   }
   m_center/=m_nVerts;
   // calculate the extents
-  m_maxX=m_minX=m_center.m_x;
-  m_maxY=m_minY=m_center.m_y;
-  m_maxZ=m_minZ=m_center.m_z;
+  m_maxX=m_minX=m_center.x;
+  m_maxY=m_minY=m_center.y;
+  m_maxZ=m_minZ=m_center.z;
 
   for(auto v : m_verts)
   {
-    if     (v.m_x >m_maxX) { m_maxX=v.m_x; }
-    else if(v.m_x <m_minX) { m_minX=v.m_x; }
-    if     (v.m_y >m_maxY) { m_maxY=v.m_y; }
-    else if(v.m_y <m_minY) { m_minY=v.m_y; }
-    if     (v.m_z >m_maxZ) { m_maxZ=v.m_z; }
-    else if(v.m_z <m_minZ) { m_minZ=v.m_z; }
+    if     (v.x >m_maxX) { m_maxX=v.x; }
+    else if(v.x <m_minX) { m_minX=v.x; }
+    if     (v.y >m_maxY) { m_maxY=v.y; }
+    else if(v.y <m_minY) { m_minY=v.y; }
+    if     (v.z >m_maxZ) { m_maxZ=v.z; }
+    else if(v.z <m_minZ) { m_minZ=v.z; }
   } // end BOOST_FOREACH
 
 
@@ -505,9 +504,9 @@ void AbstractMesh::saveNCCABinaryMesh( const std::string &_fname  ) noexcept
 
   /// the number of faces in the object
   file.write(reinterpret_cast <char *>(&m_nFaces),sizeof(unsigned long int));
-  file.write(reinterpret_cast <char *>(&m_center.m_x),sizeof(Real));
-  file.write(reinterpret_cast <char *>(&m_center.m_y),sizeof(Real));
-  file.write(reinterpret_cast <char *>(&m_center.m_z),sizeof(Real));
+  file.write(reinterpret_cast <char *>(&m_center.x),sizeof(Real));
+  file.write(reinterpret_cast <char *>(&m_center.y),sizeof(Real));
+  file.write(reinterpret_cast <char *>(&m_center.z),sizeof(Real));
 
   file.write(reinterpret_cast <char *>(&m_texture),sizeof(bool));
 
@@ -558,8 +557,8 @@ unsigned int size=m_verts.size();
 if( size <=0 )
 {
 	std::cerr<<"now vertices loaded \n";
-	m_sphereCenter=0;
-	m_sphereRadius=0;
+    m_sphereCenter=glm::vec3(0.0f);
+    m_sphereRadius=0.0f;
 	return;
 
 }
@@ -568,33 +567,33 @@ if( size <=0 )
 int minXI=0; int minYI=0; int minZI=0;
 int maxXI=0; int maxYI=0; int maxZI=0;
 Real minX=m_verts[0].x; Real maxX=m_verts[0].x;
-Real minY=m_verts[0].m_y; Real maxY=m_verts[0].m_y;
-Real minZ=m_verts[0].m_z; Real maxZ=m_verts[0].m_z;
+Real minY=m_verts[0].y; Real maxY=m_verts[0].y;
+Real minZ=m_verts[0].z; Real maxZ=m_verts[0].z;
 
 for(unsigned int i=0; i<size; ++i)
 {
   if(m_verts[i].x < minX) { minXI=i; minX=m_verts[i].x; }
   if(m_verts[i].x > maxX) { maxXI=i; maxX=m_verts[i].x; }
-  if(m_verts[i].m_y < minY) { minYI=i; minY=m_verts[i].m_y; }
-  if(m_verts[i].m_y > maxY) { maxYI=i; maxY=m_verts[i].m_y; }
-  if(m_verts[i].m_z < minZ) { minZI=i; minZ=m_verts[i].m_z; }
-  if(m_verts[i].m_z > maxZ) { maxZI=i; maxZ=m_verts[i].m_z; }
+  if(m_verts[i].y < minY) { minYI=i; minY=m_verts[i].y; }
+  if(m_verts[i].y > maxY) { maxYI=i; maxY=m_verts[i].y; }
+  if(m_verts[i].z < minZ) { minZI=i; minZ=m_verts[i].z; }
+  if(m_verts[i].z > maxZ) { maxZI=i; maxZ=m_verts[i].z; }
 }
 // now we find maximally seperated points from the 3 pairs
 // we will use this to initialise the spheres
 Real dx=m_verts[minXI].x-m_verts[maxXI].x;
-Real dy=m_verts[minXI].m_y-m_verts[maxXI].m_y;
-Real dz=m_verts[minXI].m_z-m_verts[maxXI].m_z;
+Real dy=m_verts[minXI].y-m_verts[maxXI].y;
+Real dz=m_verts[minXI].z-m_verts[maxXI].z;
 Real diam2x=dx*dx+dy*dy+dz*dz;
 
 dx=m_verts[minYI].x-m_verts[maxYI].x;
-dy=m_verts[minYI].m_y-m_verts[maxYI].m_y;
-dz=m_verts[minYI].m_z-m_verts[maxYI].m_z;
+dy=m_verts[minYI].y-m_verts[maxYI].y;
+dz=m_verts[minYI].z-m_verts[maxYI].z;
 Real diam2y=dx*dx+dy*dy+dz*dz;
 
 dx=m_verts[minZI].x-m_verts[maxZI].x;
-dy=m_verts[minZI].m_y-m_verts[maxZI].m_y;
-dz=m_verts[minZI].m_z-m_verts[maxZI].m_z;
+dy=m_verts[minZI].y-m_verts[maxZI].y;
+dz=m_verts[minZI].z-m_verts[maxZI].z;
 Real diam2z=dx*dx+dy*dy+dz*dz;
 
 Real diamTwo=diam2x;
@@ -604,7 +603,7 @@ if(diam2y>diamTwo){ diamTwo=diam2y; p1i=minYI; p2i=maxYI;}
 if(diam2z>diamTwo){ diamTwo=diam2z; p1i=minZI; p2i=maxZI;}
 // now we can get the center of the sphere as the average
 // of the two points
-m_sphereCenter=(m_verts[p1i]+m_verts[p2i])/2.0;
+m_sphereCenter=glm::vec3(m_verts[p1i]+m_verts[p2i])/2.0f;
 // now calculate radius and radius^2 of the initial sphere
 Real radTwo=diamTwo/4.0;
 Real rad=sqrt(radTwo);
@@ -618,9 +617,9 @@ Real delta;
 
 for (auto v : m_verts)
 {
-  dx=v.m_x-m_sphereCenter.m_x;
-  dy=v.m_y-m_sphereCenter.m_y;
-  dz=v.m_z-m_sphereCenter.m_z;
+  dx=v.x-m_sphereCenter.x;
+  dy=v.y-m_sphereCenter.y;
+  dz=v.z-m_sphereCenter.z;
   // distance squared of old center to current point
   dist2=dx*dx+dy*dy+dz*dz;
   // need to update the sphere if this point is outside the radius
@@ -631,13 +630,13 @@ for (auto v : m_verts)
     newRad2=newRad*newRad;
     delta=dist-newRad;
     // now compute new center using the weights above
-    newCenter.m_x=(newRad*m_sphereCenter.m_x+delta*v.m_x)/dist;
-    newCenter.m_y=(newRad*m_sphereCenter.m_y+delta*v.m_y)/dist;
-    newCenter.m_z=(newRad*m_sphereCenter.m_z+delta*v.m_z)/dist;
+    newCenter.x=(newRad*m_sphereCenter.x+delta*v.x)/dist;
+    newCenter.y=(newRad*m_sphereCenter.y+delta*v.y)/dist;
+    newCenter.z=(newRad*m_sphereCenter.z+delta*v.z)/dist;
     // now test to see if we have a fit
-    dx=v.m_x-newCenter.m_x;
-    dy=v.m_y-newCenter.m_y;
-    dz=v.m_z-newCenter.m_z;
+    dx=v.x-newCenter.x;
+    dy=v.y-newCenter.y;
+    dz=v.z-newCenter.z;
     dist2=dx*dx+dy*dy+dz*dz;
     if(dist2 > newRad2)
     {
@@ -653,7 +652,6 @@ for (auto v : m_verts)
 }
 
 m_sphereRadius=rad;
-std::cout<<m_sphereCenter<<"  rad "<<m_sphereRadius<<"\n";
 
 }
 /// end of citation

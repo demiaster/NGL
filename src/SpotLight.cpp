@@ -31,9 +31,9 @@ SpotLight::SpotLight(const glm::vec3& _pos, const glm::vec3& _aim, const Colour&
             Light( _pos, _col,SPOTLIGHT )
 {
   // set up m_direction and default values
-  m_dir=_aim-_pos;
-  m_dir.normalize();
-  m_dir[3]=0;
+  m_dir=glm::vec4(glm::normalize(glm::vec3(_aim-_pos)),0.0);
+
+
 
   // set some good default values
   m_cutoffAngle = 45.0f;
@@ -43,16 +43,17 @@ SpotLight::SpotLight(const glm::vec3& _pos, const glm::vec3& _aim, const Colour&
   m_constantAtten = 1.5f;
   m_linearAtten = 0.0f;
   m_quadraticAtten = 0.0f;
-  m_position=_pos;
-  m_aim=_aim;
-  m_transform.identity();
+#warning sort this
+//  m_position=glm::vec4(_pos);
+//  m_aim=glm::vec3(_aim);
+//  m_transform.identity();
 m_lightMode=SPOTLIGHT;
 }
 
 SpotLight::SpotLight(const SpotLight &_l)  noexcept: Light(_l)
 {
   m_aim=_l.m_aim;
-  m_transform.identity();
+  m_transform=glm::mat4(1.0);
   m_lightMode=SPOTLIGHT;
 
 }
@@ -82,9 +83,9 @@ void SpotLight::set(const glm::vec3 &_pos, const glm::vec3 &_dir,const Colour& _
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void SpotLight::aim( const Vec4& _pos ) noexcept
+void SpotLight::aim(const glm::vec4 &_pos ) noexcept
 {
-  Vec4 dir= _pos-m_position;
+  glm::vec4 dir= _pos-m_position;
   // this is a vector so set 0 component
   dir[3]=0;
   dir.normalize();
@@ -125,11 +126,11 @@ void SpotLight::loadToShader( std::string _uniformName)const noexcept
   ShaderLib *shader=ShaderLib::instance();
   /// struct Lights
   /// {
-  ///   vec4 position;
+  ///   glm::vec4 position;
   ///   glm::vec3 direction;
-  ///   vec4 ambient;
-  ///   vec4 diffuse;
-  ///   vec4 specular;
+  ///   glm::vec4 ambient;
+  ///   glm::vec4 diffuse;
+  ///   glm::vec4 specular;
   ///   float spotCosCutoff;
   ///   float constantAttenuation;
   ///   float linearAttenuation;
@@ -137,8 +138,8 @@ void SpotLight::loadToShader( std::string _uniformName)const noexcept
   /// };
   if(m_active==true)
   {
-    Vec4 pos=m_transform*m_position;
-    Vec4 dir=m_transform*m_dir;
+    glm::vec4 pos=m_transform*m_position;
+    glm::vec4 dir=m_transform*m_dir;
     shader->setShaderParam4f(_uniformName+".position",pos.m_x,pos.m_y,pos.m_z,float(m_lightMode));
     shader->setShaderParam3f(_uniformName+".direction",dir.m_x,dir.m_y,dir.m_z);
     shader->setShaderParam4f(_uniformName+".ambient",m_ambient.m_r,m_ambient.m_g,m_ambient.m_b,m_ambient.m_a);
@@ -160,7 +161,7 @@ void SpotLight::loadToShader( std::string _uniformName)const noexcept
     shader->setShaderParam4f(_uniformName+".specular",0,0,0,0);
   }
 }
-void SpotLight::setTransform(Mat4 &_t) noexcept
+void SpotLight::setTransform(glm:: glm::mat4 &_t) noexcept
 {
   m_transform=_t;
 }

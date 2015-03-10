@@ -118,7 +118,7 @@ bool NCCAPointBake::loadPointBake(const std::string &_fileName) noexcept
       Real x=boost::lexical_cast<Real>(*firstWord++);
       Real y=boost::lexical_cast<Real>(*firstWord++);
       Real z=boost::lexical_cast<Real>(*firstWord++);
-      m_data[CurrentFrame][index].set(x,y,z);
+      m_data[CurrentFrame][index]=glm::vec3((x,y,z));
 
     }
 
@@ -192,8 +192,8 @@ bool NCCAPointBake::loadBinaryPointBake( const std::string &_fileName) noexcept
     for(unsigned int v=0; v< m_nVerts; ++v)
     {
      file.read( reinterpret_cast <char *>(&m_data[frame][v].x),sizeof(Real));
-     file.read( reinterpret_cast <char *>(&m_data[frame][v].m_y),sizeof(Real));
-     file.read( reinterpret_cast <char *>(&m_data[frame][v].m_z),sizeof(Real));
+     file.read( reinterpret_cast <char *>(&m_data[frame][v].y),sizeof(Real));
+     file.read( reinterpret_cast <char *>(&m_data[frame][v].z),sizeof(Real));
    }
   }
   return true;
@@ -233,8 +233,8 @@ bool NCCAPointBake::saveBinaryPointBake( const std::string &_fileName) noexcept
       for(unsigned int v=0; v< m_nVerts; ++v)
       {
        file.write( reinterpret_cast <char *>(&m_data[frame][v].x),sizeof(Real));
-       file.write( reinterpret_cast <char *>(&m_data[frame][v].m_y),sizeof(Real));
-       file.write( reinterpret_cast <char *>(&m_data[frame][v].m_z),sizeof(Real));
+       file.write( reinterpret_cast <char *>(&m_data[frame][v].y),sizeof(Real));
+       file.write( reinterpret_cast <char *>(&m_data[frame][v].z),sizeof(Real));
      }
     }
 
@@ -261,8 +261,8 @@ void NCCAPointBake::setMeshToFrame(  const unsigned int _frame) noexcept
       for(int j=0;j<3;++j)
       {
         ptr[step+5]=m_data[_frame][faces[i].m_vert[j]].x;
-        ptr[step+6]=m_data[_frame][faces[i].m_vert[j]].m_y;
-        ptr[step+7]=m_data[_frame][faces[i].m_vert[j]].m_z;
+        ptr[step+6]=m_data[_frame][faces[i].m_vert[j]].y;
+        ptr[step+7]=m_data[_frame][faces[i].m_vert[j]].z;
         step+=8;
       }
 

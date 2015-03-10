@@ -109,7 +109,6 @@ win32{
 SOURCES += $$SRC_DIR/VAOPrimitives.cpp \
 		$$SRC_DIR/Util.cpp \
 		$$SRC_DIR/Texture.cpp \
-		$$SRC_DIR/SpotLight.cpp \
 		$$SRC_DIR/ShaderLib.cpp \
 		$$SRC_DIR/Transformation.cpp \
 		$$SRC_DIR/RibExport.cpp \
@@ -149,7 +148,6 @@ HEADERS += $$INC_DIR/VAOPrimitives.h \
 		$$INC_DIR/Util.h \
 		$$INC_DIR/Types.h \
 		$$INC_DIR/Texture.h \
-		$$INC_DIR/SpotLight.h \
 		$$INC_DIR/ShaderLib.h \
 		$$INC_DIR/RibExport.h \
 		$$INC_DIR/Transformation.h \

@@ -30,7 +30,7 @@ namespace ngl
 Light::Light(const glm::vec3 &_pos,const Colour& _col, LIGHTMODES _lightMode ) noexcept
 {
   // zero now means un-assigned
-  m_position.set(_pos);
+  m_position=glm::vec4(_pos,1.0f);
   m_diffuse.set(_col);
   m_specular.set(_col);
   m_lightMode = _lightMode;
@@ -39,7 +39,7 @@ Light::Light(const glm::vec3 &_pos,const Colour& _col, LIGHTMODES _lightMode ) n
   m_quadraticAtten=0.0;
   m_active=true;
   // set the w for our light modes
-  m_position.m_w=static_cast<Real>(m_lightMode);
+  m_position.w=static_cast<Real>(m_lightMode);
   // as per the orange book we use this value along with pos.m_w to determine the light
   // type.
   m_cutoffAngle=180;
@@ -56,7 +56,7 @@ Light::Light(const Light &_l) noexcept
   m_quadraticAtten=_l.m_quadraticAtten;
   m_active=_l.m_active;
   // set the w for our light modes
-  m_position.m_w=static_cast<Real>(_l.m_lightMode);
+  m_position.w=static_cast<Real>(_l.m_lightMode);
   // as per the orange book we use this value along with pos.m_w to determine the light
   // type.
   m_cutoffAngle=_l.m_cutoffAngle;
@@ -66,7 +66,7 @@ Light::Light(const Light &_l) noexcept
 Light::Light(const glm::vec3 &_pos,const Colour& _col, const Colour& _specColour,LIGHTMODES _lightMode  ) noexcept
 {
   // zero now means un-assigned
-  m_position.set(_pos);
+  m_position=glm::vec4(_pos,1.0);
   m_diffuse.set(_col);
   m_specular.set(_specColour);
   m_lightMode=_lightMode;
@@ -75,7 +75,7 @@ Light::Light(const glm::vec3 &_pos,const Colour& _col, const Colour& _specColour
   m_quadraticAtten=0.0;
   m_active=true;
   // set the w for our light modes
-  m_position.m_w=static_cast<Real>(m_lightMode);
+  m_position.w=static_cast<Real>(m_lightMode);
   m_cutoffAngle=180;
 
 
@@ -118,15 +118,15 @@ void Light::loadToShader(std::string _uniformName )const noexcept
   */
   if(m_active==true)
   {
-    Vec4 pos=m_transform*m_position;
-    shader->setShaderParam4f(_uniformName+".position",pos.m_x,pos.m_y,pos.m_z,Real(m_lightMode));
-    shader->setShaderParam4f(_uniformName+".ambient",m_ambient.m_r,m_ambient.m_g,m_ambient.m_b,m_ambient.m_a);
-    shader->setShaderParam4f(_uniformName+".diffuse",m_diffuse.m_r,m_diffuse.m_g,m_diffuse.m_b,m_diffuse.m_a);
-    shader->setShaderParam4f(_uniformName+".specular",m_specular.m_r,m_specular.m_g,m_specular.m_b,m_specular.m_a);
-    shader->setShaderParam1f(_uniformName+".constantAttenuation",m_constantAtten);
-    shader->setShaderParam1f(_uniformName+".linearAttenuation",m_linearAtten);
-    shader->setShaderParam1f(_uniformName+".quadraticAttenuation",m_quadraticAtten);
-    shader->setShaderParam1f(_uniformName+".spotCosCutoff",m_cutoffAngle);
+//    glm::vec3 pos=m_transform*m_position;
+//    shader->setShaderParam4f(_uniformName+".position",pos.x,pos.y,pos.z,Real(m_lightMode));
+//    shader->setShaderParam4f(_uniformName+".ambient",m_ambient.m_r,m_ambient.m_g,m_ambient.m_b,m_ambient.m_a);
+//    shader->setShaderParam4f(_uniformName+".diffuse",m_diffuse.m_r,m_diffuse.m_g,m_diffuse.m_b,m_diffuse.m_a);
+//    shader->setShaderParam4f(_uniformName+".specular",m_specular.m_r,m_specular.m_g,m_specular.m_b,m_specular.m_a);
+//    shader->setShaderParam1f(_uniformName+".constantAttenuation",m_constantAtten);
+//    shader->setShaderParam1f(_uniformName+".linearAttenuation",m_linearAtten);
+//    shader->setShaderParam1f(_uniformName+".quadraticAttenuation",m_quadraticAtten);
+//    shader->setShaderParam1f(_uniformName+".spotCosCutoff",m_cutoffAngle);
 
   }
   else
@@ -139,7 +139,7 @@ void Light::loadToShader(std::string _uniformName )const noexcept
   }
 }
 
-void Light::setTransform(Mat4 &_t) noexcept
+void Light::setTransform(glm::mat4 &_t) noexcept
 {
   m_transform=_t;
 }

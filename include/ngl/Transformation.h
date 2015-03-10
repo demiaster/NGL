@@ -24,7 +24,7 @@
 #include <glm/mat4x4.hpp>
 #include "NGLassert.h"
 #include "Transformation.h"
-#include <glm/vec4.hpp>
+#include <glm/glm.hpp>
 
 namespace ngl
 {
@@ -43,7 +43,7 @@ enum  class ACTIVEMATRIX{NORMAL,TRANSPOSE,INVERSE};
 //----------------------------------------------------------------------------------------------------------------------
 class NGL_DLLEXPORT Transformation
 {
-  friend class Vec4;
+  friend class vec4;
 public:
 
   //----------------------------------------------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ public:
   /// @param[in] _scale the scale value to set for the transform
   //----------------------------------------------------------------------------------------------------------------------
   void setScale( const glm::vec3& _scale ) noexcept;
-  void setScale( const Vec4& _scale ) noexcept;
+  void setScale( const glm::vec4& _scale ) noexcept;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method to set the scale value in the transform
@@ -88,7 +88,7 @@ public:
   /// @brief method to set the position
   /// @param[in] _position position
   //----------------------------------------------------------------------------------------------------------------------
-  void setPosition( const Vec4& _position) noexcept;
+  void setPosition( const glm::vec4& _position) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method to set the position
   /// @param[in] _position position
@@ -105,7 +105,7 @@ public:
   /// @brief method add to the existing set the position
   /// @param[in] _position position
   //----------------------------------------------------------------------------------------------------------------------
-  void addPosition( const Vec4& _position) noexcept;
+  void addPosition( const glm::vec4& _position) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method add to the existing set the position
   /// @param[in] _position position
@@ -123,7 +123,7 @@ public:
   /// @param[in] _m the matrix to set the m_transform to
   /// need to also re-compute the others
   //----------------------------------------------------------------------------------------------------------------------
-  void setMatrix( const Mat4 &_m ) noexcept;
+  void setMatrix( const glm::mat4 &_m ) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method to set the rotation
   /// @param[in] _rotation rotation
@@ -131,7 +131,7 @@ public:
   /// mRotationX * mRotationY * mRotationZ;
   //----------------------------------------------------------------------------------------------------------------------
   void setRotation( const glm::vec3& _rotation) noexcept;
-  void setRotation( const Vec4& _rotation) noexcept;
+  void setRotation( const glm::vec4& _rotation) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method to set the rotation value in the transform
   /// @note each value is an axis rotation as the values are calculated
@@ -180,18 +180,8 @@ public:
   /// @brief function to get the matrix. It computes the matrix if it's dirty
   /// @returns the matrix
   //----------------------------------------------------------------------------------------------------------------------
-  Mat4 getMatrix()  noexcept{ computeMatrices();  return m_matrix;  }
-  //----------------------------------------------------------------------------------------------------------------------
-  /// @brief function to get the transpose matrix. It computes the transpose matrix if it's dirty
-  /// @returns the transpose matrix
-  //----------------------------------------------------------------------------------------------------------------------
-  Mat4 getTransposeMatrix()  noexcept{  computeMatrices(); return m_transposeMatrix; }
-  //----------------------------------------------------------------------------------------------------------------------
-  /// @brief function to get the inverse matrix. It computes the inverse matrix if it's dirty
-  /// @returns the inverse matrix
-  //----------------------------------------------------------------------------------------------------------------------
-  Mat4 getInverseMatrix()  noexcept {  computeMatrices(); return m_inverseMatrix; }
-  //----------------------------------------------------------------------------------------------------------------------
+  glm::mat4 getMatrix()  noexcept{ computeMatrices();  return m_matrix;  }
+   //----------------------------------------------------------------------------------------------------------------------
   /// @brief *= operator
   /// @param _m the transformation to combine
   //----------------------------------------------------------------------------------------------------------------------
@@ -216,7 +206,7 @@ public:
   /// @param[in] _param the name of the parameter to set (varying mat4)
   /// @param[in] _which which matrix mode to use
   //----------------------------------------------------------------------------------------------------------------------
-  void loadGlobalAndCurrentMatrixToShader( const std::string &_param, Transformation &_global,  const ACTIVEMATRIX &_which=ACTIVEMATRIX::NORMAL) noexcept;
+  void loadGlobalAndCurrentMatrixToShader( const std::string &_param, Transformation &_globalL) noexcept;
 
 protected :
 
@@ -239,15 +229,7 @@ protected :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  matrix transformation
   //----------------------------------------------------------------------------------------------------------------------
-  Mat4 m_matrix;
-  //----------------------------------------------------------------------------------------------------------------------
-  /// @brief  transpose matrix transformation
-  //----------------------------------------------------------------------------------------------------------------------
-  Mat4 m_transposeMatrix;
-  //----------------------------------------------------------------------------------------------------------------------
-  /// @brief  inverse matrix transformation
-  //----------------------------------------------------------------------------------------------------------------------
-  Mat4 m_inverseMatrix;
+  glm::mat4 m_matrix;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief method to compute the matrix, transpose and inverse matrix. set the m_bIsMatrixComputed variable to true.
   //----------------------------------------------------------------------------------------------------------------------

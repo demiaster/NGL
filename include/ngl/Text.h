@@ -39,11 +39,10 @@
 
 #include "Colour.h"
 #include "Types.h"
-#include "Vec2.h"
+#include <glm/glm.hpp>
 #include "VertexArrayObject.h"
 #include <QtCore/QHash>
 #include <QFont>
-#include "Mat4.h"
 
 // part of the python bindings
 #ifdef NO_PYTHON_LIB

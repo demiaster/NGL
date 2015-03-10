@@ -72,9 +72,9 @@ public:
   /// @brief  set the light position
   /// @param[in]  _p the new light position
   //----------------------------------------------------------------------------------------------------------------------
-  inline void setPosition( const glm::glm::vec3& _p ) noexcept
+  inline void setPosition( const glm::vec3& _p ) noexcept
               {
-                m_position.set(_p.m_x,_p.m_y,_p.m_z,static_cast<Real>(m_lightMode));
+                m_position=glm::vec4(_p.x,_p.y,_p.z,static_cast<Real>(m_lightMode));
               }
 
   //----------------------------------------------------------------------------------------------------------------------
@@ -111,7 +111,7 @@ public:
   /// @param[in] _col the light colour
   /// @param[in] _lightmode the mode to set the light to either local or remote
   //----------------------------------------------------------------------------------------------------------------------
-  Light( const glm::glm::vec3& _pos, const Colour& _col, LIGHTMODES _lightmode ) noexcept;
+  Light( const glm::vec3& _pos, const Colour& _col, LIGHTMODES _lightmode ) noexcept;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief ctor to create the light
@@ -120,7 +120,7 @@ public:
   /// @param[in] _specColour the specular component of the light
   /// @param[in] _lightmode the mode to set the light to either local or remote
   //----------------------------------------------------------------------------------------------------------------------
-  Light(const glm::glm::vec3& _pos, const Colour& _col,const Colour& _specColour,LIGHTMODES _lightmode) noexcept;
+  Light(const glm::vec3& _pos, const Colour& _col,const Colour& _specColour,LIGHTMODES _lightmode) noexcept;
   //----------------------------------------------------------------------------------------------------------------------
   ///  @brief destructor when light is destroyed we turn it off
   ///
@@ -167,7 +167,7 @@ public:
   /// @brief set a transform so that the light position is multiplied by this value (default is identity matrix)
   /// @param[in] _t the transform matrix
   //----------------------------------------------------------------------------------------------------------------------
-  void setTransform( Mat4 &_t ) noexcept;
+  void setTransform( glm::mat4 &_t ) noexcept;
 protected :
    //----------------------------------------------------------------------------------------------------------------------
    /// @brief m_pos is used to store the light position w used for point / dir light values
@@ -215,7 +215,7 @@ protected :
    /// this is usually the inverse projection matrix for normal OpenGL style eye-cord calculations but
    /// is left for the Application to calculate and pass for easier implementation of different light models
    //----------------------------------------------------------------------------------------------------------------------
-   Mat4 m_transform;
+   glm::mat4 m_transform;
 
 
 private:

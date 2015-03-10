@@ -21,6 +21,7 @@
 #include <iostream>
 #include <vector>
 #include <boost/format.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 //----------------------------------------------------------------------------------------------------------------------
 /// @file Camera.cpp
 /// @brief implementation files for Camera class
@@ -42,7 +43,7 @@ Camera::Camera() noexcept
   m_fov=45.0f;
   m_width=720;
   m_height=576;
-  m_eye.set(1,1,1);
+  m_eye=glm::vec3(1,1,1);
 }
 
 
@@ -50,9 +51,9 @@ Camera::Camera() noexcept
 void Camera :: setDefaultCamera() noexcept
 {
   // make default camera
-  m_eye=1.0f;
-  m_look=0.0f;
-  m_up.set(0,1,0);
+  m_eye=glm::vec3(1.0f);
+  m_look=glm::vec3(0.0f);
+  m_up=glm::vec3(0.0f,1.0f,0.0f);
   m_fov=45.0;
   m_zNear=0.0001f;
   m_zFar=350.0f;
@@ -67,16 +68,14 @@ void Camera :: setDefaultCamera() noexcept
 void Camera :: set(const glm::vec3 &_eye, const glm::vec3 &_look,  const glm::vec3 &_up  ) noexcept
 {
 	// make U, V, N vectors
-	m_eye=_eye;
-	m_look=_look;
-	m_up=_up;
-	m_n=m_eye-m_look;
-	m_u=m_up.cross(m_n);
-	m_v=m_n.cross(m_u);
-	m_u.normalize();
-	m_v.normalize();
-	m_n.normalize();
-	setViewMatrix();
+    m_eye=glm::vec3(_eye);
+    m_look=glm::vec3(_look);
+    m_up=_up;
+    m_n=glm::normalize(m_eye-m_look);
+    m_u=glm::normalize(glm::cross(_up,m_n));
+    m_v=glm::normalize(glm::cross(m_n,m_u));
+
+    setViewMatrix();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -92,11 +91,11 @@ Camera::Camera(const glm::vec3 &_eye, const glm::vec3 &_look, const glm::vec3 &_
 void Camera::setViewMatrix() noexcept
 {
     // grab a pointer to the matrix so we can index is quickly
-    Real *M=(Real *)&m_viewMatrix.m_m;
-    M[0] =  m_u.m_x;         M[1] =  m_v.m_x;        M[2] =  m_n.m_x;        M[3] = 0.0;
-    M[4] =  m_u.m_y;         M[5] =  m_v.m_y;        M[6] =  m_n.m_y;        M[7] = 0.0;
-    M[8]  = m_u.m_z;         M[9] =  m_v.m_z;        M[10]=  m_n.m_z;        M[11] =0.0;
-    M[12] = -m_eye.dot(m_u); M[13]= -m_eye.dot(m_v); M[14]= -m_eye.dot(m_n); M[15] =1.0;
+    Real *M=(Real *)&m_viewMatrix;
+    M[0] =  m_u.x;         M[1] =  m_v.x;        M[2] =  m_n.x;        M[3] = 0.0;
+    M[4] =  m_u.y;         M[5] =  m_v.y;        M[6] =  m_n.y;        M[7] = 0.0;
+    M[8]  = m_u.z;         M[9] =  m_v.z;        M[10]=  m_n.z;        M[11] =0.0;
+    M[12] = -glm::dot(m_eye,m_u); M[13]= -glm::dot(m_eye,m_v); M[14]= -glm::dot(m_eye,m_n); M[15] =1.0;
 
     calculateFrustum();
 }
@@ -106,23 +105,23 @@ void Camera::setPerspProjection() noexcept
 {
   // note 1/tan == cotangent
   Real f= 1.0/tan(radians(m_fov)/2.0);
-  m_projectionMatrix.identity();
+  m_projectionMatrix=glm::mat4(1.0f);
 
-  m_projectionMatrix.m_m[0][0]=f/m_aspect;
-  m_projectionMatrix.m_m[1][1]=f;
+  m_projectionMatrix[0][0]=f/m_aspect;
+  m_projectionMatrix[1][1]=f;
 
-  m_projectionMatrix.m_m[2][2]=(m_zFar+m_zNear)/(m_zNear-m_zFar);
-  m_projectionMatrix.m_m[3][2]=(2*m_zFar*m_zNear)/(m_zNear-m_zFar);
+  m_projectionMatrix[2][2]=(m_zFar+m_zNear)/(m_zNear-m_zFar);
+  m_projectionMatrix[3][2]=(2*m_zFar*m_zNear)/(m_zNear-m_zFar);
 
-  m_projectionMatrix.m_m[2][3]=-1;
-  m_projectionMatrix.m_m[3][3]=1.0;
+  m_projectionMatrix[2][3]=-1;
+  m_projectionMatrix[3][3]=1.0;
 
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 void Camera::setProjectionMatrix() noexcept
 {
-	m_projectionMatrix.null();
+    m_projectionMatrix=glm::mat4(0.0f);
 	setPerspProjection();
 
 }
@@ -168,9 +167,9 @@ void Camera::setViewAngle( Real _angle	 ) noexcept
 void Camera::slide( Real _du,  Real _dv,   Real _dn ) noexcept
 {
 	// slide eye by amount du * u + dv * v + dn * n;
-	m_eye.m_x += _du * m_u.m_x + _dv * m_v.m_x + _dn * m_n.m_x;
-	m_eye.m_y += _du * m_u.m_y + _dv * m_v.m_y + _dn * m_n.m_y;
-	m_eye.m_z += _du * m_u.m_z + _dv * m_v.m_z + _dn * m_n.m_z;
+    m_eye.x += _du * m_u.x + _dv * m_v.x + _dn * m_n.x;
+    m_eye.y += _du * m_u.y + _dv * m_v.y + _dn * m_n.y;
+    m_eye.z += _du * m_u.z + _dv * m_v.z + _dn * m_n.z;
 	setViewMatrix();
 }
 
@@ -178,32 +177,29 @@ void Camera::slide( Real _du,  Real _dv,   Real _dn ) noexcept
 void Camera::move( Real _dx, Real _dy,  Real _dz ) noexcept
 {
 // simply add the translation to the current eye point
-	m_eye.m_x += _dx;
-	m_eye.m_y += _dy;
-	m_eye.m_z += _dz;
+    m_eye.x += _dx;
+    m_eye.y += _dy;
+    m_eye.z += _dz;
 	setViewMatrix();
 }
 //----------------------------------------------------------------------------------------------------------------------
 void Camera::moveBoth( Real _dx, Real _dy, Real _dz ) noexcept
 {
-	m_eye.m_x +=_dx;
-	m_eye.m_y +=_dy;
-	m_eye.m_z +=_dz;
-	m_look.m_x+=_dx;
-	m_look.m_y+=_dy;
-	m_look.m_z+=_dz;
-	m_n=m_eye-m_look;
-	m_u=m_up.cross(m_n);
-	m_v.set(m_n.cross(m_u));
+    m_eye.x +=_dx;
+    m_eye.y +=_dy;
+    m_eye.z +=_dz;
+    m_look.x+=_dx;
+    m_look.y+=_dy;
+    m_look.z+=_dz;
+    m_n=glm::normalize(m_eye-m_look);
+    m_u=glm::normalize(glm::cross(m_up,m_n));
+    m_v=glm::normalize(glm::cross(m_n,m_u));
 	// normalize vectors
-	m_u.normalize();
-	m_v.normalize();
-	m_n.normalize();
-	// pass to OpenGL
+    // pass to OpenGL
 	setViewMatrix();
 }
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::rotAxes( Vec4& io_a, Vec4& io_b,  const Real _angle  ) noexcept
+void Camera::rotAxes( glm::vec3& io_a, glm::vec3& io_b,  const Real _angle  ) noexcept
 {
 // rotate orthogonal vectors a (like x axis) and b(like y axis) through angle degrees
 	// convert to radians
@@ -212,11 +208,11 @@ void Camera::rotAxes( Vec4& io_a, Vec4& io_b,  const Real _angle  ) noexcept
 	Real c = cos(ang);
 	Real s = sin(ang);
 	// tmp for io_a vector
-	Vec4 t( c * io_a.m_x + s * io_b.m_x,  c * io_a.m_y + s * io_b.m_y,  c * io_a.m_z + s * io_b.m_z);
+    glm::vec3 t( c * io_a.x + s * io_b.x,  c * io_a.y + s * io_b.y,  c * io_a.z + s * io_b.z);
 	// now set to new rot value
-	io_b.set(-s * io_a.m_x + c * io_b.m_x, -s * io_a.m_y + c * io_b.m_y, -s * io_a.m_z + c * io_b.m_z);
+    io_b=glm::vec3(-s * io_a.x + c * io_b.x, -s * io_a.y + c * io_b.y, -s * io_a.z + c * io_b.z);
 	// put tmp into _a'
-	io_a.set(t.m_x, t.m_y, t.m_z);
+    io_a=glm::vec3(t.x, t.y, t.z);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -243,16 +239,12 @@ void Camera::yaw(Real _angle ) noexcept
 //----------------------------------------------------------------------------------------------------------------------
 void Camera::moveEye( Real _dx, Real _dy,   Real _dz  ) noexcept
 {
-	m_eye.m_x+=_dx;
-	m_eye.m_y+=_dy;
-	m_eye.m_z+=_dz;
-	m_n=m_eye-m_look;
-	m_u.set(m_up.cross(m_n));
-	m_v.set(m_n.cross(m_u));
-	// normalize the vectors
-	m_u.normalize();
-	m_v.normalize();
-	m_n.normalize();
+    m_eye.x+=_dx;
+    m_eye.y+=_dy;
+    m_eye.z+=_dz;
+    m_n=glm::normalize(m_eye-m_look);
+    m_u=glm::normalize(glm::cross(m_up,m_n));
+    m_v=glm::normalize(glm::cross(m_n,m_u));
 	// pass to OpenGL
 	setViewMatrix();
 }
@@ -260,16 +252,12 @@ void Camera::moveEye( Real _dx, Real _dy,   Real _dz  ) noexcept
 //----------------------------------------------------------------------------------------------------------------------
 void Camera::moveLook(Real _dx,  Real _dy,  Real _dz   ) noexcept
 {
-	m_look.m_x+=_dx;
-	m_look.m_y+=_dy;
-	m_look.m_z+=_dz;
-	m_n=m_eye-m_look;
-	m_u.set(m_up.cross(m_n));
-	m_v.set(m_n.cross(m_u));
-	// normalise vectors
-	m_u.normalize();
-	m_v.normalize();
-	m_n.normalize();
+    m_look.x+=_dx;
+    m_look.y+=_dy;
+    m_look.z+=_dz;
+    m_n=glm::normalize(m_eye-m_look);
+    m_u=glm::normalize(glm::cross(m_up,m_n));
+    m_v=glm::normalize(glm::cross(m_n,m_u));
 	// pass to OpenGL
 	setViewMatrix();
 }
@@ -284,9 +272,9 @@ void Camera::update() noexcept
 void Camera::normalisedYaw( Real _angle ) noexcept
 {
   // build a rotation matrix around the y axis
-  Mat4 mat;
-  mat.identity();
-  mat.rotateY(_angle);
+  glm::mat3 mat(1.0f);
+
+  mat=glm::rotate(glm::mat3(1.0),_angle,glm::vec3(0.0,1.0,0.0));
   //multiply all three local coord vectors by the matrix
   m_u = m_u * mat;
   m_v = m_v * mat;

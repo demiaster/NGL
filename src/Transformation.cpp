@@ -16,6 +16,7 @@
 */
 #include "ShaderLib.h"
 #include "Transformation.h"
+#include <glm/gtc/matrix_transform.hpp>
 //----------------------------------------------------------------------------------------------------------------------
 /// @file Transformation.cpp
 /// @brief implementation files for Transformation class
@@ -30,9 +31,7 @@ Transformation::Transformation() noexcept
   m_scale = glm::vec3(1.0f,1.0f,1.0f);
   m_rotation = glm::vec3(0.0f,0.0f,0.0f);
   m_isMatrixComputed = false;
-  m_matrix=1.0f;
-  m_transposeMatrix=1.0f;
-  m_inverseMatrix=1.0f;
+  m_matrix=glm::mat4(1.0f);
   computeMatrices();
 
 }
@@ -46,8 +45,7 @@ Transformation::Transformation(const Transformation &_t) noexcept
   this->m_rotation = _t.m_rotation;
   this->m_isMatrixComputed = true;
   this->m_matrix=_t.m_matrix;
-  this->m_transposeMatrix=_t.m_transposeMatrix;
-  this->m_inverseMatrix=_t.m_inverseMatrix;
+
 }
 
 Transformation & Transformation::operator =(const Transformation &_t) noexcept
@@ -59,19 +57,15 @@ Transformation & Transformation::operator =(const Transformation &_t) noexcept
   this->m_rotation = _t.m_rotation;
   this->m_isMatrixComputed = true;
   this->m_matrix=_t.m_matrix;
-  this->m_transposeMatrix=_t.m_transposeMatrix;
-  this->m_inverseMatrix=_t.m_inverseMatrix;
   return *this;
 }
 
 
 
 
-void Transformation::setMatrix( const Mat4 &_m) noexcept
+void Transformation::setMatrix(const glm::mat4 &_m) noexcept
 {
   m_matrix=_m;
-  m_transposeMatrix=_m;
-  m_transposeMatrix.transpose();
   m_isMatrixComputed = true;
 }
 
@@ -82,15 +76,15 @@ void Transformation::setScale( const glm::vec3& _scale) noexcept
   m_isMatrixComputed = false;
 }
 
-void Transformation::setScale( const Vec4& _scale) noexcept
+void Transformation::setScale(const glm::vec4 &_scale) noexcept
 {
-  m_scale = _scale;
+  m_scale = glm::vec3(_scale.x,_scale.y,_scale.z);
   m_isMatrixComputed = false;
 }
 
 void Transformation::setScale(Real _x, Real _y, Real _z) noexcept
 {
-  m_scale.set(_x,_y,_z);
+  m_scale=glm::vec3(_x,_y,_z);
   m_isMatrixComputed = false;
 }
 
@@ -104,17 +98,17 @@ void Transformation::addScale( const glm::vec3& _scale ) noexcept
 
 void Transformation::addScale(Real _x,  Real _y,  Real _z ) noexcept
 {
-  m_scale.m_x+=_x;
-  m_scale.m_y+=_y;
-  m_scale.m_z+=_z;
+  m_scale.x+=_x;
+  m_scale.y+=_y;
+  m_scale.z+=_z;
 
   m_isMatrixComputed = false;
 }
 
 // Set position --------------------------------------------------------------------------------------------------------------------
-void Transformation::setPosition(const Vec4 &_position) noexcept
+void Transformation::setPosition(const glm::vec4 &_position) noexcept
 {
-  m_position = _position;
+  m_position = glm::vec3(_position.x,_position.y,_position.z);
   m_isMatrixComputed = false;
 }
 void Transformation::setPosition(const glm::vec3 &_position) noexcept
@@ -124,7 +118,7 @@ void Transformation::setPosition(const glm::vec3 &_position) noexcept
 }
 void Transformation::setPosition(Real _x, Real _y, Real _z) noexcept
 {
-  m_position.set(_x,_y,_z);
+  m_position=glm::vec3(_x,_y,_z);
   m_isMatrixComputed = false;
 }
 
@@ -136,9 +130,9 @@ void Transformation::addPosition( const glm::vec3& _position) noexcept
 }
 void Transformation::addPosition( Real _x, Real _y, Real _z) noexcept
 {
-  m_position.m_x+=_x;
-  m_position.m_y+=_y;
-  m_position.m_z+=_z;
+  m_position.x+=_x;
+  m_position.y+=_y;
+  m_position.z+=_z;
 
   m_isMatrixComputed = false;
 }
@@ -150,16 +144,16 @@ void Transformation::setRotation( const glm::vec3 &_rotation) noexcept
   m_rotation = _rotation;
   m_isMatrixComputed = false;
 }
-void Transformation::setRotation( const Vec4 &_rotation) noexcept
+void Transformation::setRotation( const glm::vec4 &_rotation) noexcept
 {
-  m_rotation = _rotation;
+  m_rotation = glm::vec3(_rotation.x,_rotation.y,_rotation.z);
   m_isMatrixComputed = false;
 }
 
 
 void Transformation::setRotation(Real _x, Real _y,  Real _z) noexcept
 {
-  m_rotation.set(_x,_y,_z);
+  m_rotation=glm::vec3(_x,_y,_z);
 
   m_isMatrixComputed = false;
 }
@@ -173,9 +167,9 @@ void Transformation::addRotation(const glm::vec3 &_rotation) noexcept
 }
 void Transformation::addRotation(Real _x, Real _y, Real _z) noexcept
 {
-  m_rotation.m_x+=_x;
-  m_rotation.m_y+=_y;
-  m_rotation.m_z+=_z;
+  m_rotation.x+=_x;
+  m_rotation.y+=_y;
+  m_rotation.z+=_z;
   m_isMatrixComputed = false;
 }
 
@@ -195,45 +189,31 @@ void Transformation::computeMatrices() noexcept
 {
   if (!m_isMatrixComputed)       // need to recalculate
   {
-    Mat4 scale;
-    Mat4 rX;
-    Mat4 rY;
-    Mat4 rZ;
-    Mat4 trans;
+    glm::mat4 scale;
+    glm::mat4 rX;
+    glm::mat4 rY;
+    glm::mat4 rZ;
+    glm::mat4 trans;
 
     // rotation/scale matrix
-    Mat4 rotationScale;
-    scale.scale(m_scale.m_x, m_scale.m_y, m_scale.m_z);
+    glm::mat4 rotationScale;
 
-    rX.rotateX(m_rotation.m_x);
-    rY.rotateY(m_rotation.m_y);
-    rZ.rotateZ(m_rotation.m_z);
+    scale=glm::scale(glm::mat4(1.0f),glm::vec3(m_scale.x, m_scale.y, m_scale.z));
+    rX=glm::rotate(rX,m_rotation.x,glm::vec3(1.0f,0.0f,0.0f));
+    rY=glm::rotate(rY,m_rotation.y,glm::vec3(0,1,0));
+    rZ=glm::rotate(rZ,m_rotation.z,glm::vec3(0,0,1));
+
+
     rotationScale = scale * rX * rY * rZ;
 
     // transform matrix
     m_matrix = rotationScale;
-    m_matrix.m_m[3][0] = m_position.m_x;
-    m_matrix.m_m[3][1] = m_position.m_y;
-    m_matrix.m_m[3][2] = m_position.m_z;
-    m_matrix.m_m[3][3] = 1;
+    m_matrix[3][0] = m_position.x;
+    m_matrix[3][1] = m_position.y;
+    m_matrix[3][2] = m_position.z;
+    m_matrix[3][3] = 1;
 
 
-
-    // tranpose matrix
-    m_transposeMatrix = rotationScale;
-    m_transposeMatrix.transpose();
-    m_transposeMatrix.m_m[0][3] = m_position.m_x;
-    m_transposeMatrix.m_m[1][3] = m_position.m_y;
-    m_transposeMatrix.m_m[2][3] = m_position.m_z;
-    m_transposeMatrix.m_m[3][3] = 1;
-
-    // inverse matrix
-    trans.translate(-m_position.m_x, -m_position.m_y, -m_position.m_z);
-    scale.scale(1.0f / m_scale.m_x, 1.0f / m_scale.m_y, 1.0f / m_scale.m_z);
-    rX.rotateX(-m_rotation.m_x);
-    rY.rotateY(-m_rotation.m_y);
-    rZ.rotateZ(-m_rotation.m_z);
-    m_inverseMatrix = trans * rZ * rY * rX * scale  ;
 
     m_isMatrixComputed = true;
   }
@@ -246,11 +226,6 @@ void Transformation::operator*= ( const Transformation &_m ) noexcept
   computeMatrices();
   m_matrix*=_m.m_matrix;
 
-  /// transpose matrix transformation
-  m_transposeMatrix*=_m.m_transposeMatrix;
-
-  /// inverse matrix transformation
-  m_inverseMatrix*=_m.m_inverseMatrix;
 }
 
 Transformation Transformation::operator*(const Transformation &_m  ) noexcept
@@ -259,8 +234,6 @@ Transformation Transformation::operator*(const Transformation &_m  ) noexcept
   computeMatrices();
   Transformation t;
   t.m_matrix=m_matrix*_m.m_matrix;
-  t.m_transposeMatrix=m_transposeMatrix*_m.m_transposeMatrix;
-  t.m_inverseMatrix=m_inverseMatrix*_m.m_inverseMatrix;
 
   return t;
 }
@@ -268,56 +241,16 @@ void Transformation::loadMatrixToShader(const std::string &_param, const ACTIVEM
 {
   computeMatrices();
   ShaderLib *shader=ShaderLib::instance();
-  switch (_which)
-  {
-    case ACTIVEMATRIX::NORMAL :
-    {
-      shader->setShaderParamFromMat4(_param,m_matrix);
-    }
-    break;
-    case ACTIVEMATRIX::TRANSPOSE :
-    {
-      shader->setShaderParamFromMat4(_param,m_transposeMatrix);
-    }
-    break;
-    case ACTIVEMATRIX::INVERSE :
-    {
-      shader->setShaderParamFromMat4(_param,m_inverseMatrix);
-    }
-    break;
-
-  }
-
+  shader->setShaderParamFromMat4(_param,m_matrix);
 
 }
 
-void Transformation::loadGlobalAndCurrentMatrixToShader(const std::string &_param, Transformation &_global,  const ACTIVEMATRIX &_which ) noexcept
+
+void Transformation::loadGlobalAndCurrentMatrixToShader(const std::string &_param, Transformation &_globalL) noexcept
 {
   computeMatrices();
   ShaderLib *shader=ShaderLib::instance();
-  switch (_which)
-  {
-    case ACTIVEMATRIX::NORMAL :
-    {
-      Mat4 tx=_global.getMatrix()*this->getMatrix();
-      shader->setShaderParamFromMat4(_param,tx);
-    }
-    break;
-    case ACTIVEMATRIX::TRANSPOSE :
-    {
-      Mat4 tx=_global.getTransposeMatrix()*this->getTransposeMatrix();
-
-      shader->setShaderParamFromMat4(_param,tx);
-    }
-    break;
-    case ACTIVEMATRIX::INVERSE :
-    {
-      Mat4 tx=_global.getInverseMatrix()*this->getInverseMatrix();
-      shader->setShaderParamFromMat4(_param,tx);
-    }
-    break;
-
-  }
+  glm::mat4 tx=_globalL.getMatrix()*this->getMatrix();
 
 }
 
