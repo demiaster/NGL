@@ -33,7 +33,7 @@ const static Real CAMERANEARLIMIT=0.00001f;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-Camera::Camera() noexcept
+Camera::Camera() 
 {
 
   m_zNear=0.0001f;
@@ -47,7 +47,7 @@ Camera::Camera() noexcept
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera :: setDefaultCamera() noexcept
+void Camera :: setDefaultCamera() 
 {
   // make default camera
   m_eye=1.0f;
@@ -64,7 +64,7 @@ void Camera :: setDefaultCamera() noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera :: set(const Vec3 &_eye, const Vec3 &_look,  const Vec3 &_up  ) noexcept
+void Camera :: set(const Vec3 &_eye, const Vec3 &_look,  const Vec3 &_up  ) 
 {
 	// make U, V, N vectors
 	m_eye=_eye;
@@ -80,7 +80,7 @@ void Camera :: set(const Vec3 &_eye, const Vec3 &_look,  const Vec3 &_up  ) noex
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Camera::Camera(const Vec3 &_eye, const Vec3 &_look, const Vec3 &_up ) noexcept
+Camera::Camera(const Vec3 &_eye, const Vec3 &_look, const Vec3 &_up ) 
 {
 	setDefaultCamera();
 	set(_eye,_look,_up);
@@ -89,7 +89,7 @@ Camera::Camera(const Vec3 &_eye, const Vec3 &_look, const Vec3 &_up ) noexcept
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::setViewMatrix() noexcept
+void Camera::setViewMatrix() 
 {
     // grab a pointer to the matrix so we can index is quickly
     Real *M=(Real *)&m_viewMatrix.m_m;
@@ -102,7 +102,7 @@ void Camera::setViewMatrix() noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::setPerspProjection() noexcept
+void Camera::setPerspProjection() 
 {
   // note 1/tan == cotangent
   Real f= 1.0/tan(radians(m_fov)/2.0);
@@ -120,7 +120,7 @@ void Camera::setPerspProjection() noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::setProjectionMatrix() noexcept
+void Camera::setProjectionMatrix() 
 {
 	m_projectionMatrix.null();
 	setPerspProjection();
@@ -128,7 +128,7 @@ void Camera::setProjectionMatrix() noexcept
 }
 //----------------------------------------------------------------------------------------------------------------------
 
-void Camera::setShape(Real _viewAngle, Real _aspect, Real _near, Real _far  ) noexcept
+void Camera::setShape(Real _viewAngle, Real _aspect, Real _near, Real _far  ) 
 
 { // load projection matrix and camera values
 	if(_viewAngle >180.0)
@@ -150,14 +150,14 @@ void Camera::setShape(Real _viewAngle, Real _aspect, Real _near, Real _far  ) no
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::setAspect( Real _asp  ) noexcept
+void Camera::setAspect( Real _asp  ) 
 {
 	m_aspect = _asp;
 	setShape(m_fov,m_aspect,m_zNear,m_zFar);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::setViewAngle( Real _angle	 ) noexcept
+void Camera::setViewAngle( Real _angle	 ) 
 {
 	m_fov=_angle;
 	setShape(_angle,m_aspect,m_zNear,m_zFar);
@@ -165,7 +165,7 @@ void Camera::setViewAngle( Real _angle	 ) noexcept
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::slide( Real _du,  Real _dv,   Real _dn ) noexcept
+void Camera::slide( Real _du,  Real _dv,   Real _dn ) 
 {
 	// slide eye by amount du * u + dv * v + dn * n;
 	m_eye.m_x += _du * m_u.m_x + _dv * m_v.m_x + _dn * m_n.m_x;
@@ -175,7 +175,7 @@ void Camera::slide( Real _du,  Real _dv,   Real _dn ) noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::move( Real _dx, Real _dy,  Real _dz ) noexcept
+void Camera::move( Real _dx, Real _dy,  Real _dz ) 
 {
 // simply add the translation to the current eye point
 	m_eye.m_x += _dx;
@@ -184,7 +184,7 @@ void Camera::move( Real _dx, Real _dy,  Real _dz ) noexcept
 	setViewMatrix();
 }
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::moveBoth( Real _dx, Real _dy, Real _dz ) noexcept
+void Camera::moveBoth( Real _dx, Real _dy, Real _dz ) 
 {
 	m_eye.m_x +=_dx;
 	m_eye.m_y +=_dy;
@@ -203,7 +203,7 @@ void Camera::moveBoth( Real _dx, Real _dy, Real _dz ) noexcept
 	setViewMatrix();
 }
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::rotAxes( Vec4& io_a, Vec4& io_b,  const Real _angle  ) noexcept
+void Camera::rotAxes( Vec4& io_a, Vec4& io_b,  const Real _angle  ) 
 {
 // rotate orthogonal vectors a (like x axis) and b(like y axis) through angle degrees
 	// convert to radians
@@ -220,28 +220,28 @@ void Camera::rotAxes( Vec4& io_a, Vec4& io_b,  const Real _angle  ) noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::roll(Real _angle  ) noexcept
+void Camera::roll(Real _angle  ) 
 {
   rotAxes(m_u, m_v, -_angle);
   setViewMatrix();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::pitch(Real _angle ) noexcept
+void Camera::pitch(Real _angle ) 
 {
   rotAxes(m_n, m_v, _angle);
   setViewMatrix();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::yaw(Real _angle ) noexcept
+void Camera::yaw(Real _angle ) 
 {
   rotAxes(m_u, m_n, _angle);
   setViewMatrix();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::moveEye( Real _dx, Real _dy,   Real _dz  ) noexcept
+void Camera::moveEye( Real _dx, Real _dy,   Real _dz  ) 
 {
 	m_eye.m_x+=_dx;
 	m_eye.m_y+=_dy;
@@ -258,7 +258,7 @@ void Camera::moveEye( Real _dx, Real _dy,   Real _dz  ) noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::moveLook(Real _dx,  Real _dy,  Real _dz   ) noexcept
+void Camera::moveLook(Real _dx,  Real _dy,  Real _dz   ) 
 {
 	m_look.m_x+=_dx;
 	m_look.m_y+=_dy;
@@ -275,13 +275,13 @@ void Camera::moveLook(Real _dx,  Real _dy,  Real _dz   ) noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::update() noexcept
+void Camera::update() 
 {
 	setViewMatrix();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::normalisedYaw( Real _angle ) noexcept
+void Camera::normalisedYaw( Real _angle ) 
 {
   // build a rotation matrix around the y axis
   Mat4 mat;
@@ -295,7 +295,7 @@ void Camera::normalisedYaw( Real _angle ) noexcept
   setViewMatrix();
 }
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::normalisedRoll(Real _angle  ) noexcept
+void Camera::normalisedRoll(Real _angle  ) 
 {
   // build a rotation matrix around the y axis
   Mat4 mat;
@@ -310,7 +310,7 @@ void Camera::normalisedRoll(Real _angle  ) noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::normalisedPitch(Real _angle  ) noexcept
+void Camera::normalisedPitch(Real _angle  ) 
 {
   // build a rotation matrix around the y axis
   Mat4 mat;
@@ -327,7 +327,7 @@ void Camera::normalisedPitch(Real _angle  ) noexcept
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void Camera::writeRib( RibExport &_rib ) const noexcept
+void Camera::writeRib( RibExport &_rib ) const 
 {
 	if(_rib.isOpen()!=0)
 	{
@@ -352,7 +352,7 @@ void Camera::writeRib( RibExport &_rib ) const noexcept
 //----------------------------------------------------------------------------------------------------------------------
 /// Code modified from http://www.lighthouse3d.com/opengl/viewfrustum/index.php?intro
 ///
-void Camera::calculateFrustum() noexcept
+void Camera::calculateFrustum() 
 {
 
     Real tang = (Real)tan(radians(m_fov) * 0.5) ;
@@ -381,7 +381,7 @@ void Camera::calculateFrustum() noexcept
     m_planes[static_cast<int>(ProjPlane::FARP)].setPoints(m_ftr,m_ftl,m_fbl);
 }
 
-void Camera::drawFrustum() noexcept
+void Camera::drawFrustum() 
 {
   std::vector<Vec3>points;
 
@@ -435,7 +435,7 @@ void Camera::drawFrustum() noexcept
 }
 
 
-CameraIntercept Camera::isPointInFrustum( const Vec3 &_p ) const noexcept
+CameraIntercept Camera::isPointInFrustum( const Vec3 &_p ) const 
 {
 	CameraIntercept result = CameraIntercept::INSIDE;
 	for(int i=0; i < 6; ++i)
@@ -451,7 +451,7 @@ CameraIntercept Camera::isPointInFrustum( const Vec3 &_p ) const noexcept
 }
 
 
-CameraIntercept Camera::isSphereInFrustum(const Vec3 &_p,  Real _radius ) const noexcept
+CameraIntercept Camera::isSphereInFrustum(const Vec3 &_p,  Real _radius ) const 
 {
 
 	CameraIntercept result = CameraIntercept::INSIDE;
@@ -473,7 +473,7 @@ CameraIntercept Camera::isSphereInFrustum(const Vec3 &_p,  Real _radius ) const 
 }
 
 
-CameraIntercept Camera::boxInFrustum(const AABB &b) const noexcept
+CameraIntercept Camera::boxInFrustum(const AABB &b) const 
 {
 
 	CameraIntercept result = CameraIntercept::INSIDE;

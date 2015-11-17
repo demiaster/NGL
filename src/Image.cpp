@@ -55,7 +55,7 @@ Image::Image(const Image &_i) :m_width(_i.m_width),m_height(_i.m_height),
 
 }
 
-Colour Image::getColour(const GLuint _x,const GLuint _y ) const noexcept
+Colour Image::getColour(const GLuint _x,const GLuint _y ) const 
 {
 // make sure were in the image range
 	NGL_ASSERT(_x<=m_width && _y<=m_height);
@@ -78,7 +78,7 @@ Colour Image::getColour(const GLuint _x,const GLuint _y ) const noexcept
 }
 
 
-Colour Image::getColour(const Real _uvX, const Real _uvY ) const noexcept
+Colour Image::getColour(const Real _uvX, const Real _uvY ) const 
 {
 
   GLuint xx = _uvX * (m_width-1);
@@ -110,7 +110,7 @@ Colour Image::getColour(const Real _uvX, const Real _uvY ) const noexcept
 //----------------------------------------------------------------------------------------------------------------------
 // Qt Image loading routines
 //----------------------------------------------------------------------------------------------------------------------
-bool Image::load( const std::string &_fName  ) noexcept
+bool Image::load( const std::string &_fName  ) 
 {
 #ifdef IMAGE_DEBUG_ON
   std::cerr<<"loading with QImage"<<std::endl;
@@ -176,7 +176,7 @@ bool Image::load( const std::string &_fName  ) noexcept
 //----------------------------------------------------------------------------------------------------------------------
 // Image Magick Image loading routines
 //----------------------------------------------------------------------------------------------------------------------
-bool Image::load( const std::string &_fname  ) noexcept
+bool Image::load( const std::string &_fname  ) 
 {
   #ifdef IMAGE_DEBUG_ON
   std::cerr<<"loading with ImageMagick"<<std::endl;
@@ -213,7 +213,7 @@ bool Image::load( const std::string &_fname  ) noexcept
 //----------------------------------------------------------------------------------------------------------------------
 // Open Image I/O loading routines
 //----------------------------------------------------------------------------------------------------------------------
-bool Image::load( const std::string &_fname  ) noexcept
+bool Image::load( const std::string &_fname  ) 
 {
 #ifdef IMAGE_DEBUG_ON
   std::cerr<<"loading with OpenImageIO"<<std::endl;

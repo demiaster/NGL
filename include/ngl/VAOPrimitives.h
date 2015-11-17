@@ -61,20 +61,20 @@ public :
   /// @brief Draw one of the VBO's created via a name lookup
   /// @param[in] _name the name of the VBO to lookup in the VBO map
   //----------------------------------------------------------------------------------------------------------------------
-  void draw( const std::string &_name ) noexcept;
+  void draw( const std::string &_name ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Draw one of the VBO's created via a name lookup
   /// @param[in] _name the name of the VBO to lookup in the VBO map
   /// @param[in] _mode the draw mode for the VBO override the default
   //----------------------------------------------------------------------------------------------------------------------
-  void draw( const std::string &_name,GLenum _mode ) noexcept;
+  void draw( const std::string &_name,GLenum _mode ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief create a triangulated Sphere as a vbo with auto generated texture cords
   /// @param[in] _name the name of the object created used when drawing
   /// @param[in] _radius the sphere radius
   /// @param[in] _precision the number of triange subdivisions to use
   //----------------------------------------------------------------------------------------------------------------------
-  void createSphere( const std::string &_name, Real _radius, int _precision  ) noexcept;
+  void createSphere( const std::string &_name, Real _radius, int _precision  ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief create a line based grid (like the maya ground plane)
   /// @param[in] _name the name of the object created used when drawing
@@ -82,7 +82,7 @@ public :
   /// @param[in] _depth the depth of the grid
   /// @param[in] _steps the number of steps for the grid
   //----------------------------------------------------------------------------------------------------------------------
-  void createLineGrid( const std::string &_name, Real _width, Real _depth,  int _steps ) noexcept;
+  void createLineGrid( const std::string &_name, Real _width, Real _depth,  int _steps ) ;
 
 
   //----------------------------------------------------------------------------------------------------------------------
@@ -93,7 +93,7 @@ public :
   /// @param[in] _slices the number of quad elements around the Cylinder
   /// @param[in] _stacks the number of quad elements along the centeral axis
   //----------------------------------------------------------------------------------------------------------------------
-  void createCylinder( const std::string &_name,const Real _radius, const Real _height, const int _slices, const int _stacks) noexcept;
+  void createCylinder( const std::string &_name,const Real _radius, const Real _height, const int _slices, const int _stacks) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief create a Quad Cone as a vao with auto generated texture cords
   /// @param[in] _name the name of the object created used when drawing
@@ -102,14 +102,14 @@ public :
   /// @param[in] _slices the number of quad elements around the cone
   /// @param[in] _stacks the number of quad elements along the centeral axis
   //----------------------------------------------------------------------------------------------------------------------
-  void createCone(const std::string &_name, const Real _base, const Real _height,  const int _slices, const int _stacks ) noexcept;
+  void createCone(const std::string &_name, const Real _base, const Real _height,  const int _slices, const int _stacks ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief create a trinagle fan disk (use as end caps for Cylinder etc)
   /// @param[in] _name the name of the object created used when drawing
   /// @param[in] _radius the disk radius
   /// @param[in] _slices the number of triangles to form the disk
   //----------------------------------------------------------------------------------------------------------------------
-  void createDisk( const std::string &_name, const Real _radius, const int _slices ) noexcept;
+  void createDisk( const std::string &_name, const Real _radius, const int _slices ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief create a VBO based torus from rings of quads.
   /// @param[in] _name the name of the VBO created for calling with the draw method
@@ -119,7 +119,7 @@ public :
   /// @param[in] _nRings the precision (number of quads) for the minor Radius
   /// @param[in] _flipTX flip the texture co-ord generation default false.
   //----------------------------------------------------------------------------------------------------------------------
-  void createTorus(const std::string &_name, const Real _minorRadius,const Real _majorRadius,int _nSides, int _nRings,const bool _flipTX=false ) noexcept;
+  void createTorus(const std::string &_name, const Real _minorRadius,const Real _majorRadius,int _nSides, int _nRings,const bool _flipTX=false ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief create a triangulated plane as a vbo with auto generated texture cords
   /// @param[in] _name the name of the object created used when drawing
@@ -131,7 +131,7 @@ public :
   ///    triangulated for each (wP == 1 will give 1 quad mad of 2 tris)
   /// @param[in] _vN The Vertex normal (used for each vertex)
   //----------------------------------------------------------------------------------------------------------------------
-  void createTrianglePlane( const std::string &_name,const Real _width,const Real _depth,const int _wP, const int _dP,const Vec3 &_vN ) noexcept;
+  void createTrianglePlane( const std::string &_name,const Real _width,const Real _depth,const int _wP, const int _dP,const Vec3 &_vN ) ;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief create a triangulated capsule (Cylinder with spherical ends)
@@ -141,7 +141,7 @@ public :
   /// @param[in] _precision the precision of the tri mesh created (number of steps)
   //----------------------------------------------------------------------------------------------------------------------
 
-  void createCapsule(const std::string &_name,const Real _radius=1.0f, const Real _height=2.0f, const int _precision=20) noexcept;
+  void createCapsule(const std::string &_name,const Real _radius=1.0f, const Real _height=2.0f, const int _precision=20) ;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief load a VBO from a binary file created from Obj2VBO program
@@ -149,12 +149,12 @@ public :
   /// @param[in] _fName the name of the file to load.
   /// @param[in] _type the draw mode type
   //----------------------------------------------------------------------------------------------------------------------
-  void loadBinary( const std::string &_name, const std::string &_fName,const GLenum _type ) noexcept;
+  void loadBinary( const std::string &_name, const std::string &_fName,const GLenum _type ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief clear the VAO elements created (is also called by dtor) This is usefull if you
   /// don't want the default primitives
   //----------------------------------------------------------------------------------------------------------------------
-  void clear() noexcept;
+  void clear() ;
 
 
 private :
@@ -166,7 +166,7 @@ private :
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief default constructor
 	//----------------------------------------------------------------------------------------------------------------------
-	VAOPrimitives() noexcept;
+	VAOPrimitives() ;
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief dtor
 	//----------------------------------------------------------------------------------------------------------------------
@@ -178,13 +178,13 @@ private :
   /// @param[in] _data a pointer to the data to load
   /// @param[in] _Size the size of the array of data to load
   //----------------------------------------------------------------------------------------------------------------------
-  void createVAOFromHeader( const std::string &_name, Real const *_data,  unsigned int _Size ) noexcept;
+  void createVAOFromHeader( const std::string &_name, Real const *_data,  unsigned int _Size ) ;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief create the default VAO's this is done by the ctor anyway but can be called
   /// if the clear method is called. Note you will need to incude VAOHeaders in the client side
   //----------------------------------------------------------------------------------------------------------------------
-  void createDefaultVAOs() noexcept;
+  void createDefaultVAOs() ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief the method to actually create the VAO from the various other methods
   /// Note this is used in conjunction with the vertData struct
@@ -192,14 +192,14 @@ private :
   /// @param[in] _data the raw data packed into the vertData structure
   /// @param[in] _mode the mode to draw
   //----------------------------------------------------------------------------------------------------------------------
-  void createVAO( const std::string &_name, const std::vector <vertData> &_data, const GLenum _mode ) noexcept;
+  void createVAO( const std::string &_name, const std::vector <vertData> &_data, const GLenum _mode ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief create the elements of a circle this is borrowed from freeglut
   /// @param[in,out] io_sint a pointer to the sin elements of the table
   /// @param[in,out] io_cost a pointer to the cos element of the table
   /// @param[in] _n the number of points to calculate.
   //----------------------------------------------------------------------------------------------------------------------
-  void fghCircleTable( double **io_sint, double **io_cost, const int _n ) noexcept;
+  void fghCircleTable( double **io_sint, double **io_cost, const int _n ) ;
 
 };
 

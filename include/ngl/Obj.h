@@ -58,51 +58,51 @@ public :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief default constructor
   //----------------------------------------------------------------------------------------------------------------------
-  Obj()  noexcept: AbstractMesh(){;}
+  Obj()  : AbstractMesh(){;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  constructor to load an objfile as a parameter
   /// @param[in]  &_fname the name of the obj file to load
   //----------------------------------------------------------------------------------------------------------------------
-  Obj( const std::string& _fname ) noexcept;
+  Obj( const std::string& _fname ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief constructor to load an objfile as a parameter
   /// @param[in]  &_fname the name of the obj file to load
   /// @param[in]  &_texName the name of the texture file
   //----------------------------------------------------------------------------------------------------------------------
-  Obj( const std::string& _fname,  const std::string& _texName ) noexcept;
+  Obj( const std::string& _fname,  const std::string& _texName ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  Method to load the file in
   /// @param[in]  _fname the name of the obj file to load
   /// @param[in] _calcBB if we only want to load data and not use GL then set this to false
   //----------------------------------------------------------------------------------------------------------------------
-  bool load(const std::string& _fname, bool _calcBB=true ) noexcept;
+  bool load(const std::string& _fname, bool _calcBB=true ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  method to save the obj
   /// @param[in] _fname the name of the file to save
   //----------------------------------------------------------------------------------------------------------------------
-  void save( const std::string& _fname  ) const  noexcept;
+  void save( const std::string& _fname  ) const  ;
 
 protected :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief parser function to parse the vertex used by boost::spirit parser
   /// @param[in] _begin the start of the string to parse
   //----------------------------------------------------------------------------------------------------------------------
-  void parseVertex( const char *_begin ) noexcept;
+  void parseVertex( const char *_begin ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief parser function to parse the Norma used by boost::spirit parser
   /// @param[in] _begin the start of the string to parse
   //----------------------------------------------------------------------------------------------------------------------
-  void parseNormal( const char *_begin  ) noexcept;
+  void parseNormal( const char *_begin  ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief parser function to parse the text cord used by boost::spirit parser
   /// @param[in] _begin the start of the string to parse
   //----------------------------------------------------------------------------------------------------------------------
-  void parseTextureCoordinate( const char * _begin ) noexcept;
+  void parseTextureCoordinate( const char * _begin ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief parser function to parse the Face data used by boost::spirit parser
   /// @param[in] _begin the start of the string to parse
   //----------------------------------------------------------------------------------------------------------------------
-  void parseFace( const char * _begin ) noexcept;
+  void parseFace( const char * _begin ) ;
 
 };
 

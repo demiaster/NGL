@@ -31,7 +31,7 @@ namespace ngl
 
 
 //----------------------------------------------------------------------------------------------------------------------
-VAOPrimitives::VAOPrimitives() noexcept
+VAOPrimitives::VAOPrimitives() 
 {
     createDefaultVAOs();
 }
@@ -39,7 +39,7 @@ VAOPrimitives::VAOPrimitives() noexcept
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void VAOPrimitives::draw( const std::string &_name ) noexcept
+void VAOPrimitives::draw( const std::string &_name ) 
 {
   // get an iterator to the VertexArrayObjects
   auto VAO=m_createdVAOs.find(_name);
@@ -55,7 +55,7 @@ void VAOPrimitives::draw( const std::string &_name ) noexcept
 
 }
 
-void VAOPrimitives::draw( const std::string &_name, GLenum _mode ) noexcept
+void VAOPrimitives::draw( const std::string &_name, GLenum _mode ) 
 {
   // get an iterator to the VertexArrayObjects
   auto VAO=m_createdVAOs.find(_name);
@@ -71,7 +71,7 @@ void VAOPrimitives::draw( const std::string &_name, GLenum _mode ) noexcept
 
 }
 
-void VAOPrimitives::createVAOFromHeader(const std::string &_name, const Real *_data,  unsigned int _size ) noexcept
+void VAOPrimitives::createVAOFromHeader(const std::string &_name, const Real *_data,  unsigned int _size ) 
 {
     VertexArrayObject *vao = VertexArrayObject::createVOA(GL_TRIANGLES);
     // next we bind it so it's active for setting data
@@ -107,7 +107,7 @@ void VAOPrimitives::createVAOFromHeader(const std::string &_name, const Real *_d
 
 }
 
-void VAOPrimitives::createLineGrid( const std::string &_name, Real _width,  Real _depth, int _steps ) noexcept
+void VAOPrimitives::createLineGrid( const std::string &_name, Real _width,  Real _depth, int _steps ) 
 {
   // a std::vector to store our verts, remember vector packs contiguously so we can use it
   std::vector <vertData> data;
@@ -159,7 +159,7 @@ void VAOPrimitives::createLineGrid( const std::string &_name, Real _width,  Real
 
 }
 
-void VAOPrimitives::createSphere( const std::string &_name, Real _radius, int _precision ) noexcept
+void VAOPrimitives::createSphere( const std::string &_name, Real _radius, int _precision ) 
 {
     //  Sphere code based on a function Written by Paul Bourke.
     //  http://astronomy.swin.edu.au/~pbourke/opengl/sphere/
@@ -223,7 +223,7 @@ void VAOPrimitives::createSphere( const std::string &_name, Real _radius, int _p
 }
 
 
-void VAOPrimitives::createCapsule( const std::string &_name,  const Real _radius, const Real _height,  const int _precision ) noexcept
+void VAOPrimitives::createCapsule( const std::string &_name,  const Real _radius, const Real _height,  const int _precision ) 
 
 {
   // based on code from here
@@ -330,7 +330,7 @@ void VAOPrimitives::createCapsule( const std::string &_name,  const Real _radius
 
 }
 
-void VAOPrimitives::createVAO(const std::string &_name,const std::vector<vertData> &_data,	const GLenum _mode) noexcept
+void VAOPrimitives::createVAO(const std::string &_name,const std::vector<vertData> &_data,	const GLenum _mode) 
 {
 
   VertexArrayObject *vao = VertexArrayObject::createVOA(_mode);
@@ -379,7 +379,7 @@ void VAOPrimitives::createVAO(const std::string &_name,const std::vector<vertDat
  */
 //----------------------------------------------------------------------------------------------------------------------
 
-void VAOPrimitives::fghCircleTable(double **io_sint, double **io_cost, const int _n  ) noexcept
+void VAOPrimitives::fghCircleTable(double **io_sint, double **io_cost, const int _n  ) 
 {
   int i;
   /* Table size, the sign of n flips the circle direction */
@@ -407,7 +407,7 @@ void VAOPrimitives::fghCircleTable(double **io_sint, double **io_cost, const int
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void VAOPrimitives::createCylinder(const std::string &_name, const Real _radius,const Real _height,const int _slices,const int _stacks ) noexcept
+void VAOPrimitives::createCylinder(const std::string &_name, const Real _radius,const Real _height,const int _slices,const int _stacks ) 
 {
   /* Step in z and radius as stacks are drawn. */
 
@@ -518,7 +518,7 @@ void VAOPrimitives::createCylinder(const std::string &_name, const Real _radius,
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void VAOPrimitives::createCone(const std::string &_name,const Real _base,const Real _height, const int _slices,const int _stacks  ) noexcept
+void VAOPrimitives::createCone(const std::string &_name,const Real _base,const Real _height, const int _slices,const int _stacks  ) 
 {
     /* Step in z and radius as stacks are drawn. */
     double z0,z1;
@@ -601,7 +601,7 @@ void VAOPrimitives::createCone(const std::string &_name,const Real _base,const R
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void VAOPrimitives::createDisk(const std::string &_name, const Real _radius, const int _slices ) noexcept
+void VAOPrimitives::createDisk(const std::string &_name, const Real _radius, const int _slices ) 
 {
     /* Pre-computed circle */
     double *sint,*cost;
@@ -652,7 +652,7 @@ void VAOPrimitives::createDisk(const std::string &_name, const Real _radius, con
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void VAOPrimitives::createTorus(const std::string &_name,const Real _minorRadius,const Real _majorRadius,int _nSides, int _nRings,const bool _flipTX ) noexcept
+void VAOPrimitives::createTorus(const std::string &_name,const Real _minorRadius,const Real _majorRadius,int _nSides, int _nRings,const bool _flipTX ) 
 {
     Real  iradius = _minorRadius, oradius = _majorRadius, phi, psi, dpsi, dphi;
 
@@ -819,7 +819,7 @@ void VAOPrimitives::createTorus(const std::string &_name,const Real _minorRadius
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void VAOPrimitives::createTrianglePlane(const std::string &_name,const Real _width,const Real _depth,const int _wP,const int _dP,const Vec3 &_vN) noexcept
+void VAOPrimitives::createTrianglePlane(const std::string &_name,const Real _width,const Real _depth,const int _wP,const int _dP,const Vec3 &_vN) 
 {
     // calculate the VBO size basically we have 2 tris per quad based on the width and depth
     // _precision.
@@ -900,7 +900,7 @@ void VAOPrimitives::createTrianglePlane(const std::string &_name,const Real _wid
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void VAOPrimitives::clear() noexcept
+void VAOPrimitives::clear() 
 {
 
   std::cerr<<"clearing VAOs\n";

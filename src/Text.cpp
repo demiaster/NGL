@@ -47,7 +47,7 @@ unsigned int nearestPowerOfTwo ( unsigned int _num )
 // end citation
 
 //---------------------------------------------------------------------------
-Text::Text( const QFont &_f)  noexcept
+Text::Text( const QFont &_f)  
 {
 
   // so first we grab the font metric of the font being used
@@ -256,7 +256,7 @@ Text::~Text()
 
 
 //---------------------------------------------------------------------------
-void Text::renderText( float _x, float _y,  const QString &text ) const noexcept
+void Text::renderText( float _x, float _y,  const QString &text ) const 
 {
   // make sure we are in texture unit 0 as this is what the
   // shader expects
@@ -305,7 +305,7 @@ void Text::renderText( float _x, float _y,  const QString &text ) const noexcept
 }
 
 //---------------------------------------------------------------------------
-void Text::setScreenSize(int _w, int _h ) noexcept
+void Text::setScreenSize(int _w, int _h ) 
 {
 
   float scaleX=2.0/_w;
@@ -331,7 +331,7 @@ void Text::setScreenSize(int _w, int _h ) noexcept
 // fragColour.rgb=textColour.rgb;
 // fragColour.a=text.a;
 
-void Text::setColour(const Colour &_c ) noexcept
+void Text::setColour(const Colour &_c ) 
 {
   // get shader instance
   ShaderLib *shader=ShaderLib::instance();
@@ -343,7 +343,7 @@ void Text::setColour(const Colour &_c ) noexcept
 
 
 //---------------------------------------------------------------------------
-void Text::setColour(Real _r,  Real _g, Real _b) noexcept
+void Text::setColour(Real _r,  Real _g, Real _b) 
 {
 
   ShaderLib *shader=ShaderLib::instance();
@@ -352,7 +352,7 @@ void Text::setColour(Real _r,  Real _g, Real _b) noexcept
   shader->setRegisteredUniform3f("textColour",_r,_g,_b);
 }
 
-void Text::setTransform(float _x, float _y) noexcept
+void Text::setTransform(float _x, float _y) 
 {
 
   ShaderLib *shader=ShaderLib::instance();

@@ -35,12 +35,12 @@ namespace ngl
 //----------------------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::drawBBox() const noexcept
+void AbstractMesh::drawBBox() const 
 {
   m_ext->draw();
 }
 
-void AbstractMesh::scale(Real _sx, Real _sy, Real _sz ) noexcept
+void AbstractMesh::scale(Real _sx, Real _sy, Real _sz ) 
 {
   m_center=0;
   // do lambda here
@@ -59,7 +59,7 @@ void AbstractMesh::scale(Real _sx, Real _sy, Real _sz ) noexcept
 
 
 //----------------------------------------------------------------------------------------------------------------------
-AbstractMesh::~AbstractMesh() noexcept
+AbstractMesh::~AbstractMesh() 
 {
   if(m_loaded == true)
   {
@@ -87,7 +87,7 @@ AbstractMesh::~AbstractMesh() noexcept
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::loadTexture( const std::string& _fName  ) noexcept
+void AbstractMesh::loadTexture( const std::string& _fName  ) 
 {
 	// load in the texture
 	Texture  *t=new Texture(_fName);
@@ -105,7 +105,7 @@ void AbstractMesh::loadTexture( const std::string& _fName  ) noexcept
 /// @endverbatim
 
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::writeToRibSubdiv(RibExport& _ribFile )const noexcept
+void AbstractMesh::writeToRibSubdiv(RibExport& _ribFile )const 
 {
 	// Declare the variables
 	std::list< int > lVertLink;
@@ -193,7 +193,7 @@ void AbstractMesh::writeToRibSubdiv(RibExport& _ribFile )const noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-bool AbstractMesh::isTriangular() noexcept
+bool AbstractMesh::isTriangular() 
 { 
 	for(auto f : m_face)
 	{
@@ -221,7 +221,7 @@ struct VertData
 };
 
 
-void AbstractMesh::createVAO() noexcept
+void AbstractMesh::createVAO() 
 {
 	// if we have already created a VBO just return.
 	if(m_vao == true)
@@ -345,7 +345,7 @@ void AbstractMesh::createVAO() noexcept
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::draw() const noexcept
+void AbstractMesh::draw() const 
 {
   if(m_vao == true)
   {
@@ -362,7 +362,7 @@ void AbstractMesh::draw() const noexcept
 
 
 //----------------------------------------------------------------------------------------------------------------------
-Real * AbstractMesh::mapVAOVerts() noexcept
+Real * AbstractMesh::mapVAOVerts() 
 {
 
 	Real* ptr=0;
@@ -380,7 +380,7 @@ Real * AbstractMesh::mapVAOVerts() noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::unMapVAO() noexcept
+void AbstractMesh::unMapVAO() 
 {
 
 	if(m_vboMapped==true)
@@ -392,7 +392,7 @@ void AbstractMesh::unMapVAO() noexcept
 
 }
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::calcDimensions() noexcept
+void AbstractMesh::calcDimensions() 
 {
   // Calculate the center of the object.
   m_center=0.0;
@@ -441,7 +441,7 @@ void AbstractMesh::calcDimensions() noexcept
 
 }
 
-void AbstractMesh::saveNCCABinaryMesh( const std::string &_fname  ) noexcept
+void AbstractMesh::saveNCCABinaryMesh( const std::string &_fname  ) 
 {
 // so basically we need to save all the state data from the abstract mesh
 // then map the vbo on the gpu and dump that in one go, this means we have to
@@ -511,7 +511,7 @@ void AbstractMesh::saveNCCABinaryMesh( const std::string &_fname  ) noexcept
 /// modified from example in Rick Parent book
 /// Computer Animation Algorithms and Techniques
 /// Morgan Korfman Appendix B
-void AbstractMesh::calcBoundingSphere() noexcept
+void AbstractMesh::calcBoundingSphere() 
 {
 unsigned int size=m_verts.size();
 if( size <=0 )

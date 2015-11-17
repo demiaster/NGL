@@ -25,7 +25,7 @@ namespace ngl
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void Colour ::add(const Colour& _src,  const Colour& _refl ) noexcept
+void Colour ::add(const Colour& _src,  const Colour& _refl ) 
 { // add the product of source color and reflection coefficient
 	m_r += _src.m_r * _refl.m_r;
 	m_g += _src.m_g * _refl.m_g;
@@ -34,7 +34,7 @@ void Colour ::add(const Colour& _src,  const Colour& _refl ) noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Colour Colour::operator +( const Colour &_c  ) const noexcept
+Colour Colour::operator +( const Colour &_c  ) const 
 {
 	return Colour(  m_r + _c.m_r,
 					m_g + _c.m_g,
@@ -43,7 +43,7 @@ Colour Colour::operator +( const Colour &_c  ) const noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Colour Colour::operator -( const Colour& _c  ) const noexcept
+Colour Colour::operator -( const Colour& _c  ) const 
 {
 	return Colour(  m_r - _c.m_r,
 					m_g - _c.m_g,
@@ -52,7 +52,7 @@ Colour Colour::operator -( const Colour& _c  ) const noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-const Colour& Colour::operator +=( const Colour& _c    ) noexcept
+const Colour& Colour::operator +=( const Colour& _c    ) 
 {
 	m_r+=_c.m_r;
 	m_g+=_c.m_g;
@@ -61,7 +61,7 @@ const Colour& Colour::operator +=( const Colour& _c    ) noexcept
 	return *this;
 }
 //----------------------------------------------------------------------------------------------------------------------
-Colour Colour::operator *( const Colour &_c ) const noexcept
+Colour Colour::operator *( const Colour &_c ) const 
 {
 	return Colour(
 								m_r * _c.m_r,
@@ -71,7 +71,7 @@ Colour Colour::operator *( const Colour &_c ) const noexcept
 							 );
 }
 //----------------------------------------------------------------------------------------------------------------------
-Colour Colour::operator *(const Real _c   ) const noexcept
+Colour Colour::operator *(const Real _c   ) const 
 {
 	return Colour(
 								m_r * _c,
@@ -81,7 +81,7 @@ Colour Colour::operator *(const Real _c   ) const noexcept
 							 );
 }
 //----------------------------------------------------------------------------------------------------------------------
-const Colour& Colour::operator *=( const Colour& _c ) noexcept
+const Colour& Colour::operator *=( const Colour& _c ) 
 {
 	m_r*=_c.m_r;
 	m_g*=_c.m_g;
@@ -91,7 +91,7 @@ const Colour& Colour::operator *=( const Colour& _c ) noexcept
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-const Colour& Colour::operator *=(Real _c ) noexcept
+const Colour& Colour::operator *=(Real _c ) 
 {
 	m_r*=_c;
 	m_g*=_c;
@@ -102,7 +102,7 @@ const Colour& Colour::operator *=(Real _c ) noexcept
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void Colour::clamp(Real _min, Real _max ) noexcept
+void Colour::clamp(Real _min, Real _max ) 
 {
   m_r<_min ? m_r = _min : m_r;
   m_r>_max ? m_r = _max : m_r;

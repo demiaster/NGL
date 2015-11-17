@@ -86,18 +86,18 @@ public :
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief set the default material properties
   //----------------------------------------------------------------------------------------------------------------------
-  void setDefault() noexcept;
+  void setDefault() ;
   //----------------------------------------------------------------------------------------------------------------------
   ///  @brief set the material properties based on another matherial
   ///  @param[in]  _m the material to use
   //----------------------------------------------------------------------------------------------------------------------
-  void set( const Material &_m ) noexcept;
+  void set( const Material &_m ) ;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief change the material to one of the standard materials
   /// @param[in] _mat the material to use
   //----------------------------------------------------------------------------------------------------------------------
-  void change( const STDMAT _mat ) noexcept;
+  void change( const STDMAT _mat ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Constructor for material
   /// @param[in]  _amb the ambient colour
@@ -105,7 +105,7 @@ public :
   /// @param[in]  _spec the specular colour
   /// @param[in]  _emis the emimissive colour
   //----------------------------------------------------------------------------------------------------------------------
-  Material( Colour _amb=0.0f,  Colour _dif=0.5f, Colour _spec=1.0f )  noexcept:
+  Material( Colour _amb=0.0f,  Colour _dif=0.5f, Colour _spec=1.0f )  :
             m_ambient(_amb),
             m_diffuse(_dif),
             m_specular(_spec)
@@ -115,57 +115,57 @@ public :
   /// @brief Constructor using a STDMAT for the coulour
   /// @param[in]  _mat the standard material to set
   //----------------------------------------------------------------------------------------------------------------------
-  Material(STDMAT _mat) noexcept;
+  Material(STDMAT _mat) ;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief Constructor using an index into the default colour array from sdtmat for the coulour
   /// @param[in] _mat the  index
   //----------------------------------------------------------------------------------------------------------------------
-  Material( int _mat ) noexcept;
+  Material( int _mat ) ;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief ctor to load material from a file, need implimenting properly
   /// @param[in] _fName the name of the file to load the material from
   //----------------------------------------------------------------------------------------------------------------------
-  Material( const std::string &_fName ) noexcept;
+  Material( const std::string &_fName ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief load a material from a file needs work
   /// @param[in] _fName  the name of the file to load
   //----------------------------------------------------------------------------------------------------------------------
-  void load(  const std::string &_fName  ) noexcept;
+  void load(  const std::string &_fName  ) ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief mutator to set the Ambient colour value
   /// @param[in] _c  colour values to be set
   //----------------------------------------------------------------------------------------------------------------------
-  void setAmbient(const Colour &_c) noexcept{ m_ambient = _c;}
-  Colour getAmbient() const noexcept {return m_ambient;}
+  void setAmbient(const Colour &_c) { m_ambient = _c;}
+  Colour getAmbient() const  {return m_ambient;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief mutator to set the Diffuse colour value
   /// @param[in] _c  colour values to be set
   //----------------------------------------------------------------------------------------------------------------------
-  void setDiffuse(const Colour &_c) noexcept{ m_diffuse = _c;}
-  Colour getDiffuse() const noexcept {return m_diffuse;}
+  void setDiffuse(const Colour &_c) { m_diffuse = _c;}
+  Colour getDiffuse() const  {return m_diffuse;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief mutator to set the Specular colour value
   /// @param[in] _c  colour values to be set
   //----------------------------------------------------------------------------------------------------------------------
-  void setSpecular(const Colour &_c) noexcept{ m_specular = _c;}
-  Colour getSpecular() const  noexcept{return m_specular;}
+  void setSpecular(const Colour &_c) { m_specular = _c;}
+  Colour getSpecular() const  {return m_specular;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief mutator to set the specular exponent colour value
   /// @param[in] _s  specular exponent value smaller = larger highlights
   //----------------------------------------------------------------------------------------------------------------------
-  void setSpecularExponent(Real _s) noexcept{ m_specularExponent=_s;}
-  Real getSpecularExponent()const  noexcept{ return m_specularExponent;}
+  void setSpecularExponent(Real _s) { m_specularExponent=_s;}
+  Real getSpecularExponent()const  { return m_specularExponent;}
 
-  Real getTransparency()const  noexcept{ return m_transparency;}
+  Real getTransparency()const  { return m_transparency;}
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief mutator to set the surface roughness, will effect the spread in shading
   /// @param[in] _r  value to set
   //----------------------------------------------------------------------------------------------------------------------
-  void setRoughness(Real _r) noexcept{m_surfaceRoughness=_r;}
-  Real getRoughness()const  noexcept{return m_surfaceRoughness;}
+  void setRoughness(Real _r) {m_surfaceRoughness=_r;}
+  Real getRoughness()const  {return m_surfaceRoughness;}
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief load the material values to the currently active shader passed this will set the following glsl shader parameters
@@ -178,7 +178,7 @@ public :
   /// };
   /// @param[in] _uniformName
   //----------------------------------------------------------------------------------------------------------------------
-  void loadToShader( std::string _uniformName )const noexcept;
+  void loadToShader( std::string _uniformName )const ;
 
 protected :
   //----------------------------------------------------------------------------------------------------------------------
