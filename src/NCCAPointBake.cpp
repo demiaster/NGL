@@ -30,7 +30,7 @@ namespace ngl
 	typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
 
 //----------------------------------------------------------------------------------------------------------------------
-NCCAPointBake::NCCAPointBake() 
+NCCAPointBake::NCCAPointBake()  
 {
 	m_numFrames=0;
 	m_currFrame=0;
@@ -41,7 +41,7 @@ NCCAPointBake::NCCAPointBake()
 	m_binFile=false;
 }
 
-bool NCCAPointBake::loadPointBake(const std::string &_fileName) 
+bool NCCAPointBake::loadPointBake(const std::string &_fileName)  
 {
 	m_numFrames=0;
 	m_currFrame=0;
@@ -131,22 +131,22 @@ bool NCCAPointBake::loadPointBake(const std::string &_fileName)
 
 
 //----------------------------------------------------------------------------------------------------------------------
-NCCAPointBake::~NCCAPointBake() 
+NCCAPointBake::~NCCAPointBake()  
 {
 
 }
 //----------------------------------------------------------------------------------------------------------------------
-NCCAPointBake::NCCAPointBake( const std::string &_fileName) 
+NCCAPointBake::NCCAPointBake( const std::string &_fileName)  
 {
   loadPointBake(_fileName);
 }
 //----------------------------------------------------------------------------------------------------------------------
-void NCCAPointBake::setFrame( const unsigned int _frame) 
+void NCCAPointBake::setFrame( const unsigned int _frame)  
 {
  m_currFrame=_frame;
 }
 
-bool NCCAPointBake::loadBinaryPointBake( const std::string &_fileName) 
+bool NCCAPointBake::loadBinaryPointBake( const std::string &_fileName)  
 {
   // open a file stream for ip in binary mode
   std::fstream file;
@@ -200,7 +200,7 @@ bool NCCAPointBake::loadBinaryPointBake( const std::string &_fileName)
   return true;
 }
 
-bool NCCAPointBake::saveBinaryPointBake( const std::string &_fileName) 
+bool NCCAPointBake::saveBinaryPointBake( const std::string &_fileName)  
 {
   // so basically we need to save all the state data from the abstract mesh
   // then map the vbo on the gpu and dump that in one go, this means we have to
@@ -243,7 +243,7 @@ bool NCCAPointBake::saveBinaryPointBake( const std::string &_fileName)
     return true;
 }
 
-void NCCAPointBake::setMeshToFrame(  const unsigned int _frame) 
+void NCCAPointBake::setMeshToFrame(  const unsigned int _frame)  
   {
     // map the m_obj's vbo dat
     Real *ptr=m_mesh->mapVAOVerts();
@@ -278,7 +278,7 @@ void NCCAPointBake::setMeshToFrame(  const unsigned int _frame)
 
 
 //----------------------------------------------------------------------------------------------------------------------
-bool NCCAPointBake::attachMesh(AbstractMesh *_mesh) 
+bool NCCAPointBake::attachMesh(AbstractMesh *_mesh)  
 {
   std::cout<<"doing attach mesh\n";
   if(_mesh->m_nVerts != m_nVerts)
@@ -298,7 +298,7 @@ bool NCCAPointBake::attachMesh(AbstractMesh *_mesh)
 
 
 //----------------------------------------------------------------------------------------------------------------------
-std::vector<Vec3> & NCCAPointBake::getRawDataPointerAtFrame(unsigned int _f) 
+std::vector<Vec3> & NCCAPointBake::getRawDataPointerAtFrame(unsigned int _f)  
 {
 	NGL_ASSERT(_f<=m_numFrames);
 	return m_data[_f];

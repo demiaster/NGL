@@ -62,37 +62,37 @@ public :
   //----------------------------------------------------------------------------------------------------------------------
   ///  @brief ctor for the clip
   //----------------------------------------------------------------------------------------------------------------------
-  NCCAPointBake() ;
+  NCCAPointBake()  ;
   //----------------------------------------------------------------------------------------------------------------------
   ///  @brief the dtor erases all clip data allocated and also destroys the Obj reference held in the clip
   //----------------------------------------------------------------------------------------------------------------------
-  ~NCCAPointBake() ;
+  ~NCCAPointBake()  ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief   ctor using a clip and an obj
   /// @param[in] _fileName the name of the bake file to load
   //----------------------------------------------------------------------------------------------------------------------
-  NCCAPointBake( const std::string &_fileName ) ;
+  NCCAPointBake( const std::string &_fileName )  ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  Set the current Frame and map the clip for that frame to the obj
   /// @param[in] frame the frame to set
   //----------------------------------------------------------------------------------------------------------------------
-  void setFrame(const unsigned int frame ) ;
+  void setFrame(const unsigned int frame )  ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  method to load a point baked file
   /// @param[in] _fileName the file to load
   //----------------------------------------------------------------------------------------------------------------------
-  bool loadPointBake( const std::string &_fileName) ;
+  bool loadPointBake( const std::string &_fileName)  ;
 
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  method to load a binary point baked file
   /// @param[in] _fileName the file to load
   //----------------------------------------------------------------------------------------------------------------------
-  bool loadBinaryPointBake(const std::string &_fileName) ;
+  bool loadBinaryPointBake(const std::string &_fileName)  ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  method to save a binary point baked file basically re-ordered data only
   /// @param[in] _fileName the file to load
   //----------------------------------------------------------------------------------------------------------------------
-  bool saveBinaryPointBake( const std::string &_fileName) ;
+  bool saveBinaryPointBake( const std::string &_fileName)  ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  method to attach a mesh to the data
   /// this method will check for basic vetex compatibility and then re-order the data
@@ -100,33 +100,33 @@ public :
   /// @param[in] _mesh the mesh to attach
   /// @returns true is mesh can be attached else false
   //----------------------------------------------------------------------------------------------------------------------
-  bool attachMesh(AbstractMesh *_mesh) ;
+  bool attachMesh(AbstractMesh *_mesh)  ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  set the attached mesh to the current frame
   /// @param[in] _frame the frame to set the mesh to
   //----------------------------------------------------------------------------------------------------------------------
-  void setMeshToFrame( const unsigned int _frame) ;
+  void setMeshToFrame( const unsigned int _frame)  ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  return the number of Frames loaded from the PointBake file
   /// @returns the number of frames
   //----------------------------------------------------------------------------------------------------------------------
-  unsigned int getNumFrames() const  {return m_numFrames-1;}
+  unsigned int getNumFrames() const   {return m_numFrames-1;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  return the number of verts loaded from the PointBake file
   /// @returns the number of verts
   //----------------------------------------------------------------------------------------------------------------------
-  unsigned int getNumVerts() const  {return m_nVerts;}
+  unsigned int getNumVerts() const   {return m_nVerts;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  get a Raw data pointer to the un-sorted PointBake data
   /// @returns a pointer to the data
   //----------------------------------------------------------------------------------------------------------------------
-  std::vector < std::vector<Vec3> > & getRawDataPointer()   {return m_data;}
+  std::vector < std::vector<Vec3> > & getRawDataPointer()    {return m_data;}
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief  get a Raw data pointer to the un-sorted PointBake for a particular frame
   /// @param[in] _f the frame to access
   /// @returns a pointer to the data at frame _f
   //----------------------------------------------------------------------------------------------------------------------
-  std::vector<Vec3> & getRawDataPointerAtFrame(unsigned int _f) ;
+  std::vector<Vec3> & getRawDataPointerAtFrame(unsigned int _f)  ;
 
 
 protected :
@@ -134,7 +134,7 @@ protected :
   ///  @brief method to create the vertorder container with the correct vertex order in place to match
   /// that of the obj file
   //----------------------------------------------------------------------------------------------------------------------
-    void reorderVerts() ;
+    void reorderVerts()  ;
   //----------------------------------------------------------------------------------------------------------------------
   /// @brief the number of frames in the clip file
   //----------------------------------------------------------------------------------------------------------------------

@@ -28,7 +28,7 @@ namespace ngl
 
 
 //----------------------------------------------------------------------------------------------------------------------
-Texture::Texture() 
+Texture::Texture()  
 {
 	m_width=0;
 	m_height=0;
@@ -75,7 +75,7 @@ Texture::~Texture()
 /// Could actually be worth creating a texture manager class at some stage along the lines of the
 /// Shader manager class, or even a generic manager framework which we could then add items to
 
-GLuint Texture::setTextureGL() const 
+GLuint Texture::setTextureGL() const  
 {
   GLuint textureName;
   glGenTextures(1,&textureName);
@@ -91,7 +91,7 @@ GLuint Texture::setTextureGL() const
 }
 //----------------------------------------------------------------------------------------------------------------------
 
-void Texture::setMultiTexture( const GLint _id  ) 
+void Texture::setMultiTexture( const GLint _id  )  
 {
  m_multiTextureID=_id;
 }

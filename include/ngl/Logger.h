@@ -22,33 +22,33 @@ namespace ngl
 
     public :
 
-      void logMessage(const char* fmt, ...) ;
-      void logError(const char* fmt, ...) ;
-      void logWarning(const char* fmt, ...) ;
-      void close() ;
-      void enableLogToFile() ;
-      void disableLogToFile() ;
-      void enableLogToConsole() ;
-      void disableLogToConsole() ;
-      void enableLogToFileAndConsole() ;
-      void disableLogToFileAndConsole() ;
-      void setLogFile(const std::string &_fname) ;
-      void setColour(Colours _c) ;
-      void enableLineNumbers() ;
-      void disableLineNumbers() ;
-      void enableTimeStamp() ;
-      void disableTimeStamp() ;
-      void disableColours() ;
-      void enableColours() ;
-      void setLineNumberPad(unsigned int i) ;
-      void setTimeFormat(TimeFormat _f) ;
+      void logMessage(const char* fmt, ...)  ;
+      void logError(const char* fmt, ...)  ;
+      void logWarning(const char* fmt, ...)  ;
+      void close()  ;
+      void enableLogToFile()  ;
+      void disableLogToFile()  ;
+      void enableLogToConsole()  ;
+      void disableLogToConsole()  ;
+      void enableLogToFileAndConsole()  ;
+      void disableLogToFileAndConsole()  ;
+      void setLogFile(const std::string &_fname)  ;
+      void setColour(Colours _c)  ;
+      void enableLineNumbers()  ;
+      void disableLineNumbers()  ;
+      void enableTimeStamp()  ;
+      void disableTimeStamp()  ;
+      void disableColours()  ;
+      void enableColours()  ;
+      void setLineNumberPad(unsigned int i)  ;
+      void setTimeFormat(TimeFormat _f)  ;
       typedef boost::iostreams::tee_device<std::ostream, std::ofstream > Tee;
       typedef boost::iostreams::stream<Tee> TeeStream;
-      boost::iostreams::stream<Logger::Tee> &cout() ;
+      boost::iostreams::stream<Logger::Tee> &cout()  ;
 
     private :
-      Logger() ;
-      Logger(const std::string &_fname) ;
+      Logger()  ;
+      Logger(const std::string &_fname)  ;
       ~Logger();
 
       class Impl;

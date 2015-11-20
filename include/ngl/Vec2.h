@@ -49,9 +49,6 @@ namespace ngl
 /// use the Vec2 class for maths and the asVec2 to return a Vec2
 //----------------------------------------------------------------------------------------------------------------------
 
-
-
-
 class Vec4;
 class NGL_DLLEXPORT Vec2
 {

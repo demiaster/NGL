@@ -23,7 +23,7 @@ namespace ngl
 {
 
 //-----------------------------------------------------------------------------
-AABB::AABB()
+AABB::AABB() 
 {
 	m_corner.set(0.0f,0.0f,0.0f,1.0f);
 
@@ -32,7 +32,7 @@ AABB::AABB()
 	m_z = 1.0f;
 }
 //-----------------------------------------------------------------------------
-AABB::AABB(const Vec4 &_corner,  Real _x,  Real _y,  Real _z ) 
+AABB::AABB(const Vec4 &_corner,  Real _x,  Real _y,  Real _z )  
 {
  set(_corner,_x,_y,_z);
 }
@@ -43,7 +43,7 @@ AABB::~AABB()
 
 }
 //-----------------------------------------------------------------------------
-void AABB::set(const Vec4 &_corner,Real _x,Real _y,	Real _z	) 
+void AABB::set(const Vec4 &_corner,Real _x,Real _y,	Real _z	)  
 {
 	m_corner=_corner;
 
@@ -67,7 +67,7 @@ void AABB::set(const Vec4 &_corner,Real _x,Real _y,	Real _z	)
 	m_z = _z;
 }
 
-Vec3 AABB::getVertexP(const Vec3 &_normal) const 
+Vec3 AABB::getVertexP(const Vec3 &_normal) const  
 {
 	Vec3 res = m_corner.toVec3();
 
@@ -87,7 +87,7 @@ Vec3 AABB::getVertexP(const Vec3 &_normal) const
 	return res;
 }
 
-Vec3 AABB::getVertexN(const Vec3 &_normal) const 
+Vec3 AABB::getVertexN(const Vec3 &_normal) const  
 {
 	Vec3 res = m_corner.toVec3();
 

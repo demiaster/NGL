@@ -24,23 +24,23 @@ namespace ngl
 {
 
 //----------------------------------------------------------------------------------------------------------------------
-Plane::Plane() 
+Plane::Plane()  
 {
 
 }
 //----------------------------------------------------------------------------------------------------------------------
-Plane::Plane( const Vec3 &_v1, const Vec3 &_v2,  const Vec3 &_v3) 
+Plane::Plane( const Vec3 &_v1, const Vec3 &_v2,  const Vec3 &_v3)  
 {
   setPoints(_v1,_v2,_v3);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Plane::~Plane() 
+Plane::~Plane()  
 {
 
 }
 //----------------------------------------------------------------------------------------------------------------------
-void Plane::setPoints(const Vec3 &_v1, const Vec3 &_v2, const Vec3 &_v3) 
+void Plane::setPoints(const Vec3 &_v1, const Vec3 &_v2, const Vec3 &_v3)  
 {
 	Vec3 aux1, aux2;
 
@@ -52,7 +52,7 @@ void Plane::setPoints(const Vec3 &_v1, const Vec3 &_v2, const Vec3 &_v3)
 	m_d = -(m_normal.inner(m_point));
 }
 //----------------------------------------------------------------------------------------------------------------------
-void Plane::setNormalPoint( const Vec3 &_normal, const Vec3 &_point) 
+void Plane::setNormalPoint( const Vec3 &_normal, const Vec3 &_point)  
 {
 	m_point=_point;
 	m_normal=_normal;
@@ -60,7 +60,7 @@ void Plane::setNormalPoint( const Vec3 &_normal, const Vec3 &_point)
 	m_d = -(m_normal.inner(m_point));
 }
 //----------------------------------------------------------------------------------------------------------------------
-void Plane::setFloats(Real _a,Real _b,	Real _c,	Real _d) 
+void Plane::setFloats(Real _a,Real _b,	Real _c,	Real _d)  
 {
 	// set the normal vector
 	m_normal.set(_a,_b,_c);
@@ -73,7 +73,7 @@ void Plane::setFloats(Real _a,Real _b,	Real _c,	Real _d)
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Real Plane::distance( const Vec3 &_p) const 
+Real Plane::distance( const Vec3 &_p) const  
 {
 	return (m_d + m_normal.inner(_p));
 }

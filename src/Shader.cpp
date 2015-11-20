@@ -49,7 +49,7 @@ void printInfoLog( const GLuint &_obj)
 }
 
 
-Shader::Shader( std::string _name,  ShaderType _type ) 
+Shader::Shader( std::string _name,  ShaderType _type )  
 {
   m_name=_name;
   m_shaderType = _type;
@@ -75,7 +75,7 @@ Shader::~Shader()
   glDeleteShader(m_shaderHandle);
 }
 
-void Shader::compile() 
+void Shader::compile()  
 {
   if (m_source.empty() )
   {
@@ -100,7 +100,7 @@ void Shader::compile()
 }
 
 
-void Shader::load( std::string _name ) 
+void Shader::load( std::string _name )  
 {
   // see if we already have some source attached
   if(m_source.empty())
@@ -129,7 +129,7 @@ void Shader::load( std::string _name )
   }
 }
 
-void Shader::loadFromString(const std::string &_string ) 
+void Shader::loadFromString(const std::string &_string )  
 {
   // see if we already have some source attached
   if(m_source.size()!=0)

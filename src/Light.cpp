@@ -27,7 +27,7 @@ namespace ngl
 {
 
 //----------------------------------------------------------------------------------------------------------------------
-Light::Light(const Vec3 &_pos,const Colour& _col, LightModes _lightMode ) 
+Light::Light(const Vec3 &_pos,const Colour& _col, LightModes _lightMode )  
 {
   // zero now means un-assigned
   m_position.set(_pos);
@@ -45,7 +45,7 @@ Light::Light(const Vec3 &_pos,const Colour& _col, LightModes _lightMode )
   m_cutoffAngle=180;
 }
 
-Light::Light(const Light &_l) 
+Light::Light(const Light &_l)  
 {
   m_position=_l.m_position;
   m_diffuse=_l.m_diffuse;
@@ -63,7 +63,7 @@ Light::Light(const Light &_l)
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Light::Light(const Vec3 &_pos,const Colour& _col, const Colour& _specColour,LightModes _lightMode  ) 
+Light::Light(const Vec3 &_pos,const Colour& _col, const Colour& _specColour,LightModes _lightMode  )  
 {
   // zero now means un-assigned
   m_position.set(_pos);
@@ -82,19 +82,19 @@ Light::Light(const Vec3 &_pos,const Colour& _col, const Colour& _specColour,Ligh
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Light::enable() 
+void Light::enable()  
 {
   m_active=true;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Light::disable() 
+void Light::disable()  
 {
   m_active=false;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Light::setAttenuation(Real _constant, Real _linear,  Real _quadratic  ) 
+void Light::setAttenuation(Real _constant, Real _linear,  Real _quadratic  )  
 {
 	m_constantAtten=_constant;
 	m_linearAtten=_linear;
@@ -103,7 +103,7 @@ void Light::setAttenuation(Real _constant, Real _linear,  Real _quadratic  )
 
 
 
-void Light::loadToShader(std::string _uniformName )const 
+void Light::loadToShader(std::string _uniformName )const  
 {
 
   ShaderLib *shader=ShaderLib::instance();
@@ -139,7 +139,7 @@ void Light::loadToShader(std::string _uniformName )const
   }
 }
 
-void Light::setTransform(Mat4 &_t) 
+void Light::setTransform(Mat4 &_t)  
 {
   m_transform=_t;
 }

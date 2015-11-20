@@ -27,7 +27,7 @@ namespace ngl
 {
 
 //----------------------------------------------------------------------------------------------------------------------
-SpotLight::SpotLight(const Vec3& _pos, const Vec3& _aim, const Colour& _col  )  :
+SpotLight::SpotLight(const Vec3& _pos, const Vec3& _aim, const Colour& _col  )   :
             Light( _pos, _col,LightModes::SPOTLIGHT )
 {
   // set up m_direction and default values
@@ -49,7 +49,7 @@ SpotLight::SpotLight(const Vec3& _pos, const Vec3& _aim, const Colour& _col  )  
   m_lightMode=LightModes::SPOTLIGHT;
 }
 
-SpotLight::SpotLight(const SpotLight &_l)  : Light(_l)
+SpotLight::SpotLight(const SpotLight &_l)   : Light(_l)
 {
   m_aim=_l.m_aim;
   m_transform.identity();
@@ -59,7 +59,7 @@ SpotLight::SpotLight(const SpotLight &_l)  : Light(_l)
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void SpotLight::set(const Vec3 &_pos, const Vec3 &_dir,const Colour& _col ) 
+void SpotLight::set(const Vec3 &_pos, const Vec3 &_dir,const Colour& _col )  
 {
   // set up m_direction and default values
   m_dir = _dir;
@@ -82,7 +82,7 @@ void SpotLight::set(const Vec3 &_pos, const Vec3 &_dir,const Colour& _col )
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void SpotLight::aim( const Vec4& _pos ) 
+void SpotLight::aim( const Vec4& _pos )  
 {
   Vec4 dir= _pos-m_position;
   // this is a vector so set 0 component
@@ -95,13 +95,13 @@ void SpotLight::aim( const Vec4& _pos )
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void SpotLight::enable() 
+void SpotLight::enable()  
 {
   m_active=true;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void SpotLight::setParams( const Real _cutoff,const Real _exponent, const Real _constant, const Real _linear, const Real _quadratic ) 
+void SpotLight::setParams( const Real _cutoff,const Real _exponent, const Real _constant, const Real _linear, const Real _quadratic )  
 {
   // we need to convert this to the correct values
   m_cutoffAngle=cos(radians(_cutoff));
@@ -111,15 +111,15 @@ void SpotLight::setParams( const Real _cutoff,const Real _exponent, const Real _
   m_quadraticAtten=_quadratic;
 }
 
-void SpotLight::setCutoff(const Real &_cutoff) 
+void SpotLight::setCutoff(const Real &_cutoff)  
 {
   m_cutoffAngle=cos(radians(_cutoff));
 }
-void SpotLight::setInnerCutoff(const Real &_cutoff) 
+void SpotLight::setInnerCutoff(const Real &_cutoff)  
 {
   m_innerCutoffAngle=cos(radians(_cutoff));
 }
-void SpotLight::loadToShader( std::string _uniformName)const 
+void SpotLight::loadToShader( std::string _uniformName)const  
 {
 
   ShaderLib *shader=ShaderLib::instance();
@@ -160,7 +160,7 @@ void SpotLight::loadToShader( std::string _uniformName)const
     shader->setShaderParam4f(_uniformName+".specular",0,0,0,0);
   }
 }
-void SpotLight::setTransform(Mat4 &_t) 
+void SpotLight::setTransform(Mat4 &_t)  
 {
   m_transform=_t;
 }

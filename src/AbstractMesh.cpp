@@ -35,12 +35,12 @@ namespace ngl
 //----------------------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::drawBBox() const 
+void AbstractMesh::drawBBox() const  
 {
   m_ext->draw();
 }
 
-void AbstractMesh::scale(Real _sx, Real _sy, Real _sz ) 
+void AbstractMesh::scale(Real _sx, Real _sy, Real _sz )  
 {
   m_center=0;
   // do lambda here
@@ -59,7 +59,7 @@ void AbstractMesh::scale(Real _sx, Real _sy, Real _sz )
 
 
 //----------------------------------------------------------------------------------------------------------------------
-AbstractMesh::~AbstractMesh() 
+AbstractMesh::~AbstractMesh()  
 {
   if(m_loaded == true)
   {
@@ -87,7 +87,7 @@ AbstractMesh::~AbstractMesh()
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::loadTexture( const std::string& _fName  ) 
+void AbstractMesh::loadTexture( const std::string& _fName  )  
 {
 	// load in the texture
 	Texture  *t=new Texture(_fName);
@@ -105,7 +105,7 @@ void AbstractMesh::loadTexture( const std::string& _fName  )
 /// @endverbatim
 
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::writeToRibSubdiv(RibExport& _ribFile )const 
+void AbstractMesh::writeToRibSubdiv(RibExport& _ribFile )const  
 {
 	// Declare the variables
 	std::list< int > lVertLink;
@@ -193,7 +193,7 @@ void AbstractMesh::writeToRibSubdiv(RibExport& _ribFile )const
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-bool AbstractMesh::isTriangular() 
+bool AbstractMesh::isTriangular()  
 { 
 	for(auto f : m_face)
 	{
@@ -221,7 +221,7 @@ struct VertData
 };
 
 
-void AbstractMesh::createVAO() 
+void AbstractMesh::createVAO()  
 {
 	// if we have already created a VBO just return.
 	if(m_vao == true)
@@ -345,7 +345,7 @@ void AbstractMesh::createVAO()
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::draw() const 
+void AbstractMesh::draw() const  
 {
   if(m_vao == true)
   {
@@ -362,7 +362,7 @@ void AbstractMesh::draw() const
 
 
 //----------------------------------------------------------------------------------------------------------------------
-Real * AbstractMesh::mapVAOVerts() 
+Real * AbstractMesh::mapVAOVerts()  
 {
 
 	Real* ptr=0;
@@ -380,7 +380,7 @@ Real * AbstractMesh::mapVAOVerts()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::unMapVAO() 
+void AbstractMesh::unMapVAO()  
 {
 
 	if(m_vboMapped==true)
@@ -392,7 +392,7 @@ void AbstractMesh::unMapVAO()
 
 }
 //----------------------------------------------------------------------------------------------------------------------
-void AbstractMesh::calcDimensions() 
+void AbstractMesh::calcDimensions()  
 {
   // Calculate the center of the object.
   m_center=0.0;
@@ -441,7 +441,7 @@ void AbstractMesh::calcDimensions()
 
 }
 
-void AbstractMesh::saveNCCABinaryMesh( const std::string &_fname  ) 
+void AbstractMesh::saveNCCABinaryMesh( const std::string &_fname  )  
 {
 // so basically we need to save all the state data from the abstract mesh
 // then map the vbo on the gpu and dump that in one go, this means we have to
@@ -511,7 +511,7 @@ void AbstractMesh::saveNCCABinaryMesh( const std::string &_fname  )
 /// modified from example in Rick Parent book
 /// Computer Animation Algorithms and Techniques
 /// Morgan Korfman Appendix B
-void AbstractMesh::calcBoundingSphere() 
+void AbstractMesh::calcBoundingSphere()  
 {
 unsigned int size=m_verts.size();
 if( size <=0 )

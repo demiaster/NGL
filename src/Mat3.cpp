@@ -34,7 +34,7 @@ namespace ngl
 {
 
 //----------------------------------------------------------------------------------------------------------------------
-Mat3::Mat3() 
+Mat3::Mat3()  
 {
 	memset(&m_m,0,sizeof(m_m));
 	m_00=1.0f;
@@ -42,7 +42,7 @@ Mat3::Mat3()
 	m_22=1.0f;
 }
 
-Mat3::Mat3( const Mat4 &_m ) 
+Mat3::Mat3( const Mat4 &_m )  
 {
   m_00=_m.m_00;
   m_01=_m.m_01;
@@ -55,7 +55,7 @@ Mat3::Mat3( const Mat4 &_m )
   m_22=_m.m_22;
 }
 
-Mat3::Mat3(Real _00, Real _01, Real _02, Real _10,  Real _11, Real _12,Real _20, Real _21, Real _22) 
+Mat3::Mat3(Real _00, Real _01, Real _02, Real _10,  Real _11, Real _12,Real _20, Real _21, Real _22)  
 {
 	m_00=_00;
 	m_01=_01;
@@ -70,7 +70,7 @@ Mat3::Mat3(Real _00, Real _01, Real _02, Real _10,  Real _11, Real _12,Real _20,
 
 }
 //----------------------------------------------------------------------------------------------------------------------
-Mat3::Mat3(const Mat3& _m) 
+Mat3::Mat3(const Mat3& _m)  
 {
 	memcpy(m_m,&_m.m_m,sizeof(m_m));
 }
@@ -78,7 +78,7 @@ Mat3::Mat3(const Mat3& _m)
 
 
 //----------------------------------------------------------------------------------------------------------------------
-Mat3::Mat3(const Real _m  ) 
+Mat3::Mat3(const Real _m  )  
 {
   memset(m_m,0,sizeof(m_m));
   m_00=_m;
@@ -92,18 +92,18 @@ Mat3::Mat3(const Real _m  )
 
 //----------------------------------------------------------------------------------------------------------------------
 /// @todo replace this with function operator overload ()
-void Mat3::setAtXY( GLint _x,GLint _y, Real _equals ) 
+void Mat3::setAtXY( GLint _x,GLint _y, Real _equals )  
 {
 	m_m[_x][_y]=_equals;
 }
 //----------------------------------------------------------------------------------------------------------------------
-const Mat3& Mat3::null() 
+const Mat3& Mat3::null()  
 {
 	memset(&m_m,0,sizeof(m_m));
 	return *this;
 }
 //----------------------------------------------------------------------------------------------------------------------
-const Mat3&  Mat3::identity() 
+const Mat3&  Mat3::identity()  
 {
 	memset(m_m,0,sizeof(m_m));
 	m_00=1.0f;
@@ -113,7 +113,7 @@ const Mat3&  Mat3::identity()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Mat3 Mat3::operator*(const Mat3& _m   )const 
+Mat3 Mat3::operator*(const Mat3& _m   )const  
 {
   Mat3 temp;
 
@@ -130,7 +130,7 @@ Mat3 Mat3::operator*(const Mat3& _m   )const
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-const Mat3& Mat3::operator*= ( const Mat3 &_m ) 
+const Mat3& Mat3::operator*= ( const Mat3 &_m )  
 {
 	Mat3 temp(*this);
 
@@ -180,7 +180,7 @@ const Mat3& Mat3::operator*= ( const Mat3 &_m )
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Mat3 Mat3::operator+(const Mat3 &_m ) const 
+Mat3 Mat3::operator+(const Mat3 &_m ) const  
 {
   Mat3 Ret;
         const Real* iterA = m_openGL;
@@ -195,7 +195,7 @@ Mat3 Mat3::operator+(const Mat3 &_m ) const
 	return Ret;
 }
 //----------------------------------------------------------------------------------------------------------------------
-const Mat3& Mat3::operator+=( const Mat3 &_m  ) 
+const Mat3& Mat3::operator+=( const Mat3 &_m  )  
 {
 	Real* iterA =m_openGL;
 	const Real* iterB = _m.m_openGL;
@@ -208,7 +208,7 @@ const Mat3& Mat3::operator+=( const Mat3 &_m  )
 	return *this;
 }
 //----------------------------------------------------------------------------------------------------------------------
-Mat3 Mat3::operator*( Real _i  ) const 
+Mat3 Mat3::operator*( Real _i  ) const  
 {
   Mat3 ret;
         const Real* iterA = m_openGL;
@@ -223,7 +223,7 @@ Mat3 Mat3::operator*( Real _i  ) const
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-const Mat3& Mat3::operator*=(Real _i) 
+const Mat3& Mat3::operator*=(Real _i)  
 {
 	for(int y=0; y<3; y++)
 	{
@@ -239,7 +239,7 @@ const Mat3& Mat3::operator*=(Real _i)
 
 
 //----------------------------------------------------------------------------------------------------------------------
-const Mat3& Mat3::transpose() 
+const Mat3& Mat3::transpose()  
 {
 	Mat3 tmp(*this);
 
@@ -256,7 +256,7 @@ const Mat3& Mat3::transpose()
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void Mat3::rotateX( Real _deg) 
+void Mat3::rotateX( Real _deg)  
 {
 	Real beta=radians(_deg);
 	Real sr = sin( beta );
@@ -268,7 +268,7 @@ void Mat3::rotateX( Real _deg)
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Mat3::rotateY(Real _deg) 
+void Mat3::rotateY(Real _deg)  
 {
 	Real beta=radians(_deg);
 	Real sr = sin( beta );
@@ -280,7 +280,7 @@ void Mat3::rotateY(Real _deg)
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Mat3::rotateZ( Real _deg) 
+void Mat3::rotateZ( Real _deg)  
 {
 	Real beta=radians(_deg);
 	Real sr = sin( beta );
@@ -294,7 +294,7 @@ void Mat3::rotateZ( Real _deg)
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void Mat3::scale(Real _x,  Real _y,  Real _z) 
+void Mat3::scale(Real _x,  Real _y,  Real _z)  
 {
 	m_00 = _x;
 	m_11 = _y;
@@ -302,7 +302,7 @@ void Mat3::scale(Real _x,  Real _y,  Real _z)
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Vec3 Mat3::operator * (const Vec3 &_v) const 
+Vec3 Mat3::operator * (const Vec3 &_v) const  
 {
   Vec3 temp;
 
@@ -318,7 +318,7 @@ Vec3 Mat3::operator * (const Vec3 &_v) const
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void Mat3::euler( Real _angle,Real _x,  Real _y, Real _z) 
+void Mat3::euler( Real _angle,Real _x,  Real _y, Real _z)  
 {
   // Axis and Angle Mat3x3 rotation see
   // http://en.wikipedia.org/wiki/Rotation_Mat3x3 for more details
@@ -336,7 +336,7 @@ void Mat3::euler( Real _angle,Real _x,  Real _y, Real _z)
 }
 
 
-Real Mat3::determinant() const 
+Real Mat3::determinant() const  
 {
     return +m_00*(m_11*m_22-m_21*m_12)
             -m_01*(m_10*m_22-m_12*m_20)
@@ -344,7 +344,7 @@ Real Mat3::determinant() const
 }
 
 
-void Mat3::inverse() 
+void Mat3::inverse()  
 {
   Real det = determinant();
   if(det==0.0f)
@@ -371,37 +371,37 @@ void Mat3::inverse()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Vec3 Mat3::getLeftVector() const 
+Vec3 Mat3::getLeftVector() const  
 {
   return Vec3(-m_openGL[0],-m_openGL[1],-m_openGL[2]);
 }
 //----------------------------------------------------------------------------------------------------------------------
-Vec3 Mat3::getRightVector() const 
+Vec3 Mat3::getRightVector() const  
 {
   return Vec3( m_openGL[0],m_openGL[1],m_openGL[2]);
 
 }
 //----------------------------------------------------------------------------------------------------------------------
-Vec3 Mat3::getUpVector() const 
+Vec3 Mat3::getUpVector() const  
 {
   return Vec3(m_openGL[3],m_openGL[4],m_openGL[5]);
 
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Vec3 Mat3::getDownVector() const 
+Vec3 Mat3::getDownVector() const  
 {
   return Vec3(-m_openGL[3],-m_openGL[4],-m_openGL[5]);
 
 }
 //----------------------------------------------------------------------------------------------------------------------
-Vec3 Mat3::getForwardVector() const 
+Vec3 Mat3::getForwardVector() const  
 {
   return Vec3(-m_openGL[6],-m_openGL[7],-m_openGL[8]);
 }
 //----------------------------------------------------------------------------------------------------------------------
 
-Vec3 Mat3::getBackVector() const 
+Vec3 Mat3::getBackVector() const  
 {
   return Vec3(m_openGL[6],m_openGL[7],m_openGL[8]);
 

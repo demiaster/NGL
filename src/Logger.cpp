@@ -27,12 +27,12 @@ namespace ngl
     std::ofstream m_file;
     std::string m_timeString;
 
-    Impl(const std::string &_fname) ;
-    void write(const std::string &_text) ;
-    void writeLineNumber() ;
-    void writeTimeStamp() ;
-    std::string currentTime() ;
-    void setColour( Colours c) ;
+    Impl(const std::string &_fname)  ;
+    void write(const std::string &_text)  ;
+    void writeLineNumber()  ;
+    void writeTimeStamp()  ;
+    std::string currentTime()  ;
+    void setColour( Colours c)  ;
 
 
   };
@@ -41,7 +41,7 @@ namespace ngl
 
 
 
-  Logger::Impl::Impl(const std::string &_fname)  :
+  Logger::Impl::Impl(const std::string &_fname)   :
                             m_logFileAndConsole(false),
                             m_logFile(true),
                             m_logConsole(false),
@@ -72,7 +72,7 @@ namespace ngl
     }
     m_timeString="%I:%M%p";
   }
-  std::string Logger::Impl::currentTime() 
+  std::string Logger::Impl::currentTime()  
   {
   std::string timeStr;
   time_t rawTime;
@@ -87,7 +87,7 @@ namespace ngl
   }
 
 
-  void Logger::Impl::writeLineNumber() 
+  void Logger::Impl::writeLineNumber()  
   {
     setColour(m_colour);
     if(m_lineNumber == true)
@@ -97,7 +97,7 @@ namespace ngl
       m_output<<t<<" ";
     }
   }
-  void Logger::Impl::writeTimeStamp() 
+  void Logger::Impl::writeTimeStamp()  
   {
     setColour(m_colour);
 
@@ -107,7 +107,7 @@ namespace ngl
     }
   }
 
-  void Logger::Impl::write(const std::string &_text) 
+  void Logger::Impl::write(const std::string &_text)  
   {
     setColour(m_colour);
     m_output<<_text;
@@ -138,14 +138,14 @@ namespace ngl
 
 
 
-  Logger::Logger()  : m_impl(new Logger::Impl("output.log"))
+  Logger::Logger()   : m_impl(new Logger::Impl("output.log"))
   {
     m_impl->setColour(Colours::BLUE);
     m_impl->m_output<<"Logger started "<<m_impl->currentTime()<<"\n";
     m_impl->setColour(Colours::RESET);
   }
 
-  Logger::Logger(const std::string &_fname)  : m_impl(new Logger::Impl(_fname))
+  Logger::Logger(const std::string &_fname)   : m_impl(new Logger::Impl(_fname))
   {
     m_impl->setColour(Colours::BLUE);
     m_impl->m_output<<"Logger started "<<m_impl->currentTime()<<"\n";
@@ -160,7 +160,7 @@ namespace ngl
     m_impl->m_output.close();
   }
 
-void Logger::close() 
+void Logger::close()  
 {
   m_impl->setColour(Colours::RESET);
   m_impl->m_output<<"\n";
@@ -169,7 +169,7 @@ void Logger::close()
 }
 
 
-  void Logger::logMessage(const char *fmt,...) 
+  void Logger::logMessage(const char *fmt,...)  
   {
     // create a mutux to stop other threads accessing
     QMutex m;
@@ -190,7 +190,7 @@ void Logger::close()
 //    pthread_mutex_unlock(&m_impl->m_mutex);
   }
 
-  void Logger::logError(const char* fmt,...) 
+  void Logger::logError(const char* fmt,...)  
   {
     // create a mutux to stop other threads accessing
     QMutex m;
@@ -214,7 +214,7 @@ void Logger::close()
 
   }
 
-  void Logger::logWarning(const char* fmt...) 
+  void Logger::logWarning(const char* fmt...)  
   {
  //   pthread_mutex_lock (&m_impl->m_mutex);
     // create a mutux to stop other threads accessing
@@ -238,38 +238,38 @@ void Logger::close()
   }
 
 
-  void Logger::enableLogToFile() 
+  void Logger::enableLogToFile()  
   {
     m_impl->m_logFile=true;
 
   }
-  void Logger::disableLogToFile() 
+  void Logger::disableLogToFile()  
   {
     m_impl->m_logFile=false;
 
   }
-  void Logger::enableLogToConsole() 
+  void Logger::enableLogToConsole()  
   {
     m_impl->m_logConsole=true;
 
   }
-  void Logger::disableLogToConsole() 
+  void Logger::disableLogToConsole()  
   {
     m_impl->m_logConsole=false;
 
   }
-  void Logger::enableLogToFileAndConsole() 
+  void Logger::enableLogToFileAndConsole()  
   {
     m_impl->m_logConsole=true;
     m_impl->m_logFile=true;
   }
-  void Logger::disableLogToFileAndConsole() 
+  void Logger::disableLogToFileAndConsole()  
   {
     m_impl->m_logConsole=false;
     m_impl->m_logFile=false;
 
   }
-  void Logger::setLogFile(const std::string &_fname) 
+  void Logger::setLogFile(const std::string &_fname)  
   {
     // close the file
     m_impl->m_output.flush();
@@ -298,50 +298,50 @@ void Logger::close()
 
 
   }
-  void Logger::setColour(Colours _c) 
+  void Logger::setColour(Colours _c)  
   {
     m_impl->m_colour=_c;
   }
-  void Logger::enableLineNumbers() 
+  void Logger::enableLineNumbers()  
   {
     m_impl->m_lineNumber=true;
   }
-  void Logger::disableLineNumbers() 
+  void Logger::disableLineNumbers()  
   {
     m_impl->m_lineNumber=false;
 
   }
-  void Logger::enableTimeStamp() 
+  void Logger::enableTimeStamp()  
   {
     m_impl->m_timeStamp=true;
   }
-  void Logger::disableTimeStamp() 
+  void Logger::disableTimeStamp()  
   {
     m_impl->m_timeStamp=false;
   }
 
-  void Logger::disableColours() 
+  void Logger::disableColours()  
   {
     m_impl->m_disableColours=true;
   }
 
-  void Logger::enableColours() 
+  void Logger::enableColours()  
   {
     m_impl->m_disableColours=false;
   }
 
-  void Logger::setLineNumberPad(unsigned int _i) 
+  void Logger::setLineNumberPad(unsigned int _i)  
   {
     m_impl->m_pad=_i;
   }
 
-  boost::iostreams::stream<Logger::Tee> &Logger::cout() 
+  boost::iostreams::stream<Logger::Tee> &Logger::cout()  
   {
     return m_impl->m_output;
   }
 
 //Fri Nov 21 12:20:09 2014
-  void Logger::setTimeFormat(TimeFormat _f) 
+  void Logger::setTimeFormat(TimeFormat _f)  
   {
     switch(_f)
     {

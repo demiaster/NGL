@@ -28,7 +28,7 @@ namespace ngl
 {
 
 //----------------------------------------------------------------------------------------------------------------------
-void Material :: setDefault() 
+void Material :: setDefault()  
 {
 	m_transparency = 0.0;
 	m_specularExponent = 1.0;
@@ -38,7 +38,7 @@ void Material :: setDefault()
 	m_specular.set(0,0,0);
 }
 //----------------------------------------------------------------------------------------------------------------------
-Material::Material(STDMAT _mat) 
+Material::Material(STDMAT _mat)  
 {
 	m_specularExponent = s_materials[static_cast<int>(_mat)][9];
 	m_ambient.set(s_materials[static_cast<int>(_mat)][0],s_materials[static_cast<int>(_mat)][1],s_materials[static_cast<int>(_mat)][2]);
@@ -50,7 +50,7 @@ Material::Material(STDMAT _mat)
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Material :: change( STDMAT _mat) 
+void Material :: change( STDMAT _mat)  
 {
 	m_specularExponent = s_materials[static_cast<int>(_mat)][9];
 	m_ambient.set(s_materials[static_cast<int>(_mat)][0],s_materials[static_cast<int>(_mat)][1],s_materials[static_cast<int>(_mat)][2]);
@@ -59,7 +59,7 @@ void Material :: change( STDMAT _mat)
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Material::Material(int _mat) 
+Material::Material(int _mat)  
 {
 	m_specularExponent = s_materials[_mat][9];
 	m_ambient.set(s_materials[_mat][0],s_materials[_mat][1],s_materials[_mat][2]);
@@ -70,7 +70,7 @@ Material::Material(int _mat)
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Material :: set( const Material &_m) 
+void Material :: set( const Material &_m)  
 {
 	m_transparency = _m.m_transparency;
 	m_specularExponent = _m.m_specularExponent;
@@ -83,7 +83,7 @@ void Material :: set( const Material &_m)
 
 
 //----------------------------------------------------------------------------------------------------------------------
-Material::Material( const std::string &_fName) 
+Material::Material( const std::string &_fName)  
 {
 	std::ifstream FileIn;
 	FileIn.open(_fName.c_str(),std::ios::in);
@@ -102,14 +102,14 @@ Material::Material( const std::string &_fName)
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Material::load(const std::string &_fname) 
+void Material::load(const std::string &_fname)  
 {
 /// @todo write some code to get this to load .mtl files
 	std::cout<<"Load of "<<_fname <<" not yet implemented\n";
 }
 
 
-void Material::loadToShader( std::string _uniformName  )const 
+void Material::loadToShader( std::string _uniformName  )const  
 {
 
   ShaderLib *shader=ShaderLib::instance();
