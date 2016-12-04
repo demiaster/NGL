@@ -70,7 +70,6 @@ set(SOURCES
     ${PROJECT_SOURCE_DIR}/src/NGLStream.cpp
     ${PROJECT_SOURCE_DIR}/src/Logger.cpp
     ${PROJECT_SOURCE_DIR}/src/Image.cpp
-    ${PROJECT_SOURCE_DIR}/glew/glew.c
     ${PROJECT_SOURCE_DIR}/include/ngl/Vec4.h
     ${PROJECT_SOURCE_DIR}/include/ngl/VAOPrimitives.h
     ${PROJECT_SOURCE_DIR}/include/ngl/VAOFactory.h
@@ -112,7 +111,7 @@ set(SOURCES
     ${PROJECT_SOURCE_DIR}/include/ngl/Text.h
     ${PROJECT_SOURCE_DIR}/include/ngl/Mat3.h
     ${PROJECT_SOURCE_DIR}/include/ngl/Logger.h
-    ${PROJECT_SOURCE_DIR}/include/ngl/Image.h 
+    ${PROJECT_SOURCE_DIR}/include/ngl/Image.h
     ${PROJECT_SOURCE_DIR}/include/ngl/AbstractSerializer.h
     ${PROJECT_SOURCE_DIR}/include/ngl/XMLSerializer.h
     ${PROJECT_SOURCE_DIR}/include/ngl/NGLStream.h

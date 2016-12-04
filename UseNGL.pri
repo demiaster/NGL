@@ -36,6 +36,7 @@ QMAKE_RPATHDIR+=L$${NGLBASE}/lib
 unix:LIBS += -L/usr/local/lib
 # add the ngl lib note the { } for the environment variable QMake variable's value at time qmake is run 
 unix:LIBS +=  -L$${NGLBASE}/lib -l NGL
+unix:LIBS += -lGLEW -lboost_system
 
 # now if we are under unix and not on a Mac (i.e. linux)
 linux-*{
