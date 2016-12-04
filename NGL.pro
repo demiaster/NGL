@@ -173,7 +173,7 @@ SOURCES += $$SRC_DIR/Vec4.cpp \
     $$SRC_DIR/SimpleIndexVAO.cpp
 
 #exclude this from iOS
-win32|unix|macx:{
+win32|macx:{
 	SOURCES+=glew/glew.c
 }
 ios {
